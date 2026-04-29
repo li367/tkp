@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.6.5
+
+### Patch Changes
+
+- ## Features
+  - Add Xiaomi MiMo API provider presets (Pay-as-you-go + Token Plan)
+  - Add unit test coverage for MiMo provider configurations
+
+  ## 功能
+  - 新增小米 MiMo 大模型 API 供应商预设（按量付费 + Token Plan）
+  - 为 MiMo 供应商配置补充单元测试
+
 ## 3.6.4
 
 ### Patch Changes

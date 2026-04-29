@@ -159,6 +159,28 @@ export const API_PROVIDER_PRESETS: ApiProviderPreset[] = [
     },
     description: 'Kimi (Moonshot AI)',
   },
+  {
+    id: 'xiaomi-mimo',
+    name: 'MiMo',
+    supportedCodeTools: ['claude-code'],
+    claudeCode: {
+      baseUrl: 'https://api.xiaomimimo.com/anthropic',
+      authType: 'auth_token',
+      defaultModels: ['mimo-v2.5-pro'],
+    },
+    description: 'Xiaomi MiMo (Pay-as-you-go)',
+  },
+  {
+    id: 'xiaomi-mimo-tp',
+    name: 'MiMo Token Plan',
+    supportedCodeTools: ['claude-code'],
+    claudeCode: {
+      baseUrl: 'https://token-plan-cn.xiaomimimo.com/anthropic',
+      authType: 'auth_token',
+      defaultModels: ['mimo-v2.5-pro'],
+    },
+    description: 'Xiaomi MiMo Token Plan',
+  },
 ]
 
 /**
@@ -174,7 +196,7 @@ export function getApiProviders(codeToolType: CodeToolType): ApiProviderPreset[]
 
 /**
  * Get API provider preset by ID
- * @param providerId - The provider ID (302ai, glm, minimax, kimi, packycode)
+ * @param providerId - The provider ID (e.g. 302ai, xiaomi-mimo, xiaomi-mimo-tp)
  * @returns API provider preset or undefined if not found
  */
 export function getProviderPreset(providerId: string): ApiProviderPreset | undefined {

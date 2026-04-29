@@ -96,6 +96,37 @@ describe('aPI Provider Configuration', () => {
       expect(provider!.claudeCode?.defaultModels).toEqual(['glm-5'])
     })
 
+    it('xiaomi-mimo provider should have correct configuration', () => {
+      const provider = API_PROVIDER_PRESETS.find(p => p.id === 'xiaomi-mimo')
+      expect(provider).toBeDefined()
+      expect(provider!.name).toBe('MiMo')
+      expect(provider!.supportedCodeTools).toContain('claude-code')
+      expect(provider!.supportedCodeTools).not.toContain('codex')
+      expect(provider!.claudeCode?.baseUrl).toBe('https://api.xiaomimimo.com/anthropic')
+      expect(provider!.claudeCode?.authType).toBe('auth_token')
+      expect(provider!.claudeCode?.defaultModels).toEqual(['mimo-v2.5-pro'])
+      expect(provider!.codex).toBeUndefined()
+    })
+
+    it('xiaomi-mimo-tp provider should have correct configuration', () => {
+      const provider = API_PROVIDER_PRESETS.find(p => p.id === 'xiaomi-mimo-tp')
+      expect(provider).toBeDefined()
+      expect(provider!.name).toBe('MiMo Token Plan')
+      expect(provider!.supportedCodeTools).toContain('claude-code')
+      expect(provider!.supportedCodeTools).not.toContain('codex')
+      expect(provider!.claudeCode?.baseUrl).toBe('https://token-plan-cn.xiaomimimo.com/anthropic')
+      expect(provider!.claudeCode?.authType).toBe('auth_token')
+      expect(provider!.claudeCode?.defaultModels).toEqual(['mimo-v2.5-pro'])
+      expect(provider!.codex).toBeUndefined()
+    })
+
+    it('xiaomi-mimo providers should not appear in codex provider list', () => {
+      const providers = getApiProviders('codex')
+      const mimoIds = providers.map(p => p.id)
+      expect(mimoIds).not.toContain('xiaomi-mimo')
+      expect(mimoIds).not.toContain('xiaomi-mimo-tp')
+    })
+
     it('providers with claudeCode config should have valid authType', () => {
       API_PROVIDER_PRESETS.forEach((provider) => {
         if (provider.claudeCode) {
