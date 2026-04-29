@@ -22,9 +22,9 @@ vi.mock('ansis', () => ({
   },
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
   readDefaultTomlConfig: vi.fn(),
 }))
 
@@ -136,8 +136,8 @@ describe('prompts utilities', () => {
 
   describe('selectScriptLanguage', () => {
     it('should return saved language from config', async () => {
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-      vi.mocked(readZcfConfig).mockReturnValue({
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '2.3.0',
         preferredLang: 'en',
         lastUpdated: '2024-01-01',
@@ -151,8 +151,8 @@ describe('prompts utilities', () => {
     })
 
     it('should return provided current language', async () => {
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-      vi.mocked(readZcfConfig).mockReturnValue(null)
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+      vi.mocked(readTkpConfig).mockReturnValue(null)
 
       const result = await selectScriptLanguage('zh-CN')
 
@@ -161,23 +161,23 @@ describe('prompts utilities', () => {
     })
 
     it('should prompt user when no config and no current lang', async () => {
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
-      vi.mocked(readZcfConfig).mockReturnValue(null)
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
+      vi.mocked(readTkpConfig).mockReturnValue(null)
       vi.mocked(inquirer.prompt).mockResolvedValue({ lang: 'en' })
 
       const result = await selectScriptLanguage()
 
       expect(result).toBe('en')
       expect(inquirer.prompt).toHaveBeenCalled()
-      expect(updateZcfConfig).toHaveBeenCalledWith(expect.objectContaining({
+      expect(updateTkpConfig).toHaveBeenCalledWith(expect.objectContaining({
         version: '2.3.0',
         preferredLang: 'en',
       }))
     })
 
     it('should exit when cancelled', async () => {
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-      vi.mocked(readZcfConfig).mockReturnValue(null)
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+      vi.mocked(readTkpConfig).mockReturnValue(null)
       vi.mocked(inquirer.prompt).mockResolvedValue({ lang: undefined })
 
       await expect(selectScriptLanguage()).rejects.toThrow('process.exit called')
@@ -185,8 +185,8 @@ describe('prompts utilities', () => {
     })
 
     it('should handle undefined config', async () => {
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-      vi.mocked(readZcfConfig).mockReturnValue(undefined as any)
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+      vi.mocked(readTkpConfig).mockReturnValue(undefined as any)
       vi.mocked(inquirer.prompt).mockResolvedValue({ lang: 'zh-CN' })
 
       const result = await selectScriptLanguage()

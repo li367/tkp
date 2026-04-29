@@ -4,9 +4,9 @@ title: インストールガイド
 
 # インストールガイド
 
-このガイドは、環境チェックから検証までの完全なプロセスをカバーし、ZCFを迅速に開始するのに役立ちます。初めて使用する場合でも、新しいデバイスに迅速にデプロイしたい場合でも、このガイドに従ってセットアップを完了できます。
+このガイドは、環境チェックから検証までの完全なプロセスをカバーし、TKPを迅速に開始するのに役立ちます。初めて使用する場合でも、新しいデバイスに迅速にデプロイしたい場合でも、このガイドに従ってセットアップを完了できます。
 
-> 💡 **ヒント**: ZCFはインストール不要で、`npx zcf`を直接実行できます。このガイドは主に環境設定と使用フローについて説明しています。
+> 💡 **ヒント**: TKPはインストール不要で、`npx tkp`を直接実行できます。このガイドは主に環境設定と使用フローについて説明しています。
 
 ## 環境要件
 
@@ -18,7 +18,7 @@ title: インストールガイド
 | **npm** | Node.jsと一緒にインストール | 最新版 | `npx`コマンドのサポートが必要 |
 | **オペレーティングシステム** | - | - | macOS、Linux、Windows PowerShell/WSL、Termux |
 
-> 💡 **ヒント**: WSL（Windows Subsystem for Linux）を使用している場合、ZCFは自動的に環境を検出し、対応するインストールプロンプトを提供します。
+> 💡 **ヒント**: WSL（Windows Subsystem for Linux）を使用している場合、TKPは自動的に環境を検出し、対応するインストールプロンプトを提供します。
 
 ### 環境の確認
 
@@ -39,26 +39,26 @@ npx --version
 
 ## 使用方法
 
-ZCFは2つの使用方法を提供します：**対話式使用**（初心者向け）と**コマンドライン直接使用**（自動化とCI/CD向け）。
+TKPは2つの使用方法を提供します：**対話式使用**（初心者向け）と**コマンドライン直接使用**（自動化とCI/CD向け）。
 
-> 💡 **ヒント**: ZCFはインストール不要で、`npx zcf`コマンドを直接実行できます。
+> 💡 **ヒント**: TKPはインストール不要で、`npx tkp`コマンドを直接実行できます。
 
 ### 方法1: 対話式使用（初心者におすすめ）
 
-ZCFは、グラフィカルインターフェースですべての設定を完了できる、使いやすい対話式メニューを提供します。
+TKPは、グラフィカルインターフェースですべての設定を完了できる、使いやすい対話式メニューを提供します。
 
-#### ZCFの起動
+#### TKPの起動
 
 ```bash
-npx zcf
+npx tkp
 ```
 
-初回実行時、ZCFはウェルカム画面を表示し、使用したいインターフェース言語を尋ねます：
+初回実行時、TKPはウェルカム画面を表示し、使用したいインターフェース言語を尋ねます：
 
 ```
-ZCF - Zero-Config Code Flow
+TKP - Zero-Config Code Flow
 
-? Select ZCF display language / 选择ZCF显示语言:
+? Select TKP display language / 选择TKP显示语言:
   ❯ 简体中文
     English
 ```
@@ -83,8 +83,8 @@ ZCF - Zero-Config Code Flow
   U. ccusage - Claude Code使用量分析
   L. CCometixLine - Git情報とリアルタイム使用量追跡を統合した、Rustベースの高性能ステータスバーツール
 
-  ------------ ZCF ------------
-  0. 表示言語の変更 / Select display language - ZCFインターフェース言語の変更
+  ------------ TKP ------------
+  0. 表示言語の変更 / Select display language - TKPインターフェース言語の変更
   -. アンインストール - システムからClaude Code設定とツールを削除
   +. 更新チェック - Claude Code、CCR、CCometixLineのバージョンをチェックして更新
   Q. 終了
@@ -92,7 +92,7 @@ ZCF - Zero-Config Code Flow
 
 #### 対話式初期化フロー
 
-`1`を選択して完全初期化を実行すると、ZCFは以下のステップでガイドします：
+`1`を選択して完全初期化を実行すると、TKPは以下のステップでガイドします：
 
 **ステップ1: 設定言語の選択**
 ```
@@ -124,7 +124,7 @@ ZCF - Zero-Config Code Flow
 ? Claude Codeが検出されませんでした。自動的にインストールしますか？(Y/n)
 ```
 
-インストールを選択すると、ZCFはインストール方法の選択を促します：
+インストールを選択すると、TKPはインストール方法の選択を促します：
 
 ```
 ? Claude Codeのインストール方法を選択してください：
@@ -136,8 +136,8 @@ ZCF - Zero-Config Code Flow
 ```
 
 > ✅ **自動処理**：
-> - ZCFは自動的にプラットフォームを検出し、最適なインストール方法を推奨します
-> - Claude Codeが既にインストールされている場合、ZCFはバージョンを検出し、最新バージョンに自動アップグレードできます
+> - TKPは自動的にプラットフォームを検出し、最適なインストール方法を推奨します
+> - Claude Codeが既にインストールされている場合、TKPはバージョンを検出し、最新バージョンに自動アップグレードできます
 > - インストール方法は将来の参照のために保存されます
 
 **ステップ4: 既存設定の処理**
@@ -191,16 +191,16 @@ CI/CDと自動化シナリオに適しており、`--skip-prompt`（または`-s
 
 #### APIプロバイダープリセットの使用（最も簡単）
 
-ZCFはAPIプロバイダープリセットをサポートしており、設定を5+パラメータから2つに簡素化できます：
+TKPはAPIプロバイダープリセットをサポートしており、設定を5+パラメータから2つに簡素化できます：
 
 ```bash
 # 302.AIプロバイダーを使用（推奨）
-npx zcf i -s -p 302ai -k "sk-xxx"
+npx tkp i -s -p 302ai -k "sk-xxx"
 
 # その他のプロバイダー
-npx zcf i -s -p glm -k "sk-xxx"        # GLM
-npx zcf i -s -p minimax -k "sk-xxx"    # MiniMax
-npx zcf i -s -p kimi -k "sk-xxx"       # Kimi
+npx tkp i -s -p glm -k "sk-xxx"        # GLM
+npx tkp i -s -p minimax -k "sk-xxx"    # MiniMax
+npx tkp i -s -p kimi -k "sk-xxx"       # Kimi
 ```
 
 > ✅ **利点**: プリセットはbaseUrl、認証方法、デフォルトモデルを自動設定し、設定プロセスを大幅に簡素化します。
@@ -211,15 +211,15 @@ npx zcf i -s -p kimi -k "sk-xxx"       # Kimi
 
 ```bash
 # すべてのパラメータを手動で指定
-npx zcf i -s -g zh-CN -t api_key -k "sk-xxx" -u "https://api.example.com"
+npx tkp i -s -g zh-CN -t api_key -k "sk-xxx" -u "https://api.example.com"
 
 # プライマリモデルと高速モデルの両方を設定
-npx zcf i -s -p 302ai -k "sk-xxx" \
+npx tkp i -s -p 302ai -k "sk-xxx" \
   --api-model "claude-sonnet-4-5" \
   --api-fast-model "claude-haiku-4-5"
 
 # 出力スタイルとワークフローを指定
-npx zcf i -s -p 302ai -k "sk-xxx" \
+npx tkp i -s -p 302ai -k "sk-xxx" \
   --output-styles engineer-professional,nekomata-engineer \
   --workflows commonTools,sixStepsWorkflow \
   --default-output-style engineer-professional
@@ -227,18 +227,18 @@ npx zcf i -s -p 302ai -k "sk-xxx" \
 
 #### 複数API設定
 
-ZCFは複数のAPIを設定することをサポートしており、異なるシナリオで簡単に切り替えできます：
+TKPは複数のAPIを設定することをサポートしており、異なるシナリオで簡単に切り替えできます：
 
 ```bash
 # JSON文字列を使用して複数のAPIを設定
-npx zcf i -s --api-configs '[
+npx tkp i -s --api-configs '[
   {"provider":"302ai","key":"sk-xxx"},
   {"provider":"glm","key":"sk-yyy"},
   {"name":"custom","type":"api_key","key":"sk-zzz","url":"https://custom.api.com","primaryModel":"claude-sonnet-4-5","fastModel":"claude-haiku-4-5","default":true}
 ]'
 
 # JSONファイル設定を使用（複雑なマルチ設定シナリオに適している）
-npx zcf i -s --api-configs-file ./api-configs.json
+npx tkp i -s --api-configs-file ./api-configs.json
 ```
 
 `api-configs.json`ファイルの例：
@@ -273,20 +273,20 @@ npx zcf i -s --api-configs-file ./api-configs.json
 | `--mcp-services` | `-m` | インストールするMCPサービス | `all`, `skip` またはカンマ区切りリスト |
 | `--code-type` | `-T` | ターゲットコードツールタイプ | `claude-code`, `codex`, `cc`, `cx` |
 
-> 📖 **完全なパラメータリスト**: 詳細なパラメータ説明については、[CLIコマンド - zcf init](../cli/init.md)の章を参照してください。
+> 📖 **完全なパラメータリスト**: 詳細なパラメータ説明については、[CLIコマンド - tkp init](../cli/init.md)の章を参照してください。
 
 ## Codexサポート
 
-ZCFは完全なCodexサポートを提供し、同じツールでClaude CodeとCodexの両方の環境を管理できます。
+TKPは完全なCodexサポートを提供し、同じツールでClaude CodeとCodexの両方の環境を管理できます。
 
 ### Codexモードに切り替え
 
 ```bash
 # 方法1: コマンドライン直接初期化
-npx zcf i -s -T codex -p 302ai -k "sk-xxx"
+npx tkp i -s -T codex -p 302ai -k "sk-xxx"
 
 # 方法2: 対話式メニュー経由
-npx zcf → S（ツール切り替え）を選択 → 1（完全初期化）を選択
+npx tkp → S（ツール切り替え）を選択 → 1（完全初期化）を選択
 ```
 
 ### Codex設定の特徴
@@ -300,7 +300,7 @@ npx zcf → S（ツール切り替え）を選択 → 1（完全初期化）を�
 
 ## クロスプラットフォームサポート
 
-ZCFは、Windows、macOS、Linux、WSL、Termuxを含むクロスプラットフォーム操作を完全にサポートしています。
+TKPは、Windows、macOS、Linux、WSL、Termuxを含むクロスプラットフォーム操作を完全にサポートしています。
 
 ### Windowsプラットフォーム
 
@@ -308,7 +308,7 @@ ZCFは、Windows、macOS、Linux、WSL、Termuxを含むクロスプラットフ
 - **設定修正**: 既存の誤った設定は更新時に自動的に修正されます
 - **ゼロ設定**: Windowsユーザーは追加の操作は不要で、macOS/Linuxと同じ体験
 
-> ⚠️ **注意**: WindowsでMCP接続の問題が発生した場合、`npx zcf`を実行すると設定形式が自動的に修正されます。
+> ⚠️ **注意**: WindowsでMCP接続の問題が発生した場合、`npx tkp`を実行すると設定形式が自動的に修正されます。
 
 ### WSLサポート（v2.12.12+）
 
@@ -322,7 +322,7 @@ ZCFは、Windows、macOS、Linux、WSL、Termuxを含むクロスプラットフ
 - **強化された検出**: 利用可能なコマンドをインテリジェントに認識し、制限された環境での正常な動作を保証
 - **完全な機能**: デスクトップシステムと同じ完全な機能をTermuxで楽しめます
 
-> 📱 **ヒント**: Termuxでは、ZCFは特別なパス構造を自動認識し、依存関係を正しくインストールします。
+> 📱 **ヒント**: Termuxでは、TKPは特別なパス構造を自動認識し、依存関係を正しくインストールします。
 
 ## インストールの確認
 
@@ -331,11 +331,11 @@ ZCFは、Windows、macOS、Linux、WSL、Termuxを含むクロスプラットフ
 ### 1. CLIの可用性を確認
 
 ```bash
-# ZCFコマンドが利用可能か確認
-npx zcf --help
+# TKPコマンドが利用可能か確認
+npx tkp --help
 
 # バージョン情報を確認
-npx zcf --version
+npx tkp --version
 ```
 
 ### 2. ワークフローの確認
@@ -344,8 +344,8 @@ npx zcf --version
 
 **Claude Code:**
 ```
-/zcf:workflow  # 6段階開発ワークフロー
-/zcf:feat      # 機能開発ワークフロー
+/tkp:workflow  # 6段階開発ワークフロー
+/tkp:feat      # 機能開発ワークフロー
 /git-commit    # Gitコミットコマンド
 /init-project  # プロジェクト初期化
 ```
@@ -363,7 +363,7 @@ npx zcf --version
 
 > ✅ **成功の指標**: コマンドが正常に実行され、ワークフローインターフェースが表示される場合、ワークフローのインポートは成功しました。
 > 
-> 💡 **ヒント**: Codexは`/prompts:`プレフィックスを使用し、Claude Codeは`/zcf:`または直接`/`プレフィックスを使用します。
+> 💡 **ヒント**: Codexは`/prompts:`プレフィックスを使用し、Claude Codeは`/tkp:`または直接`/`プレフィックスを使用します。
 
 ### 3. MCPサービスの確認
 
@@ -382,16 +382,16 @@ ReactのuseStateフックの最新ドキュメントをクエリしてくださ�
 ```
 Context7が正常に動作している場合、AIは最新のドキュメントを使用して回答します。
 
-> 🔧 **トラブルシューティング**: サービスが接続されていない場合、`npx zcf` → `4`を実行してMCPサービスを再設定してください。
+> 🔧 **トラブルシューティング**: サービスが接続されていない場合、`npx tkp` → `4`を実行してMCPサービスを再設定してください。
 
 ### 4. API接続の確認
 
 ```bash
 # 使用統計を表示（公式APIを使用している場合）
-npx zcf ccu
+npx tkp ccu
 
 # CCRステータスを確認（CCRプロキシを使用している場合）
-npx zcf ccr
+npx tkp ccr
 ```
 
 ### 5. 出力スタイルの確認
@@ -417,13 +417,13 @@ SOLID原則について説明してください
 #!/bin/bash
 
 # 1. Claude Codeを初期化
-npx zcf i -s -p 302ai -k "$API_KEY" \
+npx tkp i -s -p 302ai -k "$API_KEY" \
   --output-styles engineer-professional \
   --workflows all \
   --mcp-services all
 
 # 2. インストールを確認
-npx zcf --version
+npx tkp --version
 
 # 3. 設定場所を表示
 echo "Claude Code設定: ~/.claude/"
@@ -435,17 +435,17 @@ echo "バックアップ場所: ~/.claude/backup/"
 既に初期化されている場合、ワークフローとテンプレートのみを更新：
 
 ```bash
-npx zcf update -g zh-CN
+npx tkp update -g zh-CN
 ```
 
-> 📖 **注意**: `zcf update`は、デフォルトで既存のAPI設定とMCP設定を保持し、ワークフローテンプレートとドキュメントのみを更新します。
+> 📖 **注意**: `tkp update`は、デフォルトで既存のAPI設定とMCP設定を保持し、ワークフローテンプレートとドキュメントのみを更新します。
 
 ### シナリオ: CCRプロキシの設定
 
 CCR（Claude Code Router）プロキシを使用する必要がある場合：
 
 ```bash
-npx zcf ccr
+npx tkp ccr
 ```
 
 CCR管理メニューに入ると、以下を選択できます：
@@ -467,12 +467,12 @@ CCR管理メニューに入ると、以下を選択できます：
 - Claude Code: `~/.claude/workflows/`
 - Codex: `~/.codex/prompts/`
 
-ファイルが存在しない場合、`npx zcf update`を実行して再インポートしてください。
+ファイルが存在しない場合、`npx tkp update`を実行して再インポートしてください。
 
 ### Q: MCPサービスの接続に失敗しましたか？
 
 **A**: 
-1. MCPサービス設定を確認: `npx zcf` → `4`
+1. MCPサービス設定を確認: `npx tkp` → `4`
 2. サービスがインストールされていることを確認（ほとんどのサービスはnpm経由で自動インストールされます）
 3. Exaの場合、`EXA_API_KEY`環境変数が設定されていることを確認
 
@@ -480,14 +480,14 @@ CCR管理メニューに入ると、以下を選択できます：
 
 **A**: 設定切り替えコマンドを使用：
 ```bash
-npx zcf config-switch --list  # すべての設定を一覧表示
-npx zcf cs provider-name      # 指定された設定に切り替え
+npx tkp config-switch --list  # すべての設定を一覧表示
+npx tkp cs provider-name      # 指定された設定に切り替え
 ```
 
 ### Q: 設定ファイルはどこに保存されますか？
 
 **A**: 
-- **ZCF設定**: `~/.ufomiao/zcf/config.toml`
+- **TKP設定**: `~/.tkp/config.toml`
 - **Claude Code設定**: `~/.claude/settings.json` および `~/.claude/CLAUDE.md`
 - **Codex設定**: `~/.codex/config.toml` および `~/.codex/AGENTS.md`
 - **バックアップ場所**: `~/.claude/backup/` および `~/.codex/backup/`
@@ -496,7 +496,7 @@ npx zcf cs provider-name      # 指定された設定に切り替え
 
 クイックスタートを完了したら、以下をお勧めします：
 
-1. 🎯 [機能](../features/)を探索して、ZCFの完全な機能を理解する
+1. 🎯 [機能](../features/)を探索して、TKPの完全な機能を理解する
 2. 📚 [ワークフローの詳細](../workflows/)を深く掘り下げて、さまざまなワークフローをマスターする
 3. ⚙️ [設定管理](../advanced/configuration.md)を参照して、パーソナライズされた設定を行う
 4. 🔧 [CLIコマンド](../cli/)を確認して、利用可能なすべてのコマンドをマスターする

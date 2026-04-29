@@ -167,7 +167,7 @@ export interface CodexStatus {
 // Internal dependencies
 import { i18n } from '../../i18n'
 import { getPlatform, isWindows } from '../platform'
-import { readZcfConfigAsync, writeZcfConfigAsync } from '../zcf-config'
+import { readZcfConfigAsync, writeZcfConfigAsync } from '../tkp-config'
 
 // External dependencies
 import { parse as parseToml, stringify as stringifyToml } from 'smol-toml'

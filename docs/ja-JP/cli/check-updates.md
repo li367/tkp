@@ -4,24 +4,24 @@ title: バージョン確認
 
 # バージョン確認
 
-`zcf check-updates` は、ZCF ツールチェーン内の各コンポーネント（ZCF 自体、Claude Code、CCR、CCometixLine、Codex など）を検出して更新するために使用されます。
+`tkp check-updates` は、TKP ツールチェーン内の各コンポーネント（TKP 自体、Claude Code、CCR、CCometixLine、Codex など）を検出して更新するために使用されます。
 
-> **別名**：同等の効果を持つ `zcf check` を使用できます（例：`npx zcf check -T cx`）。
+> **別名**：同等の効果を持つ `tkp check` を使用できます（例：`npx tkp check -T cx`）。
 
 ## コマンド形式
 
 ```bash
 # すべてのツール更新を確認（Claude Code モード）
-npx zcf check
+npx tkp check
 
 # Codex 関連ツール更新を確認
-npx zcf check -T cx
+npx tkp check -T cx
 
 # 非対話モード（自動更新、確認をスキップ）
-npx zcf check -s
+npx tkp check -s
 
 # メインメニューからアクセス
-npx zcf
+npx tkp
 # 次に +. 更新確認 を選択
 ```
 
@@ -29,7 +29,7 @@ npx zcf
 
 | パラメータ | 略称 | 説明 | オプション値 | デフォルト値 |
 |------|------|------|--------|--------|
-| `--code-type, -T` | `-T` | ツールタイプを指定 | `claude-code`, `codex`, `cc`, `cx` | ZCF 設定から読み取り |
+| `--code-type, -T` | `-T` | ツールタイプを指定 | `claude-code`, `codex`, `cc`, `cx` | TKP 設定から読み取り |
 | `--skip-prompt, -s` | `-s` | 対話確認をスキップ（非対話モード） | なし | いいえ（対話モード） |
 
 ## 確認するツール
@@ -119,7 +119,7 @@ CCometixLine
 
 ```bash
 # 週に1回確認
-npx zcf check
+npx tkp check
 ```
 
 ### 自動更新
@@ -128,7 +128,7 @@ CI/CD または自動化スクリプトで非対話モードを使用します�
 
 ```bash
 # すべてのツールを自動更新
-npx zcf check -s
+npx tkp check -s
 ```
 
 ### 対象を絞った更新
@@ -137,7 +137,7 @@ npx zcf check -s
 
 ```bash
 # Codex 関連ツールのみを確認
-npx zcf check -T cx
+npx tkp check -T cx
 ```
 
 ## 更新戦略
@@ -158,7 +158,7 @@ npx zcf check -T cx
 
 ### 更新失敗の処理
 
-更新が失敗した場合、ZCF は：
+更新が失敗した場合、TKP は：
 
 1. エラー情報を表示
 2. 元のバージョンを保持
@@ -175,26 +175,26 @@ npx zcf check -T cx
 - **権限の問題**：sudo 権限が必要（macOS/Linux）
   ```bash
   # sudo を使用して実行
-  sudo npx zcf check
+  sudo npx tkp check
   ```
 
 - **ポートの占有**：サービスが実行中で更新できない
   ```bash
   # まずサービスを停止してから更新
   ccr stop
-  npx zcf check
+  npx tkp check
   ```
 
 ## バージョン互換性
 
-### ZCF バージョン要件
+### TKP バージョン要件
 
 - **Node.js**：>= 22
 - **npm/pnpm**：最新バージョン
 
 ### ツールバージョンの互換性
 
-ZCF はツール間のバージョン互換性を確認し、以下を保証します：
+TKP はツール間のバージョン互換性を確認し、以下を保証します：
 
 - CCR と Claude Code のバージョンが一致
 - CCometixLine が Claude Code と互換性がある
@@ -235,15 +235,15 @@ ccline --version
 codex --version
 ```
 
-## zcf init との連携
+## tkp init との連携
 
-`zcf init` のバックアップ機能は、更新前に設定を自動バックアップできます：
+`tkp init` のバックアップ機能は、更新前に設定を自動バックアップできます：
 
 ```bash
 # 更新前に初期化（設定をバックアップ）
-npx zcf init
+npx tkp init
 # または手動でバックアップ機能を使用
-npx zcf i -s -r backup
+npx tkp i -s -r backup
 ```
 
 ## よくある質問
@@ -262,7 +262,7 @@ A:
 A: 
 1. ツールが正しくインストールされているか確認：`which ccr`
 2. エラーログを確認
-3. 再インストールを試行：`npx zcf ccr`（CCR の場合）
+3. 再インストールを試行：`npx tkp ccr`（CCR の場合）
 
 ### Q: 旧バージョンに戻すには？
 

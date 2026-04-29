@@ -44,10 +44,10 @@ vi.mock('../../../../src/utils/code-tools/codex-config-detector', () => ({
   detectConfigManagementMode: vi.fn(),
 }))
 
-const mockUpdateZcfConfig = vi.fn()
-vi.mock('../../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(() => null),
-  updateZcfConfig: mockUpdateZcfConfig,
+const mockUpdateTkpConfig = vi.fn()
+vi.mock('../../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(() => null),
+  updateTkpConfig: mockUpdateTkpConfig,
 }))
 
 vi.mock('../../../../src/utils/platform', () => ({
@@ -90,7 +90,7 @@ describe('applyCodexPlatformCommand integration', () => {
 
     await configureCodexMcp()
 
-    expect(mockUpdateZcfConfig).toHaveBeenCalledWith({ codeToolType: 'codex' })
+    expect(mockUpdateTkpConfig).toHaveBeenCalledWith({ codeToolType: 'codex' })
     // New implementation uses batchUpdateCodexMcpServices which calls writeFile
     expect(writeFile).toHaveBeenCalled()
     const writeFileMock = vi.mocked(writeFile)
@@ -117,7 +117,7 @@ describe('applyCodexPlatformCommand integration', () => {
 
     await configureCodexMcp()
 
-    expect(mockUpdateZcfConfig).toHaveBeenCalledWith({ codeToolType: 'codex' })
+    expect(mockUpdateTkpConfig).toHaveBeenCalledWith({ codeToolType: 'codex' })
     // New implementation uses batchUpdateCodexMcpServices which calls writeFile
     expect(writeFile).toHaveBeenCalled()
     const writeFileMock = vi.mocked(writeFile)

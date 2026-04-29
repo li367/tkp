@@ -5,7 +5,7 @@ import { configSwitchCommand } from '../../../src/commands/config-switch'
 import { resolveCodeToolType } from '../../../src/constants'
 // Import the mocked module correctly
 import { ClaudeCodeConfigManager } from '../../../src/utils/claude-code-config-manager'
-import { readZcfConfig } from '../../../src/utils/zcf-config'
+import { readTkpConfig } from '../../../src/utils/tkp-config'
 
 // Mock external dependencies
 vi.mock('inquirer')
@@ -41,7 +41,7 @@ vi.mock('../../../src/i18n', () => ({
         'common:current': '当前',
         'common:cancelled': '已取消操作',
         'common:operationFailed': '操作失败',
-        'common:goodbye': '👋 感谢使用 ZCF！再见！',
+        'common:goodbye': '👋 感谢使用 TKP！再见！',
       }
 
       let result = translations[key] || key
@@ -102,8 +102,8 @@ vi.mock('../../../src/utils/error-handler', () => ({
   handleGeneralError: vi.fn(),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(() => ({
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(() => ({
     version: '1.0.0',
     preferredLang: 'zh-CN',
     codeToolType: 'claude-code',
@@ -327,7 +327,7 @@ describe('config-switch command - Claude Code Support', () => {
 
       await configSwitchCommand({ codeType: 'claude-code' })
 
-      expect(mockConsoleLog).toHaveBeenCalledWith('\n👋 感谢使用 ZCF！再见！')
+      expect(mockConsoleLog).toHaveBeenCalledWith('\n👋 感谢使用 TKP！再见！')
     })
 
     it('should show current profile indicator in interactive choices', async () => {
@@ -361,9 +361,9 @@ describe('config-switch command - Claude Code Support', () => {
       expect(mockResolveCodeToolType).toHaveBeenCalledWith('claude-code')
     })
 
-    it('should fallback to ZCF config code type', async () => {
-      const mockReadZcfConfig = vi.mocked(readZcfConfig)
-      mockReadZcfConfig.mockReturnValue({
+    it('should fallback to TKP config code type', async () => {
+      const mockReadTkpConfig = vi.mocked(readTkpConfig)
+      mockReadTkpConfig.mockReturnValue({
         version: '1.0.0',
         preferredLang: 'zh-CN',
         codeToolType: 'claude-code',
@@ -372,12 +372,12 @@ describe('config-switch command - Claude Code Support', () => {
 
       await configSwitchCommand({ list: true })
 
-      expect(mockReadZcfConfig).toHaveBeenCalled()
+      expect(mockReadTkpConfig).toHaveBeenCalled()
     })
 
     it('should fallback to default code type', async () => {
-      const mockReadZcfConfig = vi.mocked(readZcfConfig)
-      mockReadZcfConfig.mockReturnValue({
+      const mockReadTkpConfig = vi.mocked(readTkpConfig)
+      mockReadTkpConfig.mockReturnValue({
         version: '1.0.0',
         preferredLang: 'zh-CN',
         codeToolType: 'claude-code',
@@ -493,8 +493,8 @@ describe('config-switch command - Codex Support', () => {
   })
 
   it('should fall back to Codex type from configuration when option omitted', async () => {
-    const mockReadZcfConfig = vi.mocked(readZcfConfig)
-    mockReadZcfConfig.mockReturnValue({
+    const mockReadTkpConfig = vi.mocked(readTkpConfig)
+    mockReadTkpConfig.mockReturnValue({
       codeToolType: 'codex',
     } as any)
     mockListCodexProviders.mockResolvedValue([])

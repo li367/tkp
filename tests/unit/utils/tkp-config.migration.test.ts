@@ -34,9 +34,9 @@ vi.mock('../../../src/utils/toml-edit', () => ({
   batchEditToml: vi.fn(),
 }))
 
-describe('zcf-config migration', () => {
+describe('tkp-config migration', () => {
   const home = homedir()
-  const newDir = join(home, '.ufomiao', 'zcf')
+  const newDir = join(home, '.tkp')
   const newPath = join(newDir, 'config.toml')
   const claudeLegacy = join(home, '.claude', '.zcf-config.json')
   const legacyJson = join(home, '.zcf.json')
@@ -61,8 +61,8 @@ describe('zcf-config migration', () => {
       return false
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     expect(mkdirSync).toHaveBeenCalledWith(newDir, { recursive: true })
     expect(renameSync).toHaveBeenCalledWith(claudeLegacy, newPath)
@@ -89,8 +89,8 @@ describe('zcf-config migration', () => {
       throw error
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     expect(mkdirSync).toHaveBeenCalledWith(newDir, { recursive: true })
     expect(renameSync).toHaveBeenCalledWith(claudeLegacy, newPath)
@@ -110,8 +110,8 @@ describe('zcf-config migration', () => {
       return false
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     expect(renameSync).not.toHaveBeenCalled()
     expect(rmSync).toHaveBeenCalledWith(claudeLegacy, { force: true })
@@ -131,8 +131,8 @@ describe('zcf-config migration', () => {
       return false
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     expect(renameSync).toHaveBeenCalledWith(legacyJson, newPath)
     expect(result).toEqual({ migrated: true, source: legacyJson, target: newPath, removed: [] })
@@ -151,8 +151,8 @@ describe('zcf-config migration', () => {
       return false
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     // Should migrate from first legacy source (claudeLegacy)
     expect(mkdirSync).toHaveBeenCalledWith(newDir, { recursive: true })
@@ -180,8 +180,8 @@ describe('zcf-config migration', () => {
       throw new Error('Permission denied')
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     // Should still complete migration despite rmSync failure
     expect(renameSync).toHaveBeenCalledWith(claudeLegacy, newPath)
@@ -206,9 +206,9 @@ describe('zcf-config migration', () => {
       throw error
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
 
-    expect(() => migrateZcfConfigIfNeeded()).toThrow('Permission denied')
+    expect(() => migrateTkpConfigIfNeeded()).toThrow('Permission denied')
   })
 
   it('handles rmSync failure when cleaning legacy files with existing target', async () => {
@@ -232,8 +232,8 @@ describe('zcf-config migration', () => {
       // Succeed for second call
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     // Should not migrate (target exists)
     expect(renameSync).not.toHaveBeenCalled()
@@ -251,8 +251,8 @@ describe('zcf-config migration', () => {
       return false // No legacy files
     })
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     expect(renameSync).not.toHaveBeenCalled()
     expect(rmSync).not.toHaveBeenCalled()
@@ -262,8 +262,8 @@ describe('zcf-config migration', () => {
   it('returns unchanged result when no config files exist at all', async () => {
     vi.mocked(existsSync).mockReturnValue(false)
 
-    const { migrateZcfConfigIfNeeded } = await import('../../../src/utils/zcf-config')
-    const result = migrateZcfConfigIfNeeded()
+    const { migrateTkpConfigIfNeeded } = await import('../../../src/utils/tkp-config')
+    const result = migrateTkpConfigIfNeeded()
 
     expect(renameSync).not.toHaveBeenCalled()
     expect(rmSync).not.toHaveBeenCalled()
@@ -271,7 +271,7 @@ describe('zcf-config migration', () => {
   })
 })
 
-describe('zcf-config legacy JSON reading', () => {
+describe('tkp-config legacy JSON reading', () => {
   beforeEach(() => {
     vi.resetModules()
     vi.clearAllMocks()
@@ -299,8 +299,8 @@ describe('zcf-config legacy JSON reading', () => {
       lastUpdated: '2024-01-01',
     })
 
-    const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-    const result = readZcfConfig()
+    const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+    const result = readTkpConfig()
 
     expect(result).not.toBeNull()
     expect(result?.preferredLang).toBe('zh-CN')
@@ -313,13 +313,13 @@ describe('zcf-config legacy JSON reading', () => {
     vi.mocked(existsSync).mockReturnValue(false)
     vi.mocked(jsonConfig.readJsonConfig).mockReturnValue(null)
 
-    const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-    const result = readZcfConfig()
+    const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+    const result = readTkpConfig()
 
     expect(result).toBeNull()
   })
 
-  it('handles writeZcfConfig error gracefully', async () => {
+  it('handles writeTkpConfig error gracefully', async () => {
     const mockExists = vi.mocked(await import('../../../src/utils/fs-operations')).exists
     const mockEnsureDir = vi.mocked(await import('../../../src/utils/fs-operations')).ensureDir
     const mockStringifyToml = vi.mocked(await import('../../../src/utils/toml-edit')).stringifyToml
@@ -333,10 +333,10 @@ describe('zcf-config legacy JSON reading', () => {
     mockStringifyToml.mockReturnValue('test')
     vi.mocked(existsSync).mockReturnValue(false)
 
-    const { writeZcfConfig } = await import('../../../src/utils/zcf-config')
+    const { writeTkpConfig } = await import('../../../src/utils/tkp-config')
 
     // Should not throw
-    expect(() => writeZcfConfig({
+    expect(() => writeTkpConfig({
       version: '1.0.0',
       preferredLang: 'en',
       codeToolType: 'claude-code',
@@ -356,7 +356,7 @@ describe('zcf-config legacy JSON reading', () => {
 
     // Legacy path exists with valid JSON
     vi.mocked(existsSync).mockImplementation((path) => {
-      if (typeof path === 'string' && path.includes('.zcf'))
+      if (typeof path === 'string' && path.includes('.tkp'))
         return true
       return false
     })
@@ -373,8 +373,8 @@ describe('zcf-config legacy JSON reading', () => {
       return null
     })
 
-    const { readZcfConfig } = await import('../../../src/utils/zcf-config')
-    const result = readZcfConfig()
+    const { readTkpConfig } = await import('../../../src/utils/tkp-config')
+    const result = readTkpConfig()
 
     // Should get config from legacy location
     if (result) {

@@ -4,17 +4,17 @@ title: Usage Tips
 
 # Usage Tips
 
-This document compiles practical tips and best practices for daily use of ZCF, helping you use ZCF more efficiently in various scenarios.
+This document compiles practical tips and best practices for daily use of TKP, helping you use TKP more efficiently in various scenarios.
 
 ## Core Tips
 
 ### 1. Make Good Use of Interactive Menu
 
-**Tip**: Get used to starting with `npx zcf`. All functions have numbered prompts, avoiding the need to remember command details.
+**Tip**: Get used to starting with `npx tkp`. All functions have numbered prompts, avoiding the need to remember command details.
 
 ```bash
 # Open interactive menu
-npx zcf
+npx tkp
 
 # Menu options include:
 # 1 - Complete Initialization
@@ -43,13 +43,13 @@ npx zcf
 
 ```bash
 # Update once per week (recommended)
-npx zcf update
+npx tkp update
 
 # Or use abbreviation
-npx zcf u
+npx tkp u
 
 # Non-interactive update
-npx zcf u -s -g zh-CN
+npx tkp u -s -g zh-CN
 ```
 
 **Best Practices**:
@@ -63,13 +63,13 @@ npx zcf u -s -g zh-CN
 
 ```bash
 # Set all languages to Chinese uniformly
-npx zcf init -g zh-CN
+npx tkp init -g zh-CN
 
 # Templates Chinese, AI output English (suitable for scenarios requiring English code comments)
-npx zcf init -c zh-CN -a en
+npx tkp init -c zh-CN -a en
 
 # Only switch language during update
-npx zcf update -c en
+npx tkp update -c en
 ```
 
 **Usage Scenarios**:
@@ -99,25 +99,25 @@ cp -r ~/.claude/* ../project-config/.claude/
 # Link configuration directory to cloud storage
 
 # macOS/iCloud
-ln -s ~/Library/Mobile\ Documents/com~apple~CloudDocs/.zcf-configs ~/.zcf-sync
+ln -s ~/Library/Mobile\ Documents/com~apple~CloudDocs/.tkp-configs ~/.tkp-sync
 
 # Sync configuration
-rsync -av ~/.claude/ ~/.zcf-sync/claude/
-rsync -av ~/.codex/ ~/.zcf-sync/codex/
+rsync -av ~/.claude/ ~/.tkp-sync/claude/
+rsync -av ~/.codex/ ~/.tkp-sync/codex/
 ```
 
 #### Method 3: Use Version Control
 
 ```bash
 # Create configuration repository
-mkdir ~/zcf-configs && cd ~/zcf-configs
+mkdir ~/tkp-configs && cd ~/tkp-configs
 git init
 
 # Add configuration files (note: exclude sensitive information)
 echo "*.key" >> .gitignore
 echo "auth.json" >> .gitignore
 git add .claude/ .codex/
-git commit -m "Initial ZCF configs"
+git commit -m "Initial TKP configs"
 
 # Pull across multiple devices
 git pull origin main
@@ -131,15 +131,15 @@ git pull origin main
 
 ```bash
 #!/bin/bash
-# deploy-zcf.sh - Automated ZCF configuration deployment
+# deploy-tkp.sh - Automated TKP configuration deployment
 
 # Read configuration from environment variables
-API_KEY=${ZCF_API_KEY}
-PROVIDER=${ZCF_PROVIDER:-302ai}
-LANG=${ZCF_LANG:-zh-CN}
+API_KEY=${TKP_API_KEY}
+PROVIDER=${TKP_PROVIDER:-302ai}
+LANG=${TKP_LANG:-zh-CN}
 
 # Non-interactive initialization
-npx zcf init -s \
+npx tkp init -s \
   --provider "$PROVIDER" \
   --api-key "$API_KEY" \
   --all-lang "$LANG" \
@@ -147,7 +147,7 @@ npx zcf init -s \
   --workflows all \
   --output-styles all
 
-echo "ZCF configuration deployment completed"
+echo "TKP configuration deployment completed"
 ```
 
 #### New Employee Onboarding Script
@@ -158,14 +158,14 @@ echo "ZCF configuration deployment completed"
 
 echo "Configuring development environment..."
 
-# 1. Configure ZCF (using configuration file)
-npx zcf init -s --api-configs-file ./team-api-configs.json
+# 1. Configure TKP (using configuration file)
+npx tkp init -s --api-configs-file ./team-api-configs.json
 
 # 2. Update workflows
-npx zcf update -s -g zh-CN
+npx tkp update -s -g zh-CN
 
 # 3. Check tool versions
-npx zcf check-updates
+npx tkp check-updates
 
 echo "Development environment configuration completed!"
 ```
@@ -180,7 +180,7 @@ SERVERS=("server1" "server2" "server3")
 
 for server in "${SERVERS[@]}"; do
   echo "Deploying to $server..."
-  ssh "$server" "npx zcf init -s -p 302ai -k '${API_KEY}' -g zh-CN"
+  ssh "$server" "npx tkp init -s -p 302ai -k '${API_KEY}' -g zh-CN"
 done
 ```
 
@@ -190,13 +190,13 @@ done
 
 ```bash
 # View usage statistics
-npx zcf ccu
+npx tkp ccu
 
 # Output JSON format (for integration into monitoring systems)
-npx zcf ccu --json > usage.json
+npx tkp ccu --json > usage.json
 
 # View detailed statistics
-npx zcf ccu --verbose
+npx tkp ccu --verbose
 ```
 
 **Integration Example**:
@@ -206,7 +206,7 @@ npx zcf ccu --verbose
 # monitor-usage.sh - Usage monitoring script
 
 # Get usage
-USAGE=$(npx zcf ccu --json)
+USAGE=$(npx tkp ccu --json)
 
 # Parse JSON (using jq)
 TOKENS=$(echo "$USAGE" | jq '.tokens.total')
@@ -214,7 +214,7 @@ COST=$(echo "$USAGE" | jq '.cost.total')
 
 # Send alert (if exceeds threshold)
 if [ "$TOKENS" -gt 1000000 ]; then
-  echo "Warning: Token usage exceeds 1 million!" | mail -s "ZCF Usage Alert" admin@example.com
+  echo "Warning: Token usage exceeds 1 million!" | mail -s "TKP Usage Alert" admin@example.com
 fi
 ```
 
@@ -226,7 +226,7 @@ fi
 
 ```bash
 # Traditional method (requires multiple parameters)
-npx zcf init -s \
+npx tkp init -s \
   -t api_key \
   -k "sk-xxx" \
   -u "https://api.302.ai/v1" \
@@ -234,7 +234,7 @@ npx zcf init -s \
   -F "claude-haiku-4-5"
 
 # Use preset (only 2 parameters needed)
-npx zcf init -s -p 302ai -k "sk-xxx"
+npx tkp init -s -p 302ai -k "sk-xxx"
 ```
 
 **Supported Providers**: `302ai`, `glm`, `minimax`, `kimi`, `custom`
@@ -245,16 +245,16 @@ npx zcf init -s -p 302ai -k "sk-xxx"
 
 ```bash
 # List all configurations
-npx zcf config-switch --list
+npx tkp config-switch --list
 
 # Switch to work configuration
-npx zcf config-switch work
+npx tkp config-switch work
 
 # Switch to personal configuration
-npx zcf config-switch personal
+npx tkp config-switch personal
 
 # Switch in Codex
-npx zcf config-switch work --code-type codex
+npx tkp config-switch work --code-type codex
 ```
 
 **Naming Suggestions**:
@@ -269,16 +269,16 @@ npx zcf config-switch work --code-type codex
 
 ```bash
 # 1. Use feature development workflow to plan features
-/zcf:feat Add user comment functionality
+/tkp:feat Add user comment functionality
 
 # 2. Use six-stage workflow to implement details
-/zcf:workflow Implement comment CRUD operations
+/tkp:workflow Implement comment CRUD operations
 
 # 3. Use Git workflow to commit code
 /git-commit
 
 # 4. Use BMad workflow for iteration
-/zcf:bmad-init
+/tkp:bmad-init
 ```
 
 ### 10. Output Style Strategy
@@ -287,7 +287,7 @@ npx zcf config-switch work --code-type codex
 
 ```bash
 # View available styles
-npx zcf init -s -o all
+npx tkp init -s -o all
 
 # Switch style in conversation
 # Claude Code: /output-style engineer-professional
@@ -306,10 +306,10 @@ npx zcf init -s -o all
 
 ```bash
 # Only install necessary services
-npx zcf init -s -m context7,open-websearch
+npx tkp init -s -m context7,open-websearch
 
 # View all available services
-npx zcf
+npx tkp
 # Select 4 (Configure MCP), view list
 ```
 
@@ -326,7 +326,7 @@ npx zcf
 
 ```bash
 # Automatic backup (automatically executed during init and update)
-npx zcf init  # Automatic backup
+npx tkp init  # Automatic backup
 
 # Manual backup of specific configuration
 cp -r ~/.claude ~/.claude.backup.$(date +%Y%m%d)
@@ -347,7 +347,7 @@ ls -lt ~/.claude/backup/ | head -5
 cp -r ~/.claude/backup/backup_2025-01-15_10-30-45/* ~/.claude/
 
 # 3. Or reinitialize (will create new backup)
-npx zcf init --config-action backup
+npx tkp init --config-action backup
 ```
 
 ### 14. Version Control Integration
@@ -356,7 +356,7 @@ npx zcf init --config-action backup
 
 ```bash
 # Create .gitignore
-cat > ~/.zcf-configs/.gitignore << EOF
+cat > ~/.tkp-configs/.gitignore << EOF
 # Exclude sensitive information
 *.key
 auth.json
@@ -371,7 +371,7 @@ EOF
 
 # Commit configuration
 git add .gitignore templates/ workflows/
-git commit -m "Add ZCF templates and workflows"
+git commit -m "Add TKP templates and workflows"
 ```
 
 ### 15. Performance Optimization
@@ -380,13 +380,13 @@ git commit -m "Add ZCF templates and workflows"
 
 ```bash
 # 1. Only install needed MCP services
-npx zcf init -s -m context7,open-websearch  # Only install necessary services
+npx tkp init -s -m context7,open-websearch  # Only install necessary services
 
 # 2. Use local cache (if supported)
 # Some MCP services support local cache, can speed up response
 
 # 3. Regularly clean backups
-npx zcf uninstall --mode custom --items backups
+npx tkp uninstall --mode custom --items backups
 ```
 
 ## Team Collaboration Tips
@@ -408,7 +408,7 @@ cat > team-config.json << EOF
 EOF
 
 # Team members use same configuration
-npx zcf init -s --api-configs-file team-config.json -k "Personal API Key"
+npx tkp init -s --api-configs-file team-config.json -k "Personal API Key"
 ```
 
 ### 17. Document Sharing
@@ -425,11 +425,11 @@ tar -xzf team-workflows.tar.gz -C ~/.claude/
 
 ### 18. Code Review Integration
 
-**Tip**: Integrate ZCF workflows into code review process.
+**Tip**: Integrate TKP workflows into code review process.
 
 ```bash
 # Use workflow-generated content in PR description
-/zcf:feat New feature name
+/tkp:feat New feature name
 
 # Generated documents can be directly used for PR description
 ```
@@ -451,19 +451,19 @@ cat ~/.claude/settings.json | jq .mcpServers
 ls -la ~/.claude/workflows/
 
 # Check version
-npx zcf check-updates
+npx tkp check-updates
 ```
 
 ### 20. Log Analysis
 
-**Tip**: View ZCF execution logs to locate problems.
+**Tip**: View TKP execution logs to locate problems.
 
 ```bash
 # Enable verbose output
-npx zcf init --verbose 2>&1 | tee zcf.log
+npx tkp init --verbose 2>&1 | tee tkp.log
 
 # View logs
-cat zcf.log | grep -i error
+cat tkp.log | grep -i error
 ```
 
 ## Related Resources

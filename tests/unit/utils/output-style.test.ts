@@ -22,8 +22,8 @@ vi.mock('../../../src/utils/json-config', () => ({
   readJsonConfig: vi.fn(),
   writeJsonConfig: vi.fn(),
 }))
-vi.mock('../../../src/utils/zcf-config', () => ({
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  updateTkpConfig: vi.fn(),
 }))
 vi.mock('../../../src/constants', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../../../src/constants')>()
@@ -59,7 +59,7 @@ vi.mock('../../../src/utils/toggle-prompt', () => ({
 // Declare mock types
 let mockFsOperations: any
 let mockJsonConfig: any
-let mockZcfConfig: any
+let mockTkpConfig: any
 let mockInquirer: any
 
 describe('output-style', () => {
@@ -69,7 +69,7 @@ describe('output-style', () => {
     // Initialize mocked modules
     mockFsOperations = vi.mocked(await import('../../../src/utils/fs-operations'))
     mockJsonConfig = vi.mocked(await import('../../../src/utils/json-config'))
-    mockZcfConfig = vi.mocked(await import('../../../src/utils/zcf-config'))
+    mockTkpConfig = vi.mocked(await import('../../../src/utils/tkp-config'))
     mockInquirer = vi.mocked(await import('inquirer'))
 
     // Initialize real i18n for test environment
@@ -384,14 +384,14 @@ describe('output-style', () => {
       mockFsOperations.copyFile.mockImplementation(() => {})
       mockJsonConfig.readJsonConfig.mockReturnValue({})
       mockJsonConfig.writeJsonConfig.mockImplementation(() => {})
-      mockZcfConfig.updateZcfConfig.mockImplementation(() => {})
+      mockTkpConfig.updateTkpConfig.mockImplementation(() => {})
 
       await configureOutputStyle()
 
       expect(mockInquirer.default.prompt).toHaveBeenCalledTimes(2)
       expect(mockFsOperations.copyFile).toHaveBeenCalledTimes(2)
       expect(mockJsonConfig.writeJsonConfig).toHaveBeenCalled()
-      expect(mockZcfConfig.updateZcfConfig).toHaveBeenCalled()
+      expect(mockTkpConfig.updateTkpConfig).toHaveBeenCalled()
     })
 
     it('should handle non-interactive mode with preselected styles', async () => {
@@ -400,7 +400,7 @@ describe('output-style', () => {
       mockFsOperations.exists.mockImplementation(() => true)
       mockJsonConfig.readJsonConfig.mockImplementation(() => ({}))
       mockJsonConfig.writeJsonConfig.mockImplementation(() => {})
-      mockZcfConfig.updateZcfConfig.mockImplementation(() => {})
+      mockTkpConfig.updateTkpConfig.mockImplementation(() => {})
 
       await configureOutputStyle(
         ['engineer-professional', 'default'], // preselectedStyles
@@ -410,7 +410,7 @@ describe('output-style', () => {
       expect(mockInquirer.default.prompt).not.toHaveBeenCalled()
       expect(mockFsOperations.copyFile).toHaveBeenCalledTimes(1) // Only custom styles
       expect(mockJsonConfig.writeJsonConfig).toHaveBeenCalled()
-      expect(mockZcfConfig.updateZcfConfig).toHaveBeenCalled()
+      expect(mockTkpConfig.updateTkpConfig).toHaveBeenCalled()
     })
 
     it('should detect and handle legacy files', async () => {
@@ -435,7 +435,7 @@ describe('output-style', () => {
       mockFsOperations.copyFile.mockImplementation(() => {})
       mockJsonConfig.readJsonConfig.mockImplementation(() => ({}))
       mockJsonConfig.writeJsonConfig.mockImplementation(() => {})
-      mockZcfConfig.updateZcfConfig.mockImplementation(() => {})
+      mockTkpConfig.updateTkpConfig.mockImplementation(() => {})
 
       await configureOutputStyle()
 
@@ -470,7 +470,7 @@ describe('output-style', () => {
       mockFsOperations.copyFile.mockImplementation(() => {})
       mockJsonConfig.readJsonConfig.mockImplementation(() => ({}))
       mockJsonConfig.writeJsonConfig.mockImplementation(() => {})
-      mockZcfConfig.updateZcfConfig.mockImplementation(() => {})
+      mockTkpConfig.updateTkpConfig.mockImplementation(() => {})
 
       await configureOutputStyle()
 
@@ -495,7 +495,7 @@ describe('output-style', () => {
 
       mockJsonConfig.readJsonConfig.mockImplementation(() => ({ outputStyle: 'engineer-professional' }))
       mockJsonConfig.writeJsonConfig.mockImplementation(() => {})
-      mockZcfConfig.updateZcfConfig.mockImplementation(() => {})
+      mockTkpConfig.updateTkpConfig.mockImplementation(() => {})
 
       await configureOutputStyle()
 
@@ -504,8 +504,8 @@ describe('output-style', () => {
       // Should clear outputStyle from settings
       const writtenConfig = mockJsonConfig.writeJsonConfig.mock.calls[0][1]
       expect(writtenConfig).not.toHaveProperty('outputStyle')
-      // Should update zcf config with empty styles and 'none' marker
-      expect(mockZcfConfig.updateZcfConfig).toHaveBeenCalledWith({
+      // Should update tkp config with empty styles and 'none' marker
+      expect(mockTkpConfig.updateTkpConfig).toHaveBeenCalledWith({
         outputStyles: [],
         defaultOutputStyle: 'none',
       })
@@ -528,7 +528,7 @@ describe('output-style', () => {
 
       mockJsonConfig.readJsonConfig.mockImplementation(() => ({}))
       mockJsonConfig.writeJsonConfig.mockImplementation(() => {})
-      mockZcfConfig.updateZcfConfig.mockImplementation(() => {})
+      mockTkpConfig.updateTkpConfig.mockImplementation(() => {})
 
       await configureOutputStyle()
 
@@ -539,8 +539,8 @@ describe('output-style', () => {
         expect.stringContaining('settings.json'),
         expect.objectContaining({ outputStyle: 'explanatory' }),
       )
-      // Should update zcf config with empty styles but with default
-      expect(mockZcfConfig.updateZcfConfig).toHaveBeenCalledWith({
+      // Should update tkp config with empty styles but with default
+      expect(mockTkpConfig.updateTkpConfig).toHaveBeenCalledWith({
         outputStyles: [],
         defaultOutputStyle: 'explanatory',
       })

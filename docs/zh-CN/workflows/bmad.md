@@ -27,7 +27,7 @@ BMad Method 是一个通用的 AI 代理框架，专为企业级敏捷开发而�
 在 Claude Code 中使用以下命令初始化 BMad 工作流：
 
 ```
-/zcf:bmad-init
+/tkp:bmad-init
 ```
 
 ### Codex
@@ -40,7 +40,7 @@ BMad Method 是一个通用的 AI 代理框架，专为企业级敏捷开发而�
 
 ### 1. 一次性导入完整工作流
 
-执行 `/zcf:bmad-init` 后，ZCF 会：
+执行 `/tkp:bmad-init` 后，TKP 会：
 
 - ✅ 导入所有 BMad 指令集和文档模板
 - ✅ 创建完整的项目结构
@@ -74,7 +74,7 @@ BMad 提供完整的专业 AI 代理团队，包括：
 
 ```bash
 # 在项目根目录执行
-/zcf:bmad-init
+/tkp:bmad-init
 
 # BMad 会引导你：
 # 1. 创建 PRD（产品需求文档）
@@ -89,7 +89,7 @@ BMad 提供完整的专业 AI 代理团队，包括：
 
 ```bash
 # 在现有项目根目录执行
-/zcf:bmad-init
+/tkp:bmad-init
 
 # BMad 会：
 # 1. 分析现有代码结构
@@ -144,7 +144,7 @@ BMad 工作流遵循以下阶段：
 
 ```bash
 # 团队成员统一执行
-/zcf:bmad-init
+/tkp:bmad-init
 
 # 这样可以确保：
 # - 工作流规范一致
@@ -158,7 +158,7 @@ BMad 工作流遵循以下阶段：
 
 ```bash
 # 配置 MCP 服务
-npx zcf
+npx tkp
 # 选择 4 (配置 MCP)
 
 # 推荐服务：
@@ -179,19 +179,19 @@ npx zcf
 - **版本控制**：将文档纳入 Git 版本控制
 - **团队共享**：确保团队成员能够访问最新文档
 
-### 5. 与 ZCF 其他工作流结合
+### 5. 与 TKP 其他工作流结合
 
-BMad 可以与其他 ZCF 工作流结合使用：
+BMad 可以与其他 TKP 工作流结合使用：
 
 ```bash
 # 1. 使用 BMad 进行项目规划
-/zcf:bmad-init
+/tkp:bmad-init
 
 # 2. 使用六阶段工作流实现具体功能
-/zcf:workflow 实现用户登录功能
+/tkp:workflow 实现用户登录功能
 
 # 3. 使用功能开发工作流处理新需求
-/zcf:feat 添加评论功能
+/tkp:feat 添加评论功能
 
 # 4. 使用 Git 工作流管理代码
 /git-commit
@@ -218,7 +218,7 @@ BMad 初始化后会在项目根目录创建以下结构：
 
 ### 初始化失败
 
-如果 `/zcf:bmad-init` 执行失败：
+如果 `/tkp:bmad-init` 执行失败：
 
 ```bash
 # 1. 检查是否在项目根目录
@@ -228,10 +228,10 @@ pwd
 ls -la ~/.claude/workflows/bmad/
 
 # 3. 重新安装工作流
-npx zcf update -w bmadWorkflow
+npx tkp update -w bmadWorkflow
 
 # 4. 检查 Claude Code 版本
-npx zcf check-updates
+npx tkp check-updates
 ```
 
 ### 文档生成问题
@@ -247,7 +247,7 @@ cat PRD.md
 cat ARCHITECTURE.md
 
 # 3. 重新初始化（会合并更新，不会覆盖已有内容）
-/zcf:bmad-init
+/tkp:bmad-init
 ```
 
 ### 代理团队配置问题
@@ -262,14 +262,14 @@ cat ~/.claude/workflows/bmad/bmad-init.md
 cat ~/.claude/settings.json | jq .mcpServers
 
 # 3. 重新配置 MCP 服务（如果需要）
-npx zcf
+npx tkp
 # 选择 4 (配置 MCP)
 ```
 
 ## 相关资源
 
 - **官方文档**：[BMad Method - GitHub](https://github.com/bmad-code-org/BMAD-METHOD)
-- **ZCF 工作流**：[工作流系统](../features/workflows.md)
+- **TKP 工作流**：[工作流系统](../features/workflows.md)
 - **项目初始化**：[init-project 命令](../workflows/git-commands.md#init-project)
 - **MCP 服务**：[MCP 服务集成](../features/mcp.md)
 
@@ -292,4 +292,4 @@ BMad 工作流特别适合：
 - ⚠️ **小型项目**：简单的个人项目或小工具
 - ⚠️ **一次性脚本**：不需要持续维护的脚本
 
-> 💡 **提示**：BMad 工作流是 ZCF 工作流生态的重要组成部分，特别适合企业级项目的规范化开发。建议在项目早期就引入 BMad 工作流，以获得最大的收益。结合 ZCF 的其他工作流和工具，可以构建完整的 AI 驱动开发流程。
+> 💡 **提示**：BMad 工作流是 TKP 工作流生态的重要组成部分，特别适合企业级项目的规范化开发。建议在项目早期就引入 BMad 工作流，以获得最大的收益。结合 TKP 的其他工作流和工具，可以构建完整的 AI 驱动开发流程。

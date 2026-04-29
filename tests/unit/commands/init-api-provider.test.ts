@@ -42,9 +42,12 @@ vi.mock('../../../src/utils/output-style', () => ({
   configureOutputStyle: vi.fn(),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
+  readDefaultTomlConfig: vi.fn(),
+  createDefaultTomlConfig: vi.fn(),
+  migrateTkpConfigIfNeeded: vi.fn(() => ({ migrated: false, target: '', removed: [] })),
 }))
 
 vi.mock('../../../src/utils/cometix/installer', () => ({
@@ -62,16 +65,17 @@ vi.mock('../../../src/utils/claude-config', () => ({
 
 vi.mock('node:fs', () => ({
   existsSync: vi.fn(),
+  mkdirSync: vi.fn(),
 }))
 
 vi.mock('../../../src/constants', () => ({
   CLAUDE_DIR: '/test/.claude',
   DEFAULT_CODE_TOOL_TYPE: 'claude-code',
   SETTINGS_FILE: '/test/.claude/settings.json',
-  ZCF_CONFIG_DIR: '/test/.ufomiao/zcf',
-  ZCF_CONFIG_FILE: '/test/.ufomiao/zcf/config.toml',
+  TKP_CONFIG_DIR: '/test/.tkp',
+  TKP_CONFIG_FILE: '/test/.tkp/config.toml',
   CODE_TOOL_BANNERS: {
-    'claude-code': 'ZCF',
+    'claude-code': 'TKP',
   },
   API_DEFAULT_URL: 'https://api.anthropic.com',
   API_ENV_KEY: 'ANTHROPIC_API_KEY',
@@ -194,7 +198,7 @@ describe('init command - API provider preset', () => {
       const { init } = await import('../../../src/commands/init')
       const { getInstallationStatus } = await import('../../../src/utils/installer')
       const { existsSync } = await import('node:fs')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { configureApi } = await import('../../../src/utils/config')
 
       vi.mocked(getInstallationStatus).mockResolvedValue({
@@ -203,7 +207,7 @@ describe('init command - API provider preset', () => {
         localPath: '/test/.claude/local/claude',
       })
       vi.mocked(existsSync).mockReturnValue(false)
-      vi.mocked(readZcfConfig).mockReturnValue({
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'claude-code',
@@ -235,7 +239,7 @@ describe('init command - API provider preset', () => {
       const { init } = await import('../../../src/commands/init')
       const { getInstallationStatus } = await import('../../../src/utils/installer')
       const { existsSync } = await import('node:fs')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { configureApi } = await import('../../../src/utils/config')
 
       vi.mocked(getInstallationStatus).mockResolvedValue({
@@ -244,7 +248,7 @@ describe('init command - API provider preset', () => {
         localPath: '/test/.claude/local/claude',
       })
       vi.mocked(existsSync).mockReturnValue(false)
-      vi.mocked(readZcfConfig).mockReturnValue({
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'claude-code',
@@ -276,7 +280,7 @@ describe('init command - API provider preset', () => {
       const { init } = await import('../../../src/commands/init')
       const { getInstallationStatus } = await import('../../../src/utils/installer')
       const { existsSync } = await import('node:fs')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { configureApi } = await import('../../../src/utils/config')
 
       vi.mocked(getInstallationStatus).mockResolvedValue({
@@ -285,7 +289,7 @@ describe('init command - API provider preset', () => {
         localPath: '/test/.claude/local/claude',
       })
       vi.mocked(existsSync).mockReturnValue(false)
-      vi.mocked(readZcfConfig).mockReturnValue({
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'claude-code',
@@ -317,7 +321,7 @@ describe('init command - API provider preset', () => {
       const { init } = await import('../../../src/commands/init')
       const { getInstallationStatus } = await import('../../../src/utils/installer')
       const { existsSync } = await import('node:fs')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { configureApi } = await import('../../../src/utils/config')
 
       vi.mocked(getInstallationStatus).mockResolvedValue({
@@ -326,7 +330,7 @@ describe('init command - API provider preset', () => {
         localPath: '/test/.claude/local/claude',
       })
       vi.mocked(existsSync).mockReturnValue(false)
-      vi.mocked(readZcfConfig).mockReturnValue({
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'claude-code',

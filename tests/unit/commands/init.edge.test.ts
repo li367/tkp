@@ -10,9 +10,9 @@ import { configureApiCompletely } from '../../../src/utils/config-operations'
 import { getInstallationStatus, installClaudeCode, isClaudeCodeInstalled } from '../../../src/utils/installer'
 import { isTermux, isWindows } from '../../../src/utils/platform'
 import { resolveAiOutputLanguage, resolveTemplateLanguage } from '../../../src/utils/prompts'
+import { readTkpConfig } from '../../../src/utils/tkp-config'
 import { promptBoolean } from '../../../src/utils/toggle-prompt'
 import { selectAndInstallWorkflows } from '../../../src/utils/workflow-installer'
-import { readZcfConfig } from '../../../src/utils/zcf-config'
 
 // Mock modules with comprehensive error scenarios
 vi.mock('inquirer', () => ({
@@ -73,9 +73,9 @@ vi.mock('../../../src/utils/platform', () => ({
   isTermux: vi.fn(),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
 }))
 
 vi.mock('../../../src/utils/banner', () => ({
@@ -127,7 +127,7 @@ interface TestMocks {
   isClaudeCodeInstalled: any
   getInstallationStatus: any
   installClaudeCode: any
-  readZcfConfig: any
+  readTkpConfig: any
   resolveAiOutputLanguage: any
   resolveTemplateLanguage: any
   isTermux: any
@@ -152,7 +152,7 @@ describe('init - Edge Cases', () => {
       isClaudeCodeInstalled: isClaudeCodeInstalled as any,
       getInstallationStatus: getInstallationStatus as any,
       installClaudeCode: installClaudeCode as any,
-      readZcfConfig: readZcfConfig as any,
+      readTkpConfig: readTkpConfig as any,
       resolveAiOutputLanguage: resolveAiOutputLanguage as any,
       resolveTemplateLanguage: resolveTemplateLanguage as any,
       isTermux: isTermux as any,
@@ -170,7 +170,7 @@ describe('init - Edge Cases', () => {
       hasLocal: false,
       localPath: '/Users/test/.claude/local/claude',
     })
-    testMocks.readZcfConfig.mockReturnValue({})
+    testMocks.readTkpConfig.mockReturnValue({})
     testMocks.resolveAiOutputLanguage.mockResolvedValue('en')
     testMocks.resolveTemplateLanguage.mockResolvedValue('en')
     testMocks.isTermux.mockReturnValue(false)

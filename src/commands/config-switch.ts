@@ -8,7 +8,7 @@ import { ClaudeCodeConfigManager } from '../utils/claude-code-config-manager'
 import { listCodexProviders, readCodexConfig, switchToOfficialLogin as switchCodexOfficialLogin, switchCodexProvider, switchToProvider } from '../utils/code-tools/codex'
 import { handleGeneralError } from '../utils/error-handler'
 import { addNumbersToChoices } from '../utils/prompt-helpers'
-import { readZcfConfig } from '../utils/zcf-config'
+import { readTkpConfig } from '../utils/tkp-config'
 
 interface ConfigSwitchOptions {
   codeType?: CodeToolType // --code-type, -T
@@ -50,7 +50,7 @@ export async function configSwitchCommand(options: ConfigSwitchOptions): Promise
 }
 
 /**
- * Resolve code type with priority: parameter > ZCF config > default value (claude-code)
+ * Resolve code type with priority: parameter > TKP config > default value (claude-code)
  * @param codeType - Code type from command line parameter (supports short aliases like 'cc', 'cx')
  */
 function resolveCodeType(codeType?: unknown): CodeToolType {
@@ -60,8 +60,8 @@ function resolveCodeType(codeType?: unknown): CodeToolType {
     return resolved
   }
 
-  // Fall back to ZCF config
-  const zcfConfig = readZcfConfig()
+  // Fall back to TKP config
+  const zcfConfig = readTkpConfig()
   if (zcfConfig?.codeToolType && isCodeToolType(zcfConfig.codeToolType)) {
     return zcfConfig.codeToolType
   }

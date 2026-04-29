@@ -20,7 +20,7 @@
 - 统一 git workflows 到 `templates/common/workflow/git/`
 - 统一 sixStep workflows 到 `templates/common/workflow/sixStep/`
 - 移除重复的 Codex 模板（现与 Claude Code 共享）
-- 统一 sixStep 计划目录为 `.zcf`
+- 统一 sixStep 计划目录为 `.tkp`
 
 ## Module Responsibilities
 
@@ -77,7 +77,7 @@ templates/
 
 ### Six-Step Workflow
 - **Commands**: `workflow`
-- **Plan Directory**: `.zcf` (unified in v3.5.0)
+- **Plan Directory**: `.tkp` (unified in v3.5.0)
 
 ### Planning Workflow (Plan)
 - **Commands**: `feat`

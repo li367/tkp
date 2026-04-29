@@ -11,10 +11,10 @@ vi.mock('../../../src/utils/prompts', () => ({
   selectScriptLanguage: vi.fn().mockResolvedValue('en'),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  readZcfConfigAsync: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  readTkpConfigAsync: vi.fn(),
+  updateTkpConfig: vi.fn(),
 }))
 
 vi.mock('../../../src/utils/banner', () => ({
@@ -106,10 +106,10 @@ describe('menu command - Edge Cases', () => {
   describe('error handling edge cases', () => {
     it('should call handleGeneralError when handleExitPromptError returns false', async () => {
       const { showMainMenu } = await import('../../../src/commands/menu')
-      const { readZcfConfigAsync } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfigAsync } = await import('../../../src/utils/tkp-config')
       const { handleExitPromptError, handleGeneralError } = await import('../../../src/utils/error-handler')
 
-      vi.mocked(readZcfConfigAsync).mockResolvedValue({
+      vi.mocked(readTkpConfigAsync).mockResolvedValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'claude-code',
@@ -134,10 +134,10 @@ describe('menu command - Edge Cases', () => {
 
     it('should not call handleGeneralError when handleExitPromptError returns true', async () => {
       const { showMainMenu } = await import('../../../src/commands/menu')
-      const { readZcfConfigAsync } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfigAsync } = await import('../../../src/utils/tkp-config')
       const { handleExitPromptError, handleGeneralError } = await import('../../../src/utils/error-handler')
 
-      vi.mocked(readZcfConfigAsync).mockResolvedValue({
+      vi.mocked(readTkpConfigAsync).mockResolvedValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'claude-code',

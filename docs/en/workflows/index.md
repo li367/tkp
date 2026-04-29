@@ -4,11 +4,11 @@ title: Workflow Overview
 
 # Workflow Overview
 
-ZCF helps teams standardize development processes through MCP + workflow templates. This chapter introduces the positioning and usage of each workflow.
+TKP helps teams standardize development processes through MCP + workflow templates. This chapter introduces the positioning and usage of each workflow.
 
 | Workflow | Use Case | Key Features |
 | --- | --- | --- |
-| [ZCF Six-Stage Workflow](zcf-workflow.md) | General development tasks | Six-stage closed loop, automatic quality checks, interactive confirmation |
+| [TKP Six-Stage Workflow](tkp-workflow.md) | General development tasks | Six-stage closed loop, automatic quality checks, interactive confirmation |
 | [Feature Development Workflow](feat.md) | New feature design and implementation | Planning + UI/UX agent collaboration |
 | [BMad Agile Process](bmad.md) | Large project agile iterations | Multi-stage ceremony management |
 | [Spec Workflow Integration](spec.md) | Requirements documentation and specification generation | Spec MCP integration |
@@ -21,8 +21,8 @@ Use different command prefixes based on the tool used:
 ### Claude Code
 
 Use the following commands in Claude Code:
-- `/zcf:workflow` - Six-stage workflow
-- `/zcf:feat` - Feature development workflow
+- `/tkp:workflow` - Six-stage workflow
+- `/tkp:feat` - Feature development workflow
 - `/git-commit` - Git commit command
 - `/init-project` - Project initialization
 

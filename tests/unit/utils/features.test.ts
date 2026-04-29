@@ -69,9 +69,9 @@ vi.mock('../../../src/utils/prompts', () => ({
   selectAiOutputLanguage: vi.fn(),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
 }))
 
 vi.mock('../../../src/utils/output-style', () => ({
@@ -387,35 +387,35 @@ describe('features utilities', () => {
       const { applyAiLanguageDirective } = await import('../../../src/utils/config')
       await import('../../../src/utils/output-style')
       const { selectAiOutputLanguage } = await import('../../../src/utils/prompts')
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
 
-      vi.mocked(readZcfConfig).mockReturnValue({} as any)
+      vi.mocked(readTkpConfig).mockReturnValue({} as any)
       vi.mocked(inquirer.prompt).mockResolvedValue({
         option: 'language',
       })
       vi.mocked(selectAiOutputLanguage).mockResolvedValue('chinese-simplified')
       vi.mocked(applyAiLanguageDirective).mockResolvedValue(undefined)
-      vi.mocked(updateZcfConfig).mockResolvedValue(undefined)
+      vi.mocked(updateTkpConfig).mockResolvedValue(undefined)
 
       await configureAiMemoryFeature()
 
       expect(selectAiOutputLanguage).toHaveBeenCalledWith()
       expect(applyAiLanguageDirective).toHaveBeenCalledWith('chinese-simplified')
-      expect(updateZcfConfig).toHaveBeenCalledWith({ aiOutputLang: 'chinese-simplified' })
+      expect(updateTkpConfig).toHaveBeenCalledWith({ aiOutputLang: 'chinese-simplified' })
     })
 
     it('should show existing language config and ask for modification', async () => {
       const { configureAiMemoryFeature } = await import('../../../src/utils/features')
       const { applyAiLanguageDirective } = await import('../../../src/utils/config')
       const { selectAiOutputLanguage } = await import('../../../src/utils/prompts')
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
 
-      vi.mocked(readZcfConfig).mockReturnValue({ aiOutputLang: 'en' } as any)
+      vi.mocked(readTkpConfig).mockReturnValue({ aiOutputLang: 'en' } as any)
       vi.mocked(inquirer.prompt).mockResolvedValueOnce({ option: 'language' })
       queuePromptBooleans(true)
       vi.mocked(selectAiOutputLanguage).mockResolvedValue('zh-CN')
       vi.mocked(applyAiLanguageDirective).mockResolvedValue(undefined)
-      vi.mocked(updateZcfConfig).mockResolvedValue(undefined)
+      vi.mocked(updateTkpConfig).mockResolvedValue(undefined)
 
       await configureAiMemoryFeature()
 
@@ -428,9 +428,9 @@ describe('features utilities', () => {
       const { configureAiMemoryFeature } = await import('../../../src/utils/features')
       const { applyAiLanguageDirective } = await import('../../../src/utils/config')
       const { selectAiOutputLanguage } = await import('../../../src/utils/prompts')
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
 
-      vi.mocked(readZcfConfig).mockReturnValue({ aiOutputLang: 'chinese-simplified' } as any)
+      vi.mocked(readTkpConfig).mockReturnValue({ aiOutputLang: 'chinese-simplified' } as any)
       vi.mocked(inquirer.prompt).mockResolvedValueOnce({ option: 'language' })
       queuePromptBooleans(false)
 
@@ -438,7 +438,7 @@ describe('features utilities', () => {
 
       expect(selectAiOutputLanguage).not.toHaveBeenCalled()
       expect(applyAiLanguageDirective).not.toHaveBeenCalled()
-      expect(updateZcfConfig).not.toHaveBeenCalled()
+      expect(updateTkpConfig).not.toHaveBeenCalled()
     })
 
     it('should configure AI output style when outputStyle option selected', async () => {
@@ -472,15 +472,15 @@ describe('features utilities', () => {
   describe('changeScriptLanguageFeature', () => {
     it('should change script language', async () => {
       const { changeScriptLanguageFeature } = await import('../../../src/utils/features')
-      const { updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { updateTkpConfig } = await import('../../../src/utils/tkp-config')
 
       vi.mocked(inquirer.prompt).mockResolvedValue({ lang: 'en' })
-      vi.mocked(updateZcfConfig).mockResolvedValue(undefined)
+      vi.mocked(updateTkpConfig).mockResolvedValue(undefined)
 
       const result = await changeScriptLanguageFeature('zh-CN')
 
       expect(result).toBe('en')
-      expect(updateZcfConfig).toHaveBeenCalledWith({ preferredLang: 'en' })
+      expect(updateTkpConfig).toHaveBeenCalledWith({ preferredLang: 'en' })
     })
   })
 
@@ -591,10 +591,10 @@ describe('features utilities', () => {
 
     it('should handle language configuration option', async () => {
       const { configureCodexAiMemoryFeature } = await import('../../../src/utils/features')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { selectAiOutputLanguage } = await import('../../../src/utils/prompts')
 
-      vi.mocked(readZcfConfig).mockReturnValue(null)
+      vi.mocked(readTkpConfig).mockReturnValue(null)
       vi.mocked(inquirer.prompt).mockResolvedValue({ option: 'language' })
       vi.mocked(selectAiOutputLanguage).mockResolvedValue('chinese-simplified')
 
@@ -606,9 +606,9 @@ describe('features utilities', () => {
 
     it('should handle existing language configuration', async () => {
       const { configureCodexAiMemoryFeature } = await import('../../../src/utils/features')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
 
-      vi.mocked(readZcfConfig).mockReturnValue({
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'codex',
@@ -626,10 +626,10 @@ describe('features utilities', () => {
 
     it('should handle system prompt configuration option', async () => {
       const { configureCodexAiMemoryFeature } = await import('../../../src/utils/features')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { runCodexSystemPromptSelection } = await import('../../../src/utils/code-tools/codex')
 
-      vi.mocked(readZcfConfig).mockReturnValue({
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'codex',

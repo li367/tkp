@@ -22,18 +22,18 @@ title: 出力スタイル戦略
 
 ```bash
 # 全スタイルを導入
-npx zcf init -o all
+npx tkp init -o all
 
 # 特定スタイルのみ
-npx zcf init -o engineer-professional,nekomata-engineer
+npx tkp init -o engineer-professional,nekomata-engineer
 
 # スタイル導入をスキップ
-npx zcf init -o skip
+npx tkp init -o skip
 ```
 
 ### 切り替え
 
-- **メインメニュー**：`npx zcf` → 6 を選択しスタイル管理へ。
+- **メインメニュー**：`npx tkp` → 6 を選択しスタイル管理へ。
 - **プロジェクト内**：  
   - Claude Code: `/output-style engineer-professional`  
   - Codex: `config.toml` の `systemPromptStyle` を編集。
@@ -135,7 +135,7 @@ cp team-output-styles/team-standards.md ~/.claude/prompts/output-style/
 
 ## 注意点
 
-- ⚠️ **Claude Code 1.0.81 以上**で出力スタイルが利用可能。`npx zcf check-updates` で確認。
+- ⚠️ **Claude Code 1.0.81 以上**で出力スタイルが利用可能。`npx tkp check-updates` で確認。
 - スタイルファイルの場所  
   - Claude Code: `~/.claude/prompts/output-style/`  
   - Codex: `~/.codex/prompts/output-style/`  

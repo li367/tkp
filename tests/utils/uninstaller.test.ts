@@ -69,7 +69,7 @@ vi.mocked(await import('pathe')).join = vi.fn().mockImplementation((...parts) =>
 vi.mocked(await import('../../src/i18n')).i18n = mockI18n.i18n
 vi.mocked(await import('../../src/utils/trash')).moveToTrash = mockTrash.moveToTrash
 
-describe('zcfUninstaller', () => {
+describe('tkpUninstaller', () => {
   let uninstaller: ZcfUninstaller
 
   beforeEach(() => {
@@ -125,8 +125,8 @@ describe('zcfUninstaller', () => {
   })
 
   describe('removeCustomCommands', () => {
-    it('should remove commands/zcf/ directory', async () => {
-      const commandsPath = '/home/user/.claude/commands/zcf'
+    it('should remove commands/tkp/ directory', async () => {
+      const commandsPath = '/home/user/.claude/commands/tkp'
       mockFsExtra.pathExists.mockResolvedValue(true)
       mockTrash.moveToTrash.mockResolvedValue([{ success: true, path: commandsPath }])
 
@@ -134,7 +134,7 @@ describe('zcfUninstaller', () => {
 
       expect(mockTrash.moveToTrash).toHaveBeenCalledWith(commandsPath)
       expect(result.success).toBe(true)
-      expect(result.removed).toContain('commands/zcf/')
+      expect(result.removed).toContain('commands/tkp/')
     })
 
     it('should handle missing commands directory gracefully', async () => {
@@ -148,8 +148,8 @@ describe('zcfUninstaller', () => {
   })
 
   describe('removeCustomAgents', () => {
-    it('should remove agents/zcf/ directory', async () => {
-      const agentsPath = '/home/user/.claude/agents/zcf'
+    it('should remove agents/tkp/ directory', async () => {
+      const agentsPath = '/home/user/.claude/agents/tkp'
       mockFsExtra.pathExists.mockResolvedValue(true)
       mockTrash.moveToTrash.mockResolvedValue([{ success: true }])
 
@@ -157,7 +157,7 @@ describe('zcfUninstaller', () => {
 
       expect(mockTrash.moveToTrash).toHaveBeenCalledWith(agentsPath)
       expect(result.success).toBe(true)
-      expect(result.removed).toContain('agents/zcf/')
+      expect(result.removed).toContain('agents/tkp/')
     })
 
     it('should warn when agents directory is missing', async () => {

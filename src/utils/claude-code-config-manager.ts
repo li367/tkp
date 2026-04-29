@@ -1,36 +1,36 @@
 import type { CcrConfig } from '../types/ccr'
 import type { ClaudeCodeConfigData, ClaudeCodeProfile, OperationResult } from '../types/claude-code-config'
-import type { ZcfTomlConfig } from '../types/toml-config'
+import type { TkpTomlConfig } from '../types/toml-config'
 import dayjs from 'dayjs'
 import { join } from 'pathe'
-import { SETTINGS_FILE, ZCF_CONFIG_DIR, ZCF_CONFIG_FILE } from '../constants'
+import { SETTINGS_FILE, TKP_CONFIG_DIR, TKP_CONFIG_FILE } from '../constants'
 import { clearModelEnv } from './config.model-keys'
 import { copyFile, ensureDir, exists } from './fs-operations'
 import { readJsonConfig } from './json-config'
-import { createDefaultTomlConfig, readDefaultTomlConfig, writeTomlConfig } from './zcf-config'
+import { createDefaultTomlConfig, readDefaultTomlConfig, writeTomlConfig } from './tkp-config'
 
 export class ClaudeCodeConfigManager {
-  static readonly CONFIG_FILE = ZCF_CONFIG_FILE
-  static readonly LEGACY_CONFIG_FILE = join(ZCF_CONFIG_DIR, 'claude-code-configs.json')
+  static readonly CONFIG_FILE = TKP_CONFIG_FILE
+  static readonly LEGACY_CONFIG_FILE = join(TKP_CONFIG_DIR, 'claude-code-configs.json')
 
   /**
    * Ensure configuration directory exists
    */
   private static ensureConfigDir(): void {
-    ensureDir(ZCF_CONFIG_DIR)
+    ensureDir(TKP_CONFIG_DIR)
   }
 
   /**
    * Read TOML configuration
    */
-  private static readTomlConfig(): ZcfTomlConfig | null {
+  private static readTomlConfig(): TkpTomlConfig | null {
     return readDefaultTomlConfig()
   }
 
   /**
    * Load TOML configuration, falling back to default when missing
    */
-  private static loadTomlConfig(): ZcfTomlConfig {
+  private static loadTomlConfig(): TkpTomlConfig {
     const existingConfig = this.readTomlConfig()
     if (existingConfig) {
       return existingConfig
@@ -172,7 +172,7 @@ export class ClaudeCodeConfigManager {
       )
 
       const tomlConfig = this.loadTomlConfig()
-      const nextTomlConfig: ZcfTomlConfig = {
+      const nextTomlConfig: TkpTomlConfig = {
         ...tomlConfig,
         claudeCode: {
           ...tomlConfig.claudeCode,
@@ -336,7 +336,7 @@ export class ClaudeCodeConfigManager {
       }
 
       const timestamp = dayjs().format('YYYY-MM-DD_HH-mm-ss')
-      const backupPath = join(ZCF_CONFIG_DIR, `config.backup.${timestamp}.toml`)
+      const backupPath = join(TKP_CONFIG_DIR, `config.backup.${timestamp}.toml`)
 
       copyFile(this.CONFIG_FILE, backupPath)
       return backupPath

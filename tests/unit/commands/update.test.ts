@@ -28,9 +28,9 @@ vi.mock('../../../src/utils/config-operations', () => ({
   updatePromptOnly: vi.fn(),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
 }))
 
 vi.mock('../../../src/utils/prompts', () => ({
@@ -93,16 +93,16 @@ describe('update command', () => {
   describe('update function', () => {
     it('should handle update with existing config', async () => {
       const { update } = await import('../../../src/commands/update')
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
       const { resolveAiOutputLanguage, resolveTemplateLanguage } = await import('../../../src/utils/prompts')
       const { updatePromptOnly: _updatePromptOnly } = await import('../../../src/utils/config-operations')
       const { selectAndInstallWorkflows } = await import('../../../src/utils/workflow-installer')
 
-      vi.mocked(readZcfConfig).mockReturnValue({ preferredLang: 'zh-CN', codeToolType: 'claude-code' } as any)
+      vi.mocked(readTkpConfig).mockReturnValue({ preferredLang: 'zh-CN', codeToolType: 'claude-code' } as any)
       vi.mocked(resolveTemplateLanguage).mockResolvedValue('zh-CN')
       vi.mocked(resolveAiOutputLanguage).mockResolvedValue('chinese-simplified')
       vi.mocked(_updatePromptOnly).mockResolvedValue(undefined)
-      vi.mocked(updateZcfConfig).mockResolvedValue(undefined)
+      vi.mocked(updateTkpConfig).mockResolvedValue(undefined)
       vi.mocked(selectAndInstallWorkflows).mockResolvedValue(undefined)
 
       await update({ skipBanner: true })
@@ -129,10 +129,10 @@ describe('update command', () => {
 
     it('should handle cancel update', async () => {
       const { update } = await import('../../../src/commands/update')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const { resolveTemplateLanguage } = await import('../../../src/utils/prompts')
 
-      vi.mocked(readZcfConfig).mockReturnValue({ preferredLang: 'zh-CN', codeToolType: 'claude-code' } as any)
+      vi.mocked(readTkpConfig).mockReturnValue({ preferredLang: 'zh-CN', codeToolType: 'claude-code' } as any)
       vi.mocked(resolveTemplateLanguage).mockImplementation(() => {
         throw new Error('User cancelled')
       })
@@ -144,15 +144,15 @@ describe('update command', () => {
 
     it('should handle options correctly', async () => {
       const { update } = await import('../../../src/commands/update')
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
       const { resolveAiOutputLanguage, resolveTemplateLanguage } = await import('../../../src/utils/prompts')
       const { updatePromptOnly: _updatePromptOnly } = await import('../../../src/utils/config-operations')
 
-      vi.mocked(readZcfConfig).mockReturnValue({ preferredLang: 'zh-CN', codeToolType: 'claude-code' } as any)
+      vi.mocked(readTkpConfig).mockReturnValue({ preferredLang: 'zh-CN', codeToolType: 'claude-code' } as any)
       vi.mocked(resolveTemplateLanguage).mockResolvedValue('en')
       vi.mocked(resolveAiOutputLanguage).mockResolvedValue('chinese-simplified')
       vi.mocked(_updatePromptOnly).mockResolvedValue(undefined)
-      vi.mocked(updateZcfConfig).mockResolvedValue(undefined)
+      vi.mocked(updateTkpConfig).mockResolvedValue(undefined)
 
       const { selectAndInstallWorkflows } = await import('../../../src/utils/workflow-installer')
       vi.mocked(selectAndInstallWorkflows).mockResolvedValue(undefined)
@@ -166,16 +166,16 @@ describe('update command', () => {
 
     it('should persist code tool type selection', async () => {
       const { update } = await import('../../../src/commands/update')
-      const { readZcfConfig, updateZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig, updateTkpConfig } = await import('../../../src/utils/tkp-config')
       const codexModule = await import('../../../src/utils/code-tools/codex')
 
-      vi.mocked(readZcfConfig).mockReturnValue({ preferredLang: 'en', codeToolType: 'claude-code' } as any)
-      vi.mocked(updateZcfConfig).mockResolvedValue(undefined)
+      vi.mocked(readTkpConfig).mockReturnValue({ preferredLang: 'en', codeToolType: 'claude-code' } as any)
+      vi.mocked(updateTkpConfig).mockResolvedValue(undefined)
       const codexUpdateSpy = vi.spyOn(codexModule, 'runCodexUpdate').mockResolvedValue(true)
 
       await update({ codeType: 'codex', configLang: 'en', aiOutputLang: 'english', skipBanner: true })
 
-      expect(updateZcfConfig).toHaveBeenCalledWith(
+      expect(updateTkpConfig).toHaveBeenCalledWith(
         expect.objectContaining({
           codeToolType: 'codex',
         }),
@@ -186,10 +186,10 @@ describe('update command', () => {
 
     it('should handle errors gracefully', async () => {
       const { update } = await import('../../../src/commands/update')
-      const { readZcfConfig } = await import('../../../src/utils/zcf-config')
+      const { readTkpConfig } = await import('../../../src/utils/tkp-config')
       const error = new Error('Test error')
 
-      vi.mocked(readZcfConfig).mockImplementation(() => {
+      vi.mocked(readTkpConfig).mockImplementation(() => {
         throw error
       })
 

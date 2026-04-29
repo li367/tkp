@@ -18,9 +18,9 @@ import {
   configureMcpFeature,
 } from '../utils/features'
 import { addNumbersToChoices } from '../utils/prompt-helpers'
+import { readTkpConfig, updateTkpConfig } from '../utils/tkp-config'
 import { promptBoolean } from '../utils/toggle-prompt'
 import { runCcrMenuFeature, runCcusageFeature, runCometixMenuFeature } from '../utils/tools'
-import { readZcfConfig, updateZcfConfig } from '../utils/zcf-config'
 import { checkUpdates } from './check-updates'
 import { init } from './init'
 import { uninstall } from './uninstall'
@@ -34,7 +34,7 @@ const CODE_TOOL_LABELS: Record<CodeToolType, string> = {
 }
 
 function getCurrentCodeTool(): CodeToolType {
-  const config = readZcfConfig()
+  const config = readTkpConfig()
   if (config?.codeToolType && isCodeToolType(config.codeToolType)) {
     return config.codeToolType
   }
@@ -78,7 +78,7 @@ async function handleCodeToolSwitch(current: CodeToolType): Promise<boolean> {
     return false
   }
 
-  updateZcfConfig({ codeToolType: newTool })
+  updateTkpConfig({ codeToolType: newTool })
   console.log(ansis.green(`✔ ${i18n.t('menu:codeToolSwitched', { tool: getCodeToolLabel(newTool) })}`))
   return true
 }
@@ -103,7 +103,7 @@ function printZcfSection(options: {
   updateOption: string
   updateDescription: string
 }): void {
-  console.log('  ------------ ZCF ------------')
+  console.log('  ------------ TKP ------------')
   console.log(
     `  ${ansis.cyan('0.')} ${i18n.t('menu:menuOptions.changeLanguage')} ${ansis.gray(`- ${i18n.t('menu:menuDescriptions.changeLanguage')}`)}`,
   )
@@ -366,7 +366,7 @@ export async function showMainMenu(options: { codeType?: string } = {}): Promise
         const currentType = getCurrentCodeTool()
 
         if (resolvedType !== currentType) {
-          updateZcfConfig({ codeToolType: resolvedType })
+          updateTkpConfig({ codeToolType: resolvedType })
           console.log(ansis.green(`✔ ${i18n.t('menu:codeToolSwitched', { tool: getCodeToolLabel(resolvedType) })}`))
         }
       }
@@ -380,7 +380,7 @@ export async function showMainMenu(options: { codeType?: string } = {}): Promise
     let exitMenu = false
     while (!exitMenu) {
       const codeTool = getCurrentCodeTool()
-      displayBannerWithInfo(CODE_TOOL_BANNERS[codeTool] || 'ZCF')
+      displayBannerWithInfo(CODE_TOOL_BANNERS[codeTool] || 'TKP')
 
       const result = codeTool === 'codex'
         ? await showCodexMenu()

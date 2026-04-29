@@ -4,11 +4,11 @@ title: API プロバイダープリセット
 
 # API プロバイダープリセット
 
-ZCFは、API設定を大幅に簡素化できるAPIプロバイダープリセットシステムを提供します。プリセットを使用すると、5つ以上のパラメータから2つ（プロバイダー + APIキー）に設定を減らすことができます。
+TKPは、API設定を大幅に簡素化できるAPIプロバイダープリセットシステムを提供します。プリセットを使用すると、5つ以上のパラメータから2つ（プロバイダー + APIキー）に設定を減らすことができます。
 
 ## サポートされているプロバイダー
 
-ZCFは現在、以下のAPIプロバイダープリセットをサポートしています：
+TKPは現在、以下のAPIプロバイダープリセットをサポートしています：
 
 | プリセットID | プロバイダー名 | 説明 | Claude Code サポート | Codex サポート | 認証方式 |
 |---------|-----------|------|----------------|-----------|---------|
@@ -43,10 +43,10 @@ ZCFは現在、以下のAPIプロバイダープリセットをサポートし�
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p 302ai -k "sk-xxx"
+npx tkp init -s -p 302ai -k "sk-xxx"
 
 # Codex
-npx zcf init -s -T codex -p 302ai -k "sk-xxx"
+npx tkp init -s -T codex -p 302ai -k "sk-xxx"
 ```
 
 ### AICodeMirror
@@ -67,10 +67,10 @@ npx zcf init -s -T codex -p 302ai -k "sk-xxx"
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p aicodemirror -k "your-auth-token"
+npx tkp init -s -p aicodemirror -k "your-auth-token"
 
 # Codex
-npx zcf init -s -T codex -p aicodemirror -k "your-auth-token"
+npx tkp init -s -T codex -p aicodemirror -k "your-auth-token"
 ```
 
 ### AICodeMirror CN
@@ -91,10 +91,10 @@ npx zcf init -s -T codex -p aicodemirror -k "your-auth-token"
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p aicodemirror-cn -k "your-auth-token"
+npx tkp init -s -p aicodemirror-cn -k "your-auth-token"
 
 # Codex
-npx zcf init -s -T codex -p aicodemirror-cn -k "your-auth-token"
+npx tkp init -s -T codex -p aicodemirror-cn -k "your-auth-token"
 ```
 
 ### Crazyrouter
@@ -117,10 +117,10 @@ npx zcf init -s -T codex -p aicodemirror-cn -k "your-auth-token"
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p crazyrouter -k "your-api-key"
+npx tkp init -s -p crazyrouter -k "your-api-key"
 
 # Codex
-npx zcf init -s -T codex -p crazyrouter -k "your-api-key"
+npx tkp init -s -T codex -p crazyrouter -k "your-api-key"
 ```
 
 ### GLM (智譜AI)
@@ -143,10 +143,10 @@ npx zcf init -s -T codex -p crazyrouter -k "your-api-key"
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p glm -k "your-auth-token"
+npx tkp init -s -p glm -k "your-auth-token"
 
 # Codex
-npx zcf init -s -T codex -p glm -k "your-auth-token"
+npx tkp init -s -T codex -p glm -k "your-auth-token"
 ```
 
 ### MiniMax
@@ -168,10 +168,10 @@ npx zcf init -s -T codex -p glm -k "your-auth-token"
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p minimax -k "your-auth-token"
+npx tkp init -s -p minimax -k "your-auth-token"
 
 # Codex
-npx zcf init -s -T codex -p minimax -k "your-auth-token"
+npx tkp init -s -T codex -p minimax -k "your-auth-token"
 ```
 
 ### Kimi (月の暗面)
@@ -194,10 +194,10 @@ npx zcf init -s -T codex -p minimax -k "your-auth-token"
 **使用例**:
 ```bash
 # Claude Code
-npx zcf init -s -p kimi -k "your-auth-token"
+npx tkp init -s -p kimi -k "your-auth-token"
 
 # Codex
-npx zcf init -s -T codex -p kimi -k "your-auth-token"
+npx tkp init -s -T codex -p kimi -k "your-auth-token"
 ```
 
 ### カスタム
@@ -212,10 +212,10 @@ npx zcf init -s -T codex -p kimi -k "your-auth-token"
 **使用方法**:
 ```bash
 # カスタムプロバイダーを使用（URLが必要）
-npx zcf init -s -p custom -k "sk-xxx" -u "https://api.example.com/v1"
+npx tkp init -s -p custom -k "sk-xxx" -u "https://api.example.com/v1"
 
 # または従来の方法を使用（プリセットなし）
-npx zcf init -s -t api_key -k "sk-xxx" -u "https://api.example.com/v1"
+npx tkp init -s -t api_key -k "sk-xxx" -u "https://api.example.com/v1"
 ```
 
 ## 使用方法
@@ -226,15 +226,15 @@ npx zcf init -s -t api_key -k "sk-xxx" -u "https://api.example.com/v1"
 
 ```bash
 # プロバイダープリセットを使用
-npx zcf init -s -p <provider-id> -k <api-key>
+npx tkp init -s -p <provider-id> -k <api-key>
 
 # 例: 302.AIを使用
-npx zcf init -s -p 302ai -k "sk-xxx"
+npx tkp init -s -p 302ai -k "sk-xxx"
 ```
 
 ### 自動設定
 
-プリセットを使用すると、ZCFは自動的に以下を設定します：
+プリセットを使用すると、TKPは自動的に以下を設定します：
 
 1. ✅ **Base URL**: 正しいAPIエンドポイントを自動入力
 2. ✅ **認証方式**: 認証タイプ（`api_key`または`auth_token`）を自動設定
@@ -247,12 +247,12 @@ npx zcf init -s -p 302ai -k "sk-xxx"
 
 ```bash
 # プリセットを使用するが、モデルを上書き
-npx zcf init -s -p 302ai -k "sk-xxx" \
+npx tkp init -s -p 302ai -k "sk-xxx" \
   -M "claude-sonnet-4-5" \
   -F "claude-haiku-4-5"
 
 # プリセットを使用するが、URLを上書き（推奨されない、テスト時を除く）
-npx zcf init -s -p 302ai -k "sk-xxx" \
+npx tkp init -s -p 302ai -k "sk-xxx" \
   -u "https://custom.302.ai/api"
 ```
 
@@ -264,7 +264,7 @@ npx zcf init -s -p 302ai -k "sk-xxx" \
 
 ```bash
 # JSON文字列を使用して複数のプロバイダーを設定
-npx zcf init -s --api-configs '[
+npx tkp init -s --api-configs '[
   {
     "provider": "302ai",
     "key": "sk-302ai-xxx",
@@ -304,7 +304,7 @@ npx zcf init -s --api-configs '[
 }
 
 # 設定ファイルを使用
-npx zcf init -s --api-configs-file ./api-configs.json
+npx tkp init -s --api-configs-file ./api-configs.json
 ```
 
 ## プロバイダーの切り替え
@@ -315,20 +315,20 @@ npx zcf init -s --api-configs-file ./api-configs.json
 
 ```bash
 # すべての設定を一覧表示
-npx zcf config-switch --list
+npx tkp config-switch --list
 
 # 指定されたプロバイダーに切り替え
-npx zcf config-switch 302ai-config
+npx tkp config-switch 302ai-config
 ```
 
 ### Codex
 
 ```bash
 # Codexプロバイダーを一覧表示
-npx zcf config-switch --code-type codex --list
+npx tkp config-switch --code-type codex --list
 
 # 指定されたプロバイダーに切り替え
-npx zcf config-switch glm-provider --code-type codex
+npx tkp config-switch glm-provider --code-type codex
 ```
 
 ## ベストプラクティス
@@ -342,10 +342,10 @@ npx zcf config-switch glm-provider --code-type codex
 
 ```bash
 # 推奨: プリセットを使用
-npx zcf init -s -p 302ai -k "sk-xxx"
+npx tkp init -s -p 302ai -k "sk-xxx"
 
 # 推奨されない: すべてのパラメータを手動で設定
-npx zcf init -s -t api_key -k "sk-xxx" -u "https://api.302.ai/cc" -M "claude-sonnet-4-5"
+npx tkp init -s -t api_key -k "sk-xxx" -u "https://api.302.ai/cc" -M "claude-sonnet-4-5"
 ```
 
 ### 2. 設定のテスト
@@ -354,13 +354,13 @@ npx zcf init -s -t api_key -k "sk-xxx" -u "https://api.302.ai/cc" -M "claude-son
 
 ```bash
 # 1. プリセットを使用して初期化
-npx zcf init -s -p 302ai -k "test-key"
+npx tkp init -s -p 302ai -k "test-key"
 
 # 2. API接続をテスト
 # Claude CodeまたはCodexで会話をテスト
 
 # 3. 正常な場合、本番キーで再設定
-npx zcf init -s -p 302ai -k "production-key"
+npx tkp init -s -p 302ai -k "production-key"
 ```
 
 ### 3. マルチプロバイダー戦略
@@ -369,13 +369,13 @@ npx zcf init -s -p 302ai -k "production-key"
 
 ```bash
 # プロジェクト A: 302.AI プロバイダーを使用
-npx zcf config-switch 302ai-provider
+npx tkp config-switch 302ai-provider
 
 # プロジェクト B: GLM プロバイダーを使用
-npx zcf config-switch glm-provider
+npx tkp config-switch glm-provider
 
 # プロジェクト C: MiniMax プロバイダーを使用
-npx zcf config-switch minimax-provider
+npx tkp config-switch minimax-provider
 ```
 
 ### 4. キーのセキュリティ
@@ -387,11 +387,11 @@ npx zcf config-switch minimax-provider
 
 ```bash
 # 環境変数を使用
-export ZCF_API_KEY="sk-xxx"
-npx zcf init -s -p 302ai -k "$ZCF_API_KEY"
+export TKP_API_KEY="sk-xxx"
+npx tkp init -s -p 302ai -k "$TKP_API_KEY"
 
 # またはファイルから読み取る（ファイルの権限が正しいことを確認）
-npx zcf init -s -p 302ai -k "$(cat ~/.zcf/api-key)"
+npx tkp init -s -p 302ai -k "$(cat ~/.tkp/api-key)"
 ```
 
 ## トラブルシューティング
@@ -402,7 +402,7 @@ npx zcf init -s -p 302ai -k "$(cat ~/.zcf/api-key)"
 
 ```bash
 # エラーメッセージにすべての有効な値が表示されます
-npx zcf init -s -p invalid-provider -k "sk-xxx"
+npx tkp init -s -p invalid-provider -k "sk-xxx"
 # エラー: Invalid provider 'invalid-provider'. Valid providers: 302ai, glm, minimax, kimi, custom
 ```
 
@@ -426,7 +426,7 @@ cat ~/.codex/config.toml | grep apiKey
 
 ```bash
 # デフォルトモデルを上書き
-npx zcf init -s -p 302ai -k "sk-xxx" -M "claude-sonnet-4-5"
+npx tkp init -s -p 302ai -k "sk-xxx" -M "claude-sonnet-4-5"
 
 # または設定ファイルを手動で編集
 vim ~/.claude/settings.json

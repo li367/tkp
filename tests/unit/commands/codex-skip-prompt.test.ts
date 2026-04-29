@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { applyAiLanguageDirective } from '../../../src/utils/config'
 import { exists, readFile } from '../../../src/utils/fs-operations'
 import { resolveAiOutputLanguage, resolveTemplateLanguage } from '../../../src/utils/prompts'
-import { readZcfConfig, updateZcfConfig } from '../../../src/utils/zcf-config'
+import { readTkpConfig, updateTkpConfig } from '../../../src/utils/tkp-config'
 
 // Mock i18n
 vi.mock('../../../src/i18n', () => ({
@@ -50,10 +50,10 @@ vi.mock('../../../src/utils/prompts', () => ({
   resolveSystemPromptStyle: vi.fn(),
 }))
 
-// Mock zcf-config
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+// Mock tkp-config
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
 }))
 
 // Mock config operations
@@ -104,13 +104,13 @@ describe('codex Skip Prompt Integration', () => {
     vi.mocked(resolveTemplateLanguage).mockResolvedValue('zh-CN')
     vi.mocked(exists).mockReturnValue(true)
     vi.mocked(readFile).mockReturnValue('# Mock file content')
-    vi.mocked(readZcfConfig).mockReturnValue({
+    vi.mocked(readTkpConfig).mockReturnValue({
       preferredLang: 'zh-CN',
       version: '3.1.3',
       codeToolType: 'codex',
       lastUpdated: '2025-01-15',
     })
-    vi.mocked(updateZcfConfig).mockImplementation(() => {})
+    vi.mocked(updateTkpConfig).mockImplementation(() => {})
     vi.mocked(applyAiLanguageDirective).mockImplementation(() => {})
   })
 
@@ -181,7 +181,7 @@ describe('codex Skip Prompt Integration', () => {
       })
       vi.mocked(readFile).mockImplementation((path: string) => {
         if (path.includes('config.toml')) {
-          return `# --- model provider added by ZCF ---
+          return `# --- model provider added by TKP ---
 model = "claude-3-5-sonnet-20241022"
 model_provider = "official"
 

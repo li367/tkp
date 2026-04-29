@@ -4,11 +4,11 @@ title: Templates and Output Styles
 
 # Templates and Output Styles
 
-ZCF provides a complete template system, including workflow templates, output style templates, and system prompt templates. These templates support multiple languages (Chinese and English) and can be customized to meet team-specific needs.
+TKP provides a complete template system, including workflow templates, output style templates, and system prompt templates. These templates support multiple languages (Chinese and English) and can be customized to meet team-specific needs.
 
 ## Template System Overview
 
-ZCF's template system is divided into the following levels:
+TKP's template system is divided into the following levels:
 
 1. **Workflow Templates**: Structured development workflows
 2. **Output Style Templates**: AI assistant personality and output styles
@@ -88,16 +88,16 @@ In addition to pre-configured styles, built-in styles are also supported:
 
 ```bash
 # Install all output styles
-npx zcf init -o all
+npx tkp init -o all
 
 # Install specific styles
-npx zcf init -o engineer-professional,nekomata-engineer
+npx tkp init -o engineer-professional,nekomata-engineer
 
 # Set default output style
-npx zcf init -o all -d engineer-professional
+npx tkp init -o all -d engineer-professional
 
 # Skip output style installation
-npx zcf init -o skip
+npx tkp init -o skip
 ```
 
 ### Switch Output Style
@@ -193,22 +193,22 @@ Workflow templates define structured development processes. Each workflow includ
 
 ```bash
 # Install all workflows
-npx zcf init -w all
+npx tkp init -w all
 
 # Install specific workflows
-npx zcf init -w sixStepsWorkflow,gitWorkflow
+npx tkp init -w sixStepsWorkflow,gitWorkflow
 
 # Skip workflow installation
-npx zcf init -w skip
+npx tkp init -w skip
 ```
 
 ### Custom Workflows
 
 1. **Fork Repository and Modify Templates**:
 ```bash
-# 1. Fork ZCF repository
-git clone https://github.com/your-org/zcf.git
-cd zcf
+# 1. Fork TKP repository
+git clone https://github.com/your-org/tkp.git
+cd tkp
 
 # 2. Modify templates
 vim templates/claude-code/zh-CN/workflow/custom/my-workflow.md
@@ -221,13 +221,13 @@ npm link
 2. **Use During Initialization**:
 ```bash
 # Initialize using custom template directory
-npx zcf init -w custom
+npx tkp init -w custom
 ```
 
 3. **Team Publishing Custom Templates**:
 ```bash
 # Publish npm package containing custom templates
-npm publish @your-org/zcf-templates
+npm publish @your-org/tkp-templates
 ```
 
 ## System Prompt Templates
@@ -271,17 +271,17 @@ Project Root/
 2. **Avoid Excessive Context**:
 - Global `CLAUDE.md` only keeps necessary settings
 - Complex standards go into output styles or project memory
-- Use `/zcf:init-project` to generate hierarchical structure
+- Use `/tkp:init-project` to generate hierarchical structure
 
 3. **Regular Updates**:
 ```bash
 # Update templates and prompts
-npx zcf update -g zh-CN
+npx tkp update -g zh-CN
 ```
 
 ## Template Language Support
 
-ZCF supports templates in two languages:
+TKP supports templates in two languages:
 
 ### Chinese Templates (`zh-CN`)
 
@@ -301,13 +301,13 @@ ZCF supports templates in two languages:
 
 ```bash
 # Initialize using Chinese templates
-npx zcf init -c zh-CN
+npx tkp init -c zh-CN
 
 # Initialize using English templates
-npx zcf init -c en
+npx tkp init -c en
 
 # Switch language during update
-npx zcf update -c en
+npx tkp update -c en
 ```
 
 ## Template Update Strategy
@@ -316,9 +316,9 @@ npx zcf update -c en
 
 | Method | Command | Description |
 |------|------|------|
-| **Complete Update** | `npx zcf update` | Update all templates |
-| **Documents Only** | `npx zcf init --config-action docs-only` | Only update prompts and documents |
-| **Merge Update** | `npx zcf init --config-action merge` | Merge new templates into existing configuration |
+| **Complete Update** | `npx tkp update` | Update all templates |
+| **Documents Only** | `npx tkp init --config-action docs-only` | Only update prompts and documents |
+| **Merge Update** | `npx tkp init --config-action merge` | Merge new templates into existing configuration |
 
 ### Preserve Custom Content
 
@@ -352,8 +352,8 @@ Unify template standards within team:
 1. **Create Team Template Repository**:
 ```bash
 # Create template repository
-mkdir team-zcf-templates
-cd team-zcf-templates
+mkdir team-tkp-templates
+cd team-tkp-templates
 git init
 
 # Add template files
@@ -384,7 +384,7 @@ If templates are not correctly installed:
 
 ```bash
 # Reinstall templates
-npx zcf init --config-action new
+npx tkp init --config-action new
 
 # Check template directories
 ls -la ~/.claude/workflows/
@@ -409,10 +409,10 @@ If template language doesn't match configuration:
 
 ```bash
 # Reinitialize and specify language
-npx zcf init --config-action backup -c zh-CN
+npx tkp init --config-action backup -c zh-CN
 
 # Or only update template language
-npx zcf update -c zh-CN
+npx tkp update -c zh-CN
 ```
 
 ## Related Resources

@@ -9,8 +9,8 @@ import { ensureI18nInitialized, i18n } from '../i18n'
 import { copyFile, ensureDir, exists, removeFile } from './fs-operations'
 import { readJsonConfig, writeJsonConfig } from './json-config'
 import { addNumbersToChoices } from './prompt-helpers'
+import { updateTkpConfig } from './tkp-config'
 import { promptBoolean } from './toggle-prompt'
-import { updateZcfConfig } from './zcf-config'
 
 export interface OutputStyle {
   id: string
@@ -271,7 +271,7 @@ export async function configureOutputStyle(
       if (promptedDefault === '__none__') {
         // User explicitly chose not to use any output style - clear existing settings
         clearGlobalOutputStyle()
-        updateZcfConfig({
+        updateTkpConfig({
           outputStyles: [],
           defaultOutputStyle: 'none',
         })
@@ -282,7 +282,7 @@ export async function configureOutputStyle(
       // User selected a built-in style as default
       defaultStyle = promptedDefault
       setGlobalDefaultOutputStyle(defaultStyle)
-      updateZcfConfig({
+      updateTkpConfig({
         outputStyles: [],
         defaultOutputStyle: defaultStyle,
       })
@@ -335,8 +335,8 @@ export async function configureOutputStyle(
   // Set global default output style
   setGlobalDefaultOutputStyle(defaultStyle)
 
-  // Update ZCF config
-  updateZcfConfig({
+  // Update TKP config
+  updateTkpConfig({
     outputStyles: selectedStyles,
     defaultOutputStyle: defaultStyle,
   })

@@ -19,16 +19,16 @@ Spec Workflow MCP 是一个基于 Model Context Protocol (MCP) 的服务，专�
 
 ## 安装与配置
 
-### 通过 ZCF 安装
+### 通过 TKP 安装
 
-Spec 工作流作为 MCP 服务的一部分，可以在 ZCF 初始化时选择安装：
+Spec 工作流作为 MCP 服务的一部分，可以在 TKP 初始化时选择安装：
 
 ```bash
 # 完整初始化时选择 Spec Workflow
-npx zcf init
+npx tkp init
 
 # 或在已有环境中添加 MCP 服务
-npx zcf → 选择 4 (配置 MCP)
+npx tkp → 选择 4 (配置 MCP)
 ```
 
 在 MCP 服务选择界面中，选择 `spec-workflow` 即可安装。
@@ -193,16 +193,16 @@ Spec 工作流通常包含以下阶段：
 请按照任务列表，开始实现评论功能的第一个任务
 ```
 
-### 与 ZCF 工作流结合
+### 与 TKP 工作流结合
 
-Spec 工作流可以与 ZCF 的其他工作流结合使用：
+Spec 工作流可以与 TKP 的其他工作流结合使用：
 
 ```bash
 # 在 Claude Code 中
-/zcf:workflow 开发用户评论功能，使用 Spec 工作流进行需求分析
+/tkp:workflow 开发用户评论功能，使用 Spec 工作流进行需求分析
 
 # 或使用功能开发工作流
-/zcf:feat 用户评论功能
+/tkp:feat 用户评论功能
 ```
 
 在 Codex 中，虽然 Spec 工作流可以作为 MCP 服务使用，但没有对应的 `/prompts:` 命令，需要直接在对话中使用。
@@ -271,7 +271,7 @@ git commit -m "docs: add spec workflow documents"
 
 ### Git 工作流集成
 
-与 ZCF Git 工作流结合，自动生成提交信息：
+与 TKP Git 工作流结合，自动生成提交信息：
 
 ```bash
 # 完成需求分析后
@@ -334,4 +334,4 @@ Spec 工作流特别适合：
 - ⚠️ **小型修复**：简单的 bug 修复或小功能改进
 - ⚠️ **个人项目**：个人项目可能不需要如此详细的需求文档
 
-> 💡 **提示**：Spec 工作流是 ZCF 工作流生态的重要组成部分，建议在项目早期就引入，以获得最大的收益。结合 ZCF 的其他工作流和工具，可以构建完整的开发流程。
+> 💡 **提示**：Spec 工作流是 TKP 工作流生态的重要组成部分，建议在项目早期就引入，以获得最大的收益。结合 TKP 的其他工作流和工具，可以构建完整的开发流程。

@@ -1,21 +1,20 @@
 {
-  "name": "zcf",
+  "name": "@tkp/cli",
   "type": "module",
   "version": "3.6.4",
   "packageManager": "pnpm@10.17.1",
-  "description": "Zero-Config Code Flow - One-click configuration tool for Code Cli",
+  "description": "TKP CLI - Code Cli configuration tool",
   "author": {
     "name": "Miao Da",
-    "email": "ufo025174@gmail.com",
-    "url": "https://github.com/WitMiao"
+    "email": "ufo025174@gmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/UfoMiao/zcf",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UfoMiao/zcf.git"
+    "url": ""
   },
-  "bugs": "https://github.com/UfoMiao/zcf/issues",
+  "bugs": "",
   "keywords": [
     "claude",
     "claude-code",
@@ -36,7 +35,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.mts",
   "bin": {
-    "zcf": "bin/zcf.mjs"
+    "tkp": "bin/tkp.mjs"
   },
   "files": [
     "bin",
@@ -46,7 +45,7 @@
   "scripts": {
     "dev": "tsx ./src/cli.ts",
     "build": "unbuild",
-    "start": "node bin/zcf.mjs",
+    "start": "node bin/tkp.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm build",
     "lint": "eslint",
@@ -63,9 +62,9 @@
     "prepare": "husky",
     "commitlint": "commitlint",
     "commitlint:check": "commitlint --from HEAD~1 --to HEAD --verbose",
-    "docs:dev": "pnpm -F @zcf/docs dev",
-    "docs:build": "pnpm -F @zcf/docs build",
-    "docs:preview": "pnpm -F @zcf/docs preview"
+    "docs:dev": "pnpm -F @tkp/docs dev",
+    "docs:build": "pnpm -F @tkp/docs build",
+    "docs:preview": "pnpm -F @tkp/docs preview"
   },
   "dependencies": {
     "@rainbowatcher/toml-edit-js": "catalog:runtime",

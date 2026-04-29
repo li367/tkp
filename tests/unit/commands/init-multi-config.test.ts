@@ -16,9 +16,9 @@ vi.mock('../../../src/utils/installer', () => ({
   getInstallationStatus: vi.fn(),
 }))
 
-vi.mock('../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(),
-  updateZcfConfig: vi.fn(),
+vi.mock('../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
 }))
 
 vi.mock('../../../src/utils/fs-operations', () => ({
@@ -54,7 +54,7 @@ vi.mock('../../../src/constants', () => ({
   DEFAULT_CODE_TOOL_TYPE: 'claude-code',
   SETTINGS_FILE: '/test/.claude/settings.json',
   CODE_TOOL_BANNERS: {
-    'claude-code': 'ZCF',
+    'claude-code': 'TKP',
     'codex': 'Codex',
   },
   API_DEFAULT_URL: 'https://api.anthropic.com',

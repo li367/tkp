@@ -4,7 +4,7 @@ title: For Contributors
 
 # For Contributors
 
-Welcome contributors to the ZCF project! This chapter provides complete development guides to help you quickly get started with project development, understand architecture design, and follow best practices.
+Welcome contributors to the TKP project! This chapter provides complete development guides to help you quickly get started with project development, understand architecture design, and follow best practices.
 
 ## 📋 Documentation Navigation
 
@@ -29,8 +29,8 @@ Ensure your development environment meets the following requirements:
 
 ```bash
 # Fork and clone repository
-git clone https://github.com/YOUR_USERNAME/zcf.git
-cd zcf
+git clone https://github.com/YOUR_USERNAME/tkp.git
+cd tkp
 
 # Install dependencies
 pnpm install
@@ -76,7 +76,7 @@ Detailed contribution process documentation, including:
 
 ### Architecture Documentation
 
-Deep understanding of ZCF's architecture design:
+Deep understanding of TKP's architecture design:
 
 - 🏗️ **Technology Stack**: Technologies and dependencies used
 - 📁 **Project Structure**: Detailed directory organization
@@ -108,7 +108,7 @@ Complete test writing and running guide:
 
 ### TDD (Test-Driven Development)
 
-ZCF strictly follows TDD methodology:
+TKP strictly follows TDD methodology:
 
 1. **Red**: Write failing test first
 2. **Green**: Write minimal code to make test pass
@@ -174,13 +174,13 @@ In addition to code contributions, you can also:
 
 ## 📖 Related Resources
 
-- [Project README](https://github.com/UfoMiao/zcf/blob/main/README.md) - Project overview and quick start
-- [CLAUDE.md](https://github.com/UfoMiao/zcf/blob/main/CLAUDE.md) - Complete project architecture documentation
-- [GitHub Issues](https://github.com/UfoMiao/zcf/issues) - Issues and discussions
-- [GitHub Discussions](https://github.com/UfoMiao/zcf/discussions) - Community discussions
+- [Project README]() - Project overview and quick start
+- [CLAUDE.md]() - Complete project architecture documentation
+- [GitHub Issues]() - Issues and discussions
+- [GitHub Discussions]() - Community discussions
 
 ---
 
-**Thank you again for your attention and contributions to the ZCF project!** 🎉
+**Thank you again for your attention and contributions to the TKP project!** 🎉
 
 Before starting to contribute, it's recommended to read the [Contribution Guide](contributing.md) to understand detailed processes and standards.

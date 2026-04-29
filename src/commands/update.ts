@@ -8,9 +8,9 @@ import { runCodexUpdate } from '../utils/code-tools/codex'
 import { updatePromptOnly } from '../utils/config-operations'
 import { handleExitPromptError, handleGeneralError } from '../utils/error-handler'
 import { resolveAiOutputLanguage } from '../utils/prompts'
+import { readTkpConfig, updateTkpConfig } from '../utils/tkp-config'
 import { checkClaudeCodeVersionAndPrompt } from '../utils/version-checker'
 import { selectAndInstallWorkflows } from '../utils/workflow-installer'
-import { readZcfConfig, updateZcfConfig } from '../utils/zcf-config'
 
 export interface UpdateOptions {
   configLang?: SupportedLang
@@ -45,7 +45,7 @@ export async function update(options: UpdateOptions = {}): Promise<void> {
     }
 
     // Get configuration
-    const zcfConfig = readZcfConfig()
+    const zcfConfig = readTkpConfig()
     const codeToolType = resolveCodeToolType(options.codeType, zcfConfig?.codeToolType)
     options.codeType = codeToolType
 
@@ -54,14 +54,14 @@ export async function update(options: UpdateOptions = {}): Promise<void> {
 
       const newPreferredLang = options.configLang || zcfConfig?.preferredLang
       if (newPreferredLang) {
-        updateZcfConfig({
+        updateTkpConfig({
           version,
           preferredLang: newPreferredLang,
           codeToolType,
         })
       }
       else {
-        updateZcfConfig({
+        updateTkpConfig({
           version,
           codeToolType,
         })
@@ -92,7 +92,7 @@ export async function update(options: UpdateOptions = {}): Promise<void> {
     await checkClaudeCodeVersionAndPrompt(false)
 
     // Update zcf config with new version, template language, and AI language preference
-    updateZcfConfig({
+    updateTkpConfig({
       version,
       templateLang: configLang, // 保存模板语言选择
       aiOutputLang,

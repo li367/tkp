@@ -37,15 +37,15 @@ vi.mock('../../../../src/utils/prompt-helpers', () => ({
   addNumbersToChoices: vi.fn(choices => choices),
 }))
 
-const mockReadZcfConfig = vi.hoisted(() => vi.fn(() => ({
+const mockReadTkpConfig = vi.hoisted(() => vi.fn(() => ({
   version: '1.0.0',
   preferredLang: 'en',
   templateLang: 'en',
   codeToolType: 'codex',
   lastUpdated: new Date().toISOString(),
 } as any)))
-vi.mock('../../../../src/utils/zcf-config', () => ({
-  readZcfConfig: mockReadZcfConfig,
+vi.mock('../../../../src/utils/tkp-config', () => ({
+  readTkpConfig: mockReadTkpConfig,
 }))
 
 vi.mock('../../../../src/utils/toggle-prompt', () => ({
@@ -88,7 +88,7 @@ describe('runCodexUninstall - Enhanced Version', () => {
     mockI18nT.mockImplementation(((key: string) => `mocked_${key}`) as any)
     mockEnsureI18nInitialized.mockResolvedValue(undefined as any)
     mockAddNumbersToChoices.mockImplementation((choices: any) => choices)
-    mockReadZcfConfig.mockReturnValue({
+    mockReadTkpConfig.mockReturnValue({
       version: '1.0.0',
       preferredLang: 'en',
       templateLang: 'en',
@@ -140,7 +140,7 @@ describe('runCodexUninstall - Enhanced Version', () => {
     })
 
     it('should initialize uninstaller with preferred language from config', async () => {
-      mockReadZcfConfig.mockReturnValueOnce({
+      mockReadTkpConfig.mockReturnValueOnce({
         version: '1.0.0',
         preferredLang: 'zh-CN',
         templateLang: 'zh-CN',

@@ -67,15 +67,15 @@ const mockUninstallCodeTool = vi.mocked(installerModule.uninstallCodeTool)
 
 // Mock constants
 vi.mock('../../src/constants', () => ({
-  ZCF_CONFIG_FILE: '/home/user/.ufomiao/zcf/config.json',
-  ZCF_CONFIG_DIR: '/home/user/.ufomiao/zcf',
+  TKP_CONFIG_FILE: '/home/user/.tkp/config.json',
+  TKP_CONFIG_DIR: '/home/user/.tkp',
   CLAUDE_DIR: '/home/user/.claude',
   SETTINGS_FILE: '/home/user/.claude/settings.json',
   ClAUDE_CONFIG_FILE: '/home/user/.claude.json',
   CLAUDE_MD_FILE: '/home/user/.claude/CLAUDE.md',
 }))
 
-describe('zcfUninstaller - Edge Cases', () => {
+describe('tkpUninstaller - Edge Cases', () => {
   let uninstaller: ZcfUninstaller
 
   beforeEach(() => {
@@ -397,12 +397,12 @@ describe('zcfUninstaller - Edge Cases', () => {
     })
   })
 
-  describe('removeZcfConfig edge cases', () => {
-    it('should handle zcf config file access issues', async () => {
+  describe('removeTkpConfig edge cases', () => {
+    it('should handle tkp config file access issues', async () => {
       mockFsExtra.pathExists.mockResolvedValue(true)
       mockTrash.moveToTrash.mockResolvedValue([{ success: false, error: 'File is locked' }])
 
-      const result = await uninstaller.removeZcfConfig()
+      const result = await uninstaller.removeTkpConfig()
 
       expect(result.success).toBe(true)
       expect(result.warnings).toContain('File is locked')
@@ -551,7 +551,7 @@ describe('zcfUninstaller - Edge Cases', () => {
         'ccr',
         'ccline',
         'backups',
-        'zcf-config',
+        'tkp-config',
       ]
 
       // Mock all methods to return success
@@ -565,7 +565,7 @@ describe('zcfUninstaller - Edge Cases', () => {
         'uninstallCcr',
         'uninstallCcline',
         'removeBackups',
-        'removeZcfConfig',
+        'removeTkpConfig',
       ]
 
       mockMethods.forEach((method) => {

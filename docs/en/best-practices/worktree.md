@@ -4,7 +4,7 @@ title: Worktree Parallel Development
 
 # Worktree Parallel Development
 
-Git Worktree is a powerful Git feature that allows you to create multiple work areas (copies) in the same repository, each work area can switch to different branches without interference, sharing the same Git history. ZCF's `/git-worktree` smart command makes Worktree management simple and intuitive.
+Git Worktree is a powerful Git feature that allows you to create multiple work areas (copies) in the same repository, each work area can switch to different branches without interference, sharing the same Git history. TKP's `/git-worktree` smart command makes Worktree management simple and intuitive.
 
 ## What is Worktree
 
@@ -26,7 +26,7 @@ Worktree can conveniently create a work area (copy) of a project and switch to d
 
 ## Basic Commands
 
-ZCF's `/git-worktree` command provides complete Worktree management functionality:
+TKP's `/git-worktree` command provides complete Worktree management functionality:
 
 ### Create Worktree
 
@@ -86,7 +86,7 @@ ZCF's `/git-worktree` command provides complete Worktree management functionalit
 
 ### Natural Language Execution
 
-ZCF's `/git-worktree` command supports natural language, no need to remember command details:
+TKP's `/git-worktree` command supports natural language, no need to remember command details:
 
 ✅ **Recommended to use natural language**:
 ```
@@ -97,19 +97,19 @@ ZCF's `/git-worktree` command supports natural language, no need to remember com
 
 ❌ **No need to do this**:
 ```bash
-git worktree add ../.zcf/project-name/feat/test -b feat/test
+git worktree add ../.tkp/project-name/feat/test -b feat/test
 ```
 
 ### Work Area Location
 
-ZCF's Worktree is created by default in the project-level `../.zcf/project-name/` directory to avoid confusion:
+TKP's Worktree is created by default in the project-level `../.tkp/project-name/` directory to avoid confusion:
 
 ```
 Project Directory/
 ├── src/
 └── ...
 
-.zcf/
+.tkp/
 └── project-name/
     ├── feat/add-i18n/
     ├── bugfix/login-error/
@@ -121,7 +121,7 @@ Project Directory/
 - Unified naming convention, easy to manage
 - Supports IDE auto-open
 
-## Integration with ZCF Workflows
+## Integration with TKP Workflows
 
 ### Multi-Line Parallel + SL Rollback Method
 
@@ -142,9 +142,9 @@ Use `/git-worktree` to create multiple work areas, then start Claude Code separa
    ```
 
 2. Run workflows in each Worktree
-   - In solution1: `/zcf:workflow Develop xxx feature`
-   - In solution2: `/zcf:workflow Develop xxx feature, require high performance`
-   - In solution3: `/zcf:workflow Develop xxx feature, require concise code`
+   - In solution1: `/tkp:workflow Develop xxx feature`
+   - In solution2: `/tkp:workflow Develop xxx feature, require high performance`
+   - In solution3: `/tkp:workflow Develop xxx feature, require concise code`
 
 3. Compare results, choose best solution
 
@@ -167,10 +167,10 @@ If generated results deviate too much, it's not recommended to continue letting 
 /git-worktree add solution1-v2 -o
 
 # In new work area, reference work area 2 experience
-/zcf:workflow Develop xxx feature, reference solution2 implementation, but avoid xxx problem
+/tkp:workflow Develop xxx feature, reference solution2 implementation, but avoid xxx problem
 ```
 
-### Combine with ZCF Workflows
+### Combine with TKP Workflows
 
 Run workflows independently in each Worktree:
 
@@ -180,13 +180,13 @@ Run workflows independently in each Worktree:
 
 ```text
 # Worktree 1: Basic implementation
-/zcf:workflow Implement user login functionality
+/tkp:workflow Implement user login functionality
 
 # Worktree 2: Optimized implementation
-/zcf:workflow Implement user login functionality, use JWT, support refresh token
+/tkp:workflow Implement user login functionality, use JWT, support refresh token
 
 # Worktree 3: Test implementation
-/zcf:workflow Implement user login functionality, focus on security
+/tkp:workflow Implement user login functionality, focus on security
 ```
 
 ## Best Practices
@@ -227,11 +227,11 @@ Use different API configurations in different Worktrees:
 
 ```bash
 # Main branch uses GLM provider configuration
-npx zcf config-switch glm-provider
+npx tkp config-switch glm-provider
 
 # Worktree uses 302.AI provider configuration
-cd ../.zcf/project-name/feat/test
-npx zcf config-switch 302ai-provider
+cd ../.tkp/project-name/feat/test
+npx tkp config-switch 302ai-provider
 ```
 
 ### 5. Project Progress Documents
@@ -240,7 +240,7 @@ Have AI output task progress documents in each Worktree for easy continuation in
 
 ```text
 # Continue task in new Worktree
-/zcf:workflow Continue developing xxx feature, reference previous progress document: progress.md
+/tkp:workflow Continue developing xxx feature, reference previous progress document: progress.md
 ```
 
 ## Workflow Recommendations
@@ -254,7 +254,7 @@ Have AI output task progress documents in each Worktree for easy continuation in
 
 2. **Run Workflow**
    ```text
-   /zcf:workflow Develop xxx feature
+   /tkp:workflow Develop xxx feature
    ```
 
 3. **Test and Optimize**
@@ -264,7 +264,7 @@ Have AI output task progress documents in each Worktree for easy continuation in
 4. **Merge Code**
    ```bash
    # Commit in Worktree
-   cd ../.zcf/project-name/feat/feature-name
+   cd ../.tkp/project-name/feat/feature-name
    git add .
    git commit -m "feat: add feature"
 
@@ -307,7 +307,7 @@ Features:
 ## Related Documentation
 
 - [Git Smart Commands](../workflows/git-commands.md) - Other Git operation commands
-- [ZCF Six-Stage Workflow](../workflows/zcf-workflow.md) - Use with workflows
+- [TKP Six-Stage Workflow](../workflows/tkp-workflow.md) - Use with workflows
 - [Config Switch](../cli/config-switch.md) - Use different configurations in different Worktrees
 
 

@@ -20,11 +20,11 @@ import {
 import * as fsOps from '../../../src/utils/fs-operations'
 import * as jsonConfig from '../../../src/utils/json-config'
 import * as permissionCleaner from '../../../src/utils/permission-cleaner'
-import * as zcfConfig from '../../../src/utils/zcf-config'
+import * as tkpConfig from '../../../src/utils/tkp-config'
 
 vi.mock('../../../src/utils/fs-operations')
 vi.mock('../../../src/utils/json-config')
-vi.mock('../../../src/utils/zcf-config')
+vi.mock('../../../src/utils/tkp-config')
 vi.mock('../../../src/utils/permission-cleaner')
 vi.mock('../../../src/utils/claude-config')
 vi.mock('../../../src/i18n')
@@ -33,7 +33,7 @@ vi.mock('dayjs')
 describe('config utilities', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    vi.mocked(zcfConfig.readZcfConfig).mockReturnValue({ preferredLang: 'en' } as any)
+    vi.mocked(tkpConfig.readTkpConfig).mockReturnValue({ preferredLang: 'en' } as any)
   })
 
   afterEach(() => {

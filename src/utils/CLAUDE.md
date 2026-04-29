@@ -37,7 +37,7 @@ Core utility module providing configuration management, platform compatibility, 
   - `features.ts` - Feature management and installation orchestration
   - `uninstaller.ts` - Advanced uninstallation with conflict resolution
   - `trash.ts` - Cross-platform trash/recycle bin integration
-  - `zcf-config.ts` - ZCF-specific configuration management
+  - `tkp-config.ts` - ZCF-specific configuration management
 
 - **Subdirectories**:
   - `ccr/` - Claude Code Router proxy management

@@ -1,14 +1,14 @@
 ---
-title: zcf init
+title: tkp init
 ---
 
-# zcf init
+# tkp init
 
-`zcf init`（省略形 `zcf i`）は ZCF のコアコマンドで、Claude Code または Codex 環境を完全に初期化するために使用されます。必要なツールのインストール、API の設定、MCP サービスの設定、ワークフローと出力スタイルのインポートなどを自動的に実行します。
+`tkp init`（省略形 `tkp i`）は TKP のコアコマンドで、Claude Code または Codex 環境を完全に初期化するために使用されます。必要なツールのインストール、API の設定、MCP サービスの設定、ワークフローと出力スタイルのインポートなどを自動的に実行します。
 
 ## 機能概要
 
-`zcf init` コマンドは以下の操作を実行します：
+`tkp init` コマンドは以下の操作を実行します：
 
 1. 📦 **コードツールのインストール**：Claude Code または Codex CLI を自動検出してインストール
 2. 🔑 **API の設定**：API キー、認証方式、モデルなどを設定
@@ -25,17 +25,17 @@ title: zcf init
 
 ```bash
 # 対話式初期化ウィザードを開く
-npx zcf init
+npx tkp init
 
 # または省略形を使用
-npx zcf i
+npx tkp i
 
 # またはメインメニューから
-npx zcf
+npx tkp
 # 次に 1 (完全初期化) を選択
 ```
 
-対話式モードでは、ZCF が段階的に案内します：
+対話式モードでは、TKP が段階的に案内します：
 
 1. コードツールタイプを選択（Claude Code または Codex）
 2. 設定処理方法を選択（既存の設定がある場合）
@@ -51,10 +51,10 @@ npx zcf
 
 ```bash
 # API プロバイダープリセットを使用（最も簡単）
-npx zcf i -s -p 302ai -k "sk-xxx"
+npx tkp i -s -p 302ai -k "sk-xxx"
 
 # 完全なパラメータ例
-npx zcf i -s \
+npx tkp i -s \
   --provider 302ai \
   --api-key "sk-xxx" \
   --code-type claude-code \
@@ -72,7 +72,7 @@ npx zcf i -s \
 | パラメータ | 省略形 | 説明 | オプション値 | デフォルト値 |
 |------|------|------|--------|--------|
 | `--all-lang, -g` | `-g` | すべての言語パラメータを統一設定 | `zh-CN`, `en`, カスタム文字列 | ユーザー設定または `en` |
-| `--lang, -l` | `-l` | ZCF インターフェース表示言語 | `zh-CN`, `en` | ユーザー設定または `en` |
+| `--lang, -l` | `-l` | TKP インターフェース表示言語 | `zh-CN`, `en` | ユーザー設定または `en` |
 | `--config-lang, -c` | `-c` | テンプレートファイル言語 | `zh-CN`, `en` | `en` |
 | `--ai-output-lang, -a` | `-a` | AI アシスタント出力言語 | `zh-CN`, `en`, カスタム文字列 | `en` |
 
@@ -92,20 +92,20 @@ npx zcf i -s \
 
 ```bash
 # Claude Code を初期化（デフォルト）
-npx zcf i
+npx tkp i
 
 # Codex を初期化
-npx zcf i -T codex
+npx tkp i -T codex
 
 # 省略形を使用
-npx zcf i -T cx
+npx tkp i -T cx
 ```
 
 ### API 設定パラメータ
 
 #### API プロバイダープリセット（推奨）
 
-ZCF は API プロバイダープリセットをサポートし、設定を大幅に簡素化できます：
+TKP は API プロバイダープリセットをサポートし、設定を大幅に簡素化できます：
 
 | パラメータ | 省略形 | 説明 | サポートされるプロバイダー |
 |------|------|------|------------|
@@ -113,19 +113,19 @@ ZCF は API プロバイダープリセットをサポートし、設定を大�
 
 ```bash
 # 302.AI プロバイダーを使用
-npx zcf i -s -p 302ai -k "sk-xxx"
+npx tkp i -s -p 302ai -k "sk-xxx"
 
 # GLM プロバイダーを使用
-npx zcf i -s -p glm -k "sk-xxx"
+npx tkp i -s -p glm -k "sk-xxx"
 
 # MiniMax プロバイダーを使用
-npx zcf i -s -p minimax -k "sk-xxx"
+npx tkp i -s -p minimax -k "sk-xxx"
 
 # Kimi プロバイダーを使用
-npx zcf i -s -p kimi -k "sk-xxx"
+npx tkp i -s -p kimi -k "sk-xxx"
 
 # カスタムプロバイダーを使用（URL が必要）
-npx zcf i -s -p custom -k "sk-xxx" -u "https://api.example.com"
+npx tkp i -s -p custom -k "sk-xxx" -u "https://api.example.com"
 ```
 
 #### 従来の API 設定パラメータ
@@ -142,19 +142,19 @@ npx zcf i -s -p custom -k "sk-xxx" -u "https://api.example.com"
 
 ```bash
 # API Key を使用
-npx zcf i -s -t api_key -k "sk-ant-xxx"
+npx tkp i -s -t api_key -k "sk-ant-xxx"
 
 # Auth Token を使用（公式ログイン）
-npx zcf i -s -t auth_token -k "your-auth-token"
+npx tkp i -s -t auth_token -k "your-auth-token"
 
 # CCR プロキシを使用
-npx zcf i -s -t ccr_proxy
+npx tkp i -s -t ccr_proxy
 
 # API 設定をスキップ
-npx zcf i -s -t skip
+npx tkp i -s -t skip
 
 # カスタムモデルを設定
-npx zcf i -s -t api_key -k "sk-xxx" -M "claude-sonnet-4-5" -H "claude-haiku-4-5" -S "claude-sonnet-4-5" -O "claude-opus-4-5"
+npx tkp i -s -t api_key -k "sk-xxx" -M "claude-sonnet-4-5" -H "claude-haiku-4-5" -S "claude-sonnet-4-5" -O "claude-opus-4-5"
 ```
 
 #### 複数 API 設定
@@ -163,7 +163,7 @@ npx zcf i -s -t api_key -k "sk-xxx" -M "claude-sonnet-4-5" -H "claude-haiku-4-5"
 
 ```bash
 # JSON 文字列を使用
-npx zcf i -s --api-configs '[
+npx tkp i -s --api-configs '[
   {
     "provider": "302ai",
     "key": "sk-xxx",
@@ -186,7 +186,7 @@ npx zcf i -s --api-configs '[
 ]'
 
 # JSON ファイルを使用
-npx zcf i -s --api-configs-file ./api-configs.json
+npx tkp i -s --api-configs-file ./api-configs.json
 ```
 
 ### MCP サービス設定
@@ -197,13 +197,13 @@ npx zcf i -s --api-configs-file ./api-configs.json
 
 ```bash
 # すべての MCP サービスをインストール
-npx zcf i -s -m all
+npx tkp i -s -m all
 
 # 特定のサービスをインストール（カンマ区切り）
-npx zcf i -s -m context7,open-websearch,spec-workflow
+npx tkp i -s -m context7,open-websearch,spec-workflow
 
 # MCP サービスインストールをスキップ
-npx zcf i -s -m skip
+npx tkp i -s -m skip
 ```
 
 ### ワークフロー設定
@@ -214,13 +214,13 @@ npx zcf i -s -m skip
 
 ```bash
 # すべてのワークフローをインストール
-npx zcf i -s -w all
+npx tkp i -s -w all
 
 # 特定のワークフローをインストール
-npx zcf i -s -w sixStepsWorkflow,gitWorkflow
+npx tkp i -s -w sixStepsWorkflow,gitWorkflow
 
 # ワークフローインストールをスキップ
-npx zcf i -s -w skip
+npx tkp i -s -w skip
 ```
 
 > ⚠️ **注意**：Codex は現在 `sixStepsWorkflow` と `gitWorkflow` のみをサポートしており、他のワークフローは Codex ではまだ提供されていません。
@@ -234,16 +234,16 @@ npx zcf i -s -w skip
 
 ```bash
 # すべての出力スタイルをインストール
-npx zcf i -s -o all
+npx tkp i -s -o all
 
 # 特定のスタイルをインストール
-npx zcf i -s -o engineer-professional,nekomata-engineer
+npx tkp i -s -o engineer-professional,nekomata-engineer
 
 # デフォルト出力スタイルを設定
-npx zcf i -s -o all -d engineer-professional
+npx tkp i -s -o all -d engineer-professional
 
 # 出力スタイルインストールをスキップ
-npx zcf i -s -o skip
+npx tkp i -s -o skip
 ```
 
 ### その他の設定オプション
@@ -256,18 +256,18 @@ npx zcf i -s -o skip
 
 ```bash
 # 非対話モード
-npx zcf i -s -p 302ai -k "sk-xxx"
+npx tkp i -s -p 302ai -k "sk-xxx"
 
 # 設定処理方法
-npx zcf i -s --config-action backup  # バックアップ後に上書き（デフォルト）
-npx zcf i -s --config-action merge   # 設定をマージ
-npx zcf i -s --config-action new     # 新しい設定を作成
-npx zcf i -s --config-action docs-only  # ドキュメントのみ更新
-npx zcf i -s --config-action skip    # 設定をスキップ
+npx tkp i -s --config-action backup  # バックアップ後に上書き（デフォルト）
+npx tkp i -s --config-action merge   # 設定をマージ
+npx tkp i -s --config-action new     # 新しい設定を作成
+npx tkp i -s --config-action docs-only  # ドキュメントのみ更新
+npx tkp i -s --config-action skip    # 設定をスキップ
 
 # CCometixLine インストールを制御
-npx zcf i -s -x true   # インストール（デフォルト）
-npx zcf i -s -x false  # インストールしない
+npx tkp i -s -x true   # インストール（デフォルト）
+npx tkp i -s -x false  # インストールしない
 ```
 
 ## 完全な例
@@ -276,23 +276,23 @@ npx zcf i -s -x false  # インストールしない
 
 ```bash
 # 対話式初期化（初回使用に推奨）
-npx zcf init
+npx tkp init
 
 # またはメインメニューを使用
-npx zcf
+npx tkp
 # 1 (完全初期化) を選択
 ```
 
 ### シナリオ 2：302.AI プロバイダーで高速初期化
 
 ```bash
-npx zcf i -s -p 302ai -k "sk-xxx" -g zh-CN
+npx tkp i -s -p 302ai -k "sk-xxx" -g zh-CN
 ```
 
 ### シナリオ 3：Codex 完全初期化
 
 ```bash
-npx zcf i -s \
+npx tkp i -s \
   -T codex \
   -p 302ai \
   -k "sk-xxx" \
@@ -327,24 +327,24 @@ cat > api-configs.json << EOF
 EOF
 
 # 設定ファイルを使用して初期化
-npx zcf i -s --api-configs-file ./api-configs.json -g zh-CN
+npx tkp i -s --api-configs-file ./api-configs.json -g zh-CN
 ```
 
 ### シナリオ 5：ドキュメントとテンプレートのみ更新
 
 ```bash
-npx zcf i -s --config-action docs-only -g zh-CN
+npx tkp i -s --config-action docs-only -g zh-CN
 ```
 
 ### シナリオ 6：CCR プロキシを使用
 
 ```bash
-npx zcf i -s -t ccr_proxy -g zh-CN -m all -w all
+npx tkp i -s -t ccr_proxy -g zh-CN -m all -w all
 ```
 
 ## 設定処理戦略
 
-既存の設定が検出された場合、ZCF は処理戦略を尋ねます：
+既存の設定が検出された場合、TKP は処理戦略を尋ねます：
 
 | 戦略 | 説明 | 適用シナリオ |
 |------|------|---------|
@@ -356,9 +356,9 @@ npx zcf i -s -t ccr_proxy -g zh-CN -m all -w all
 
 ## 実行フロー
 
-`zcf init` の実行フローは以下のとおりです：
+`tkp init` の実行フローは以下のとおりです：
 
-1. **Banner を表示**：ZCF バージョン情報とツールタイプを表示
+1. **Banner を表示**：TKP バージョン情報とツールタイプを表示
 2. **言語設定を解析**：パラメータに基づいて i18n 言語を設定
 3. **パラメータを検証**：パラメータの有効性と相互排他性を確認
 4. **コードツールを選択**：Claude Code または Codex を決定
@@ -368,7 +368,7 @@ npx zcf i -s -t ccr_proxy -g zh-CN -m all -w all
 8. **ワークフローをインポート**：ワークフローテンプレートをインストール
 9. **出力スタイルを設定**：AI 出力スタイルを設定
 10. **ステータスバーをインストール**：オプションで CCometixLine をインストール
-11. **設定を保存**：ZCF グローバル設定を更新
+11. **設定を保存**：TKP グローバル設定を更新
 
 ## トラブルシューティング
 
@@ -413,7 +413,7 @@ cat ~/.codex/config.toml | grep -A 5 modelProvider
 
 ```bash
 # ワークフローを再インポート
-npx zcf update
+npx tkp update
 
 # ワークフローディレクトリを確認
 ls -la ~/.claude/workflows/

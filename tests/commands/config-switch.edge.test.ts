@@ -41,8 +41,8 @@ vi.mock('../../src/utils/prompt-helpers', () => ({
   addNumbersToChoices: vi.fn(choices => choices),
 }))
 
-vi.mock('../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(() => ({
+vi.mock('../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(() => ({
     version: '1.0.0',
     preferredLang: 'zh-CN',
     codeToolType: 'codex',

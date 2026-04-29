@@ -4,7 +4,7 @@ title: MCP サービス統合
 
 # MCP サービス統合
 
-ZCF には代表的な MCP (Model Context Protocol) サービスの設定が同梱されており、メニューまたは `--mcp-services` で一括インストールできます。
+TKP には代表的な MCP (Model Context Protocol) サービスの設定が同梱されており、メニューまたは `--mcp-services` で一括インストールできます。
 
 ## MCP とは
 
@@ -24,13 +24,13 @@ AI アシスタントが外部ツール・サービスへアクセスするた�
 
 ## インストール方法
 
-- **インタラクティブ**：`npx zcf` → 4 (Configure MCP) で選択  
+- **インタラクティブ**：`npx tkp` → 4 (Configure MCP) で選択  
 - **CLI**：
 
 ```bash
-npx zcf i -s --mcp-services all
-npx zcf i -s --mcp-services context7,open-websearch,spec-workflow
-npx zcf i -s --mcp-services skip   # 導入しない
+npx tkp i -s --mcp-services all
+npx tkp i -s --mcp-services context7,open-websearch,spec-workflow
+npx tkp i -s --mcp-services skip   # 導入しない
 ```
 
 ## 環境変数
@@ -58,13 +58,13 @@ Windows ではパス形式を自動修正します。
 
 ## トラブルシュート
 
-- 未接続：`npx zcf` → 4 で再設定、設定ファイルを確認  
+- 未接続：`npx tkp` → 4 で再設定、設定ファイルを確認  
 - API Key エラー：環境変数を確認しターミナルを再起動  
-- Windows パス問題：`npx zcf` → 4 を再実行して修正
+- Windows パス問題：`npx tkp` → 4 を再実行して修正
 
 ## ベストプラクティス
 
 1. 必要なサービスだけ導入しリソース消費を抑える  
-2. `npx zcf update` で設定を定期更新  
+2. `npx tkp update` で設定を定期更新  
 3. 環境変数は `.env` などで管理し、導入後に動作テストを行う  
-4. 新規サービスを手動追加した場合でも、`npx zcf i` でマージ戦略を選べます。
+4. 新規サービスを手動追加した場合でも、`npx tkp i` でマージ戦略を選べます。

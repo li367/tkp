@@ -16,10 +16,10 @@ export const CODEX_AUTH_FILE = join(CODEX_DIR, 'auth.json')
 export const CODEX_AGENTS_FILE = join(CODEX_DIR, 'AGENTS.md')
 export const CODEX_PROMPTS_DIR = join(CODEX_DIR, 'prompts')
 
-// ZCF configuration paths
-export const ZCF_CONFIG_DIR = join(homedir(), '.ufomiao', 'zcf')
-export const ZCF_CONFIG_FILE = join(ZCF_CONFIG_DIR, 'config.toml')
-export const LEGACY_ZCF_CONFIG_FILES = [
+// TKP configuration paths
+export const TKP_CONFIG_DIR = join(homedir(), '.tkp')
+export const TKP_CONFIG_FILE = join(TKP_CONFIG_DIR, 'config.toml')
+export const LEGACY_TKP_CONFIG_FILES = [
   join(CLAUDE_DIR, '.zcf-config.json'),
   join(homedir(), '.zcf.json'),
 ]

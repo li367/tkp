@@ -26,8 +26,8 @@
 
 ## CLI Commands
 * [Commands Overview](cli/index.md)
-* [zcf init](cli/init.md)
-* [zcf update](cli/update.md)
+* [tkp init](cli/init.md)
+* [tkp update](cli/update.md)
 * [Main Menu](cli/menu.md)
 * [CCR Proxy Management](cli/ccr.md)
 * [Usage Analysis ccu](cli/ccu.md)
@@ -37,7 +37,7 @@
 
 ## Workflow Details
 * [Workflow Overview](workflows/index.md)
-* [ZCF Six-Stage Workflow](workflows/zcf-workflow.md)
+* [TKP Six-Stage Workflow](workflows/tkp-workflow.md)
 * [Feature Development Workflow](workflows/feat.md)
 * [BMad Agile Process](workflows/bmad.md)
 * [Spec Workflow Integration](workflows/spec.md)

@@ -4,7 +4,7 @@ title: Worktree 並列開発
 
 # Worktree 並列開発
 
-Git Worktree は同一リポジトリに複数の作業ツリーを作成できる機能です。各作業ツリーは独立したファイルシステムを持ち、異なるブランチを同時に扱えます。ZCF の `/git-worktree` スマートコマンドを使えば Worktree 管理を直感的に行えます。
+Git Worktree は同一リポジトリに複数の作業ツリーを作成できる機能です。各作業ツリーは独立したファイルシステムを持ち、異なるブランチを同時に扱えます。TKP の `/git-worktree` スマートコマンドを使えば Worktree 管理を直感的に行えます。
 
 ## Worktree とは
 
@@ -77,25 +77,25 @@ Git Worktree は同一リポジトリに複数の作業ツリーを作成でき�
 
 ❌ 非推奨:
 ```bash
-git worktree add ../.zcf/project-name/feat/test -b feat/test
+git worktree add ../.tkp/project-name/feat/test -b feat/test
 ```
 
 ### 作業ツリーの配置
 
-既定で `../.zcf/project-name/` 配下に作成し、プロジェクト直下を汚しません。
+既定で `../.tkp/project-name/` 配下に作成し、プロジェクト直下を汚しません。
 
 ```
 Project/
 └── ...
 
-.zcf/
+.tkp/
 └── project-name/
     ├── feat/add-i18n/
     ├── bugfix/login-error/
     └── ...
 ```
 
-## ZCF ワークフローとの連携
+## TKP ワークフローとの連携
 
 ### マルチライン並列 + SL ロールバック
 
@@ -135,11 +135,11 @@ Project/
 
 ```bash
 # メインは GLM プロバイダー設定
-npx zcf config-switch glm-provider
+npx tkp config-switch glm-provider
 
 # Worktree では 302.AI プロバイダー設定
-cd ../.zcf/project-name/feat/test
-npx zcf config-switch 302ai-provider
+cd ../.tkp/project-name/feat/test
+npx tkp config-switch 302ai-provider
 ```
 
 ### 5. 進捗ドキュメント
@@ -151,7 +151,7 @@ npx zcf config-switch 302ai-provider
 1. 作業ツリーを作成し IDE を開く  
    `/git-worktree add feat/feature-name -o`
 2. ワークフロー実行  
-   `/zcf:workflow Develop xxx feature`
+   `/tkp:workflow Develop xxx feature`
 3. テスト/最適化（必要なら別ツリーで別案を試す）
 4. マージして後片付け  
    ```bash
@@ -177,5 +177,5 @@ npx zcf config-switch 302ai-provider
 ## 関連ドキュメント
 
 - [Git スマートコマンド](../workflows/git-commands.md)
-- [ZCF 6 段階ワークフロー](../workflows/zcf-workflow.md)
+- [TKP 6 段階ワークフロー](../workflows/tkp-workflow.md)
 - [Config Switch](../cli/config-switch.md)

@@ -3,7 +3,7 @@ import { homedir } from 'node:os'
 import { pathExists } from 'fs-extra'
 import { join } from 'pathe'
 import { exec } from 'tinyexec'
-import { ZCF_CONFIG_FILE } from '../constants'
+import { TKP_CONFIG_FILE } from '../constants'
 import { i18n } from '../i18n'
 import { readJsonConfig, writeJsonConfig } from './json-config'
 import { moveToTrash } from './trash'
@@ -19,7 +19,7 @@ export type UninstallItem
     | 'ccline'
     | 'claude-code'
     | 'backups'
-    | 'zcf-config'
+    | 'tkp-config'
 
 export interface UninstallResult {
   success: boolean
@@ -30,7 +30,7 @@ export interface UninstallResult {
 }
 
 /**
- * ZCF Uninstaller - Handles removal of ZCF configurations and tools
+ * TKP Uninstaller - Handles removal of TKP configurations and tools
  */
 export class ZcfUninstaller {
   private _lang: SupportedLang // Reserved for future i18n support
@@ -98,7 +98,7 @@ export class ZcfUninstaller {
   }
 
   /**
-   * 2. Remove custom commands directory (commands/zcf/)
+   * 2. Remove custom commands directory (commands/tkp/)
    */
   async removeCustomCommands(): Promise<UninstallResult> {
     const result: UninstallResult = {
@@ -110,14 +110,14 @@ export class ZcfUninstaller {
     }
 
     try {
-      const commandsPath = join(homedir(), '.claude', 'commands', 'zcf')
+      const commandsPath = join(homedir(), '.claude', 'commands', 'tkp')
 
       if (await pathExists(commandsPath)) {
         const trashResult = await moveToTrash(commandsPath)
         if (!trashResult[0]?.success) {
           result.warnings.push(trashResult[0]?.error || 'Failed to move to trash')
         }
-        result.removed.push('commands/zcf/')
+        result.removed.push('commands/tkp/')
         result.success = true
       }
       else {
@@ -133,7 +133,7 @@ export class ZcfUninstaller {
   }
 
   /**
-   * 3. Remove custom agents directory (agents/zcf/)
+   * 3. Remove custom agents directory (agents/tkp/)
    */
   async removeCustomAgents(): Promise<UninstallResult> {
     const result: UninstallResult = {
@@ -145,14 +145,14 @@ export class ZcfUninstaller {
     }
 
     try {
-      const agentsPath = join(homedir(), '.claude', 'agents', 'zcf')
+      const agentsPath = join(homedir(), '.claude', 'agents', 'tkp')
 
       if (await pathExists(agentsPath)) {
         const trashResult = await moveToTrash(agentsPath)
         if (!trashResult[0]?.success) {
           result.warnings.push(trashResult[0]?.error || 'Failed to move to trash')
         }
-        result.removed.push('agents/zcf/')
+        result.removed.push('agents/tkp/')
         result.success = true
       }
       else {
@@ -456,9 +456,9 @@ export class ZcfUninstaller {
   }
 
   /**
-   * 11. Remove ZCF preference configuration
+   * 11. Remove TKP preference configuration
    */
-  async removeZcfConfig(): Promise<UninstallResult> {
+  async removeTkpConfig(): Promise<UninstallResult> {
     const result: UninstallResult = {
       success: false,
       removed: [],
@@ -468,7 +468,7 @@ export class ZcfUninstaller {
     }
 
     try {
-      const zcfConfigPath = ZCF_CONFIG_FILE
+      const zcfConfigPath = TKP_CONFIG_FILE
       const relativeName = zcfConfigPath.replace(homedir(), '~')
 
       if (await pathExists(zcfConfigPath)) {
@@ -485,7 +485,7 @@ export class ZcfUninstaller {
       }
     }
     catch (error: any) {
-      result.errors.push(`Failed to remove ZCF config: ${error.message}`)
+      result.errors.push(`Failed to remove TKP config: ${error.message}`)
     }
 
     return result
@@ -638,8 +638,8 @@ export class ZcfUninstaller {
         return await this.uninstallClaudeCode()
       case 'backups':
         return await this.removeBackups()
-      case 'zcf-config':
-        return await this.removeZcfConfig()
+      case 'tkp-config':
+        return await this.removeTkpConfig()
       default:
         return {
           success: false,

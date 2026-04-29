@@ -4,22 +4,22 @@ title: CCR 代理管理
 
 # CCR 代理管理
 
-`zcf ccr` 提供 Claude Code Router（CCR）的完整管理菜单，包括安装、配置、服务控制和 Web UI 访问等功能。
+`tkp ccr` 提供 Claude Code Router（CCR）的完整管理菜单，包括安装、配置、服务控制和 Web UI 访问等功能。
 
 ## 命令格式
 
 ```bash
 # 打开 CCR 管理菜单
-npx zcf ccr
+npx tkp ccr
 
 # 或通过主菜单访问
-npx zcf
+npx tkp
 # 然后选择 R. CCR 管理
 ```
 
 ## 菜单选项
 
-运行 `zcf ccr` 后会显示以下菜单：
+运行 `tkp ccr` 后会显示以下菜单：
 
 ```
 ═══════════════════════════════════════════════════
@@ -59,7 +59,7 @@ npx zcf
 
 **示例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 1
 # 按提示完成配置
 ```
@@ -82,12 +82,12 @@ npx zcf ccr
 - 配置文件 `~/.claude-code-router/config.json` 必须存在
 
 **API 密钥**：
-- 启动 UI 时会显示 CCR API 密钥（默认：`sk-zcf-x-ccr`）
+- 启动 UI 时会显示 CCR API 密钥（默认：`sk-tkp-x-ccr`）
 - 使用此密钥登录 Web UI
 
 **示例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 2
 # 等待服务启动后，访问 http://localhost:3456/ui
 ```
@@ -109,7 +109,7 @@ npx zcf ccr
 
 **示例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 3
 ```
 
@@ -124,7 +124,7 @@ npx zcf ccr
 
 **示例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 4
 ```
 
@@ -138,7 +138,7 @@ npx zcf ccr
 
 **示例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 5
 ```
 
@@ -153,7 +153,7 @@ npx zcf ccr
 
 **示例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 6
 ```
 
@@ -168,7 +168,7 @@ CCR 支持灵活的路由规则配置，可以通过 Web UI 或配置文件设�
   "LOG": true,
   "HOST": "127.0.0.1",
   "PORT": 3456,
-  "APIKEY": "sk-zcf-x-ccr",
+  "APIKEY": "sk-tkp-x-ccr",
   "API_TIMEOUT_MS": "600000",
   "PROXY_URL": "",
   "Providers": [
@@ -236,7 +236,7 @@ CCR 支持灵活的路由规则配置，可以通过 Web UI 或配置文件设�
 | `LOG` | boolean | 是否启用日志 | `true` |
 | `HOST` | string | 服务监听地址 | `127.0.0.1` |
 | `PORT` | number | 服务端口 | `3456` |
-| `APIKEY` | string | CCR API 密钥 | `sk-zcf-x-ccr` |
+| `APIKEY` | string | CCR API 密钥 | `sk-tkp-x-ccr` |
 | `API_TIMEOUT_MS` | string | API 超时时间（毫秒） | `600000` |
 | `PROXY_URL` | string | 代理 URL（可选） | `""` |
 
@@ -267,10 +267,10 @@ CCR 支持灵活的路由规则配置，可以通过 Web UI 或配置文件设�
 
 ## 提供商预设
 
-ZCF 支持多个 CCR 提供商预设，简化配置流程：
+TKP 支持多个 CCR 提供商预设，简化配置流程：
 
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 选择 1. 初始化 CCR
 # 选择提供商预设
 ```
@@ -292,7 +292,7 @@ A: 需要先运行选项 1（初始化 CCR）完成配置。
 A: 
 1. 确保已启动 UI（选项 2）
 2. 检查端口 3456 是否被占用
-3. 使用 API 密钥 `sk-zcf-x-ccr` 登录（或查看配置中的 `APIKEY`）
+3. 使用 API 密钥 `sk-tkp-x-ccr` 登录（或查看配置中的 `APIKEY`）
 
 ### Q: 如何修改路由规则？
 

@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'pathe'
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const testConfigDir = mkdtempSync(join(tmpdir(), 'zcf-config-manager-test-'))
+const testConfigDir = mkdtempSync(join(tmpdir(), 'tkp-config-manager-test-'))
 const testConfigFile = join(testConfigDir, 'config.toml')
 const testSettingsFile = join(testConfigDir, 'settings.json')
 
@@ -12,8 +12,8 @@ vi.mock('../../../src/constants', async () => {
   const actual = await vi.importActual<typeof import('../../../src/constants')>('../../../src/constants')
   return {
     ...actual,
-    ZCF_CONFIG_DIR: testConfigDir,
-    ZCF_CONFIG_FILE: testConfigFile,
+    TKP_CONFIG_DIR: testConfigDir,
+    TKP_CONFIG_FILE: testConfigFile,
     SETTINGS_FILE: testSettingsFile,
   }
 })
@@ -1087,7 +1087,7 @@ describe('claudeCodeConfigManager', () => {
       await (ClaudeCodeConfigManager as any).ensureCcrProfileExists({
         HOST: '127.0.0.1',
         PORT: 3456,
-        APIKEY: 'sk-zcf',
+        APIKEY: 'sk-tkp',
       })
 
       mockReadCcrConfig.mockReturnValue(null)

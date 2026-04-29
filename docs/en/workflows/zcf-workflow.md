@@ -1,10 +1,10 @@
 ---
-title: ZCF Six-Stage Workflow
+title: TKP Six-Stage Workflow
 ---
 
-# ZCF Six-Stage Workflow
+# TKP Six-Stage Workflow
 
-The six-stage workflow is ZCF's core development process, covering the complete software development lifecycle: **Research → Ideate → Plan → Execute → Optimize → Review**.
+The six-stage workflow is TKP's core development process, covering the complete software development lifecycle: **Research → Ideate → Plan → Execute → Optimize → Review**.
 
 ## Features
 
@@ -20,12 +20,12 @@ The six-stage workflow is ZCF's core development process, covering the complete 
 Use the following command in Claude Code:
 
 ```
-/zcf:workflow <task description>
+/tkp:workflow <task description>
 ```
 
 **Example**:
 ```
-/zcf:workflow Implement user login functionality, supporting email and phone number login
+/tkp:workflow Implement user login functionality, supporting email and phone number login
 ```
 
 ### Codex
@@ -41,7 +41,7 @@ Use the following command in Codex (note different prefix):
 /prompts:workflow Implement user login functionality, supporting email and phone number login
 ```
 
-> 💡 **Tip**: Codex uses `/prompts:` prefix, while Claude Code uses `/zcf:` prefix.
+> 💡 **Tip**: Codex uses `/prompts:` prefix, while Claude Code uses `/tkp:` prefix.
 
 ## Six Stages Explained
 
@@ -89,7 +89,7 @@ Use the following command in Codex (note different prefix):
 - Detailed task breakdown
 - Technical implementation plan
 - Development plan and timeline
-- Plan document (saved in `.zcf/plan/current/task-name.md`)
+- Plan document (saved in `.tkp/plan/current/task-name.md`)
 
 ### 4. Execute
 
@@ -141,7 +141,7 @@ Use the following command in Codex (note different prefix):
 
 ### Basic Flow
 
-1. **Enter Command**: Enter `/zcf:workflow` or `/prompts:workflow` and describe task
+1. **Enter Command**: Enter `/tkp:workflow` or `/prompts:workflow` and describe task
 2. **Stage Execution**: AI executes six stages in order
 3. **User Confirmation**: Wait for user confirmation after each stage completes
 4. **Continue Next Step**: Enter next stage after user confirmation
@@ -151,10 +151,10 @@ Use the following command in Codex (note different prefix):
 
 Workflow automatically generates plan documents and requires saving:
 
-- **In-progress tasks**: `.zcf/plan/current/` directory
-- **Completed tasks**: `.zcf/plan/history/` directory
+- **In-progress tasks**: `.tkp/plan/current/` directory
+- **Completed tasks**: `.tkp/plan/history/` directory
 
-> 💡 **Tip**: `.zcf/` is the unified workflow directory, same path is used whether using Claude Code or Codex.
+> 💡 **Tip**: `.tkp/` is the unified workflow directory, same path is used whether using Claude Code or Codex.
 
 #### File Naming Rules
 
@@ -171,16 +171,16 @@ For complex tasks, it's recommended to break down first then execute separately:
 
 ```
 # Main task
-/zcf:workflow Build user management system
+/tkp:workflow Build user management system
 
 # Sub-task 1
-/zcf:workflow Implement user registration functionality
+/tkp:workflow Implement user registration functionality
 
 # Sub-task 2
-/zcf:workflow Implement user login functionality
+/tkp:workflow Implement user login functionality
 
 # Sub-task 3
-/zcf:workflow Implement user information management
+/tkp:workflow Implement user information management
 ```
 
 ### 2. Combine with Project Initialization
@@ -195,7 +195,7 @@ Before starting workflow, it's recommended to initialize project configuration:
 # Codex doesn't support init-project yet, can directly use workflow
 
 # 3. Execute workflow
-/zcf:workflow <task description>
+/tkp:workflow <task description>
 ```
 
 After initialization, will generate:
@@ -228,10 +228,10 @@ Six-stage workflow can be combined with other workflows:
 
 ```bash
 # 1. Use feature development workflow to plan features
-/zcf:feat User comment functionality
+/tkp:feat User comment functionality
 
 # 2. Use six-stage workflow to implement details
-/zcf:workflow Implement comment CRUD operations and permission control
+/tkp:workflow Implement comment CRUD operations and permission control
 
 # 3. Use Git workflow to commit code
 /git-commit
@@ -242,7 +242,7 @@ Six-stage workflow can be combined with other workflows:
 ### Example 1: Simple Feature Development
 
 ```
-/zcf:workflow Add user avatar upload functionality
+/tkp:workflow Add user avatar upload functionality
 ```
 
 Workflow will:
@@ -256,7 +256,7 @@ Workflow will:
 ### Example 2: Complex System Development
 
 ```
-/zcf:workflow Build microservice architecture user authentication system, supporting OAuth2 and JWT
+/tkp:workflow Build microservice architecture user authentication system, supporting OAuth2 and JWT
 ```
 
 Workflow will:
@@ -270,7 +270,7 @@ Workflow will:
 ### Example 3: Code Refactoring
 
 ```
-/zcf:workflow Refactor user module, improve code quality and maintainability
+/tkp:workflow Refactor user module, improve code quality and maintainability
 ```
 
 Workflow will:
@@ -285,11 +285,11 @@ Workflow will:
 
 ### Plan Document Location
 
-Workflow uses unified `.zcf/plan/` directory structure:
+Workflow uses unified `.tkp/plan/` directory structure:
 
 ```
 project-root/
-└── .zcf/
+└── .tkp/
     └── plan/
         ├── current/                        # Current in-progress tasks
         │   └── task-name.md                # Execution plan and context
@@ -297,7 +297,7 @@ project-root/
             └── [Finish-Time]task-name.md   # Archived task records
 ```
 
-- ⚠️ **Unified Directory**: Whether using Claude Code or Codex, `.zcf/plan/` directory is used
+- ⚠️ **Unified Directory**: Whether using Claude Code or Codex, `.tkp/plan/` directory is used
 - ✅ **Version Control**: It's recommended to include plan documents in Git version control
 - 📁 **Auto-archiving**: After task completion, plan files are automatically moved from `current/` to `history/`
 
@@ -324,6 +324,6 @@ For very complex tasks:
 - [Git Smart Commands](git-commands.md) - Git operation automation
 - [Workflow System](../features/workflows.md) - Detailed workflow information
 
-> 💡 **Tip**: The six-stage workflow is ZCF's core functionality, suitable for most development tasks. It's recommended to start with small tasks to familiarize yourself with the process, then gradually apply to more complex projects. Proper use of stage confirmation mechanism can provide better development experience.
+> 💡 **Tip**: The six-stage workflow is TKP's core functionality, suitable for most development tasks. It's recommended to start with small tasks to familiarize yourself with the process, then gradually apply to more complex projects. Proper use of stage confirmation mechanism can provide better development experience.
 
 

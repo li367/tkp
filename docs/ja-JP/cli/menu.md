@@ -4,7 +4,7 @@ title: メインメニュー
 
 # メインメニュー
 
-`npx zcf` を実行すると、対話式メニューシステムに入ります。メニューは ZCF のコアインターフェースで、視覚的な操作オプションを提供し、複雑なコマンドパラメータを覚える必要がありません。
+`npx tkp` を実行すると、対話式メニューシステムに入ります。メニューは TKP のコアインターフェースで、視覚的な操作オプションを提供し、複雑なコマンドパラメータを覚える必要がありません。
 
 ## メニューの特徴
 
@@ -17,20 +17,20 @@ title: メインメニュー
 
 | オプション | 機能 | 対応コマンド | 説明 |
 |------|------|---------|------|
-| `1` | 完全初期化 | `zcf init` | Claude Code 環境を完全に初期化 |
-| `2` | ワークフローのインポート/更新 | `zcf update` | ワークフローテンプレートとプロンプトを更新 |
+| `1` | 完全初期化 | `tkp init` | Claude Code 環境を完全に初期化 |
+| `2` | ワークフローのインポート/更新 | `tkp update` | ワークフローテンプレートとプロンプトを更新 |
 | `3` | API または CCR を設定 | - | API キー、プロバイダー、または CCR プロキシを設定 |
 | `4` | MCP サービスを設定 | - | MCP サービスのインストールと設定 |
 | `5` | デフォルトモデルを設定 | - | 使用するデフォルトの Claude モデルを設定 |
 | `6` | AI メモリと出力スタイルを設定 | - | AI 出力言語とグローバル出力スタイルを設定 |
 | `7` | 推奨環境変数と権限をインポート | - | 環境変数とファイルシステム権限を設定 |
-| `R` | CCR 管理メニュー | `zcf ccr` | Claude Code Router 管理 |
-| `U` | Claude Code 使用分析 | `zcf ccu` | API 使用統計を表示 |
+| `R` | CCR 管理メニュー | `tkp ccr` | Claude Code Router 管理 |
+| `U` | Claude Code 使用分析 | `tkp ccu` | API 使用統計を表示 |
 | `L` | CCometixLine 管理 | - | ステータスバーツール管理 |
 | `0` | スクリプト言語を切替 | - | CLI インターフェース言語を切替（zh-CN/en） |
 | `S` | コードツールを切替 | - | Claude Code ↔ Codex の間で切替 |
-| `-` | 現在のツール設定をアンインストール | `zcf uninstall` | Claude Code 設定をアンインストール |
-| `+` | 更新を確認 | `zcf check-updates` | ツールバージョンを確認して更新 |
+| `-` | 現在のツール設定をアンインストール | `tkp uninstall` | Claude Code 設定をアンインストール |
+| `+` | 更新を確認 | `tkp check-updates` | ツールバージョンを確認して更新 |
 | `Q` | 終了 | - | メニューを終了 |
 
 ## Codex モードメニュー
@@ -53,7 +53,7 @@ Codex モードでは、メニューが Codex に対応する操作に調整さ�
 メニューはクイック入力をサポートし、確認キーを押す必要がありません：
 
 ```bash
-npx zcf
+npx tkp
 # 1 を入力して Enter を押すと、直接完全初期化に入る
 # R を入力して Enter を押すと、直接 CCR 管理に入る
 ```
@@ -63,7 +63,7 @@ npx zcf
 無効な文字を入力した場合、CLI は再入力を促します：
 
 ```bash
-npx zcf
+npx tkp
 # X を入力（無効なオプション）
 # CLI プロンプト：無効なオプション、再入力してください
 ```
@@ -81,7 +81,7 @@ npx zcf
 メインメニューで `0` を入力すると、CLI 言語を切替できます：
 
 ```bash
-npx zcf
+npx tkp
 # 0 を入力
 # 言語を選択：zh-CN または en
 # 言語切替後、メニューが再表示される
@@ -92,7 +92,7 @@ npx zcf
 `S` を使用して Claude Code と Codex の間を切替できます：
 
 ```bash
-npx zcf
+npx tkp
 # 現在のモード：Claude Code
 # S を入力
 # 切替：Codex モード
@@ -103,7 +103,7 @@ npx zcf
 
 ### 完全初期化（オプション 1）
 
-`npx zcf init` を実行するのと同じで、以下を案内します：
+`npx tkp init` を実行するのと同じで、以下を案内します：
 
 - コードツールタイプを選択
 - API を設定（公式ログイン/API Key/CCR プロキシ）
@@ -114,7 +114,7 @@ npx zcf
 
 ### ワークフローのインポート/更新（オプション 2）
 
-`npx zcf update` を実行するのと同じで、以下を実行します：
+`npx tkp update` を実行するのと同じで、以下を実行します：
 
 - ワークフローテンプレートを更新
 - プロンプト内容を更新
@@ -234,10 +234,10 @@ API 使用統計を表示します：
 
 ### 1. 初回使用
 
-ZCF を初めて使用する場合、メニューから始めることをお勧めします：
+TKP を初めて使用する場合、メニューから始めることをお勧めします：
 
 ```bash
-npx zcf
+npx tkp
 # 1 (完全初期化) を選択
 # プロンプトに従って設定を完了
 ```
@@ -248,10 +248,10 @@ npx zcf
 
 ```bash
 # ワークフローをすばやく更新
-npx zcf update
+npx tkp update
 
 # またはメニューを通じて
-npx zcf
+npx tkp
 # 2 を選択
 ```
 
@@ -260,7 +260,7 @@ npx zcf
 コマンドに慣れていない場合、メニューを使用して機能を探索します：
 
 ```bash
-npx zcf
+npx tkp
 # すべての利用可能なオプションを閲覧
 # 異なる機能を試す
 ```
@@ -287,7 +287,7 @@ node --version  # >= 18 が必要
 # ターミナルが ANSI カラーコードをサポートしていることを確認
 
 # 3. コマンドを直接使用
-npx zcf init
+npx tkp init
 ```
 
 ### メニューオプションが応答しない
@@ -296,13 +296,13 @@ npx zcf init
 
 ```bash
 # 1. 設定権限を確認
-ls -la ~/.ufomiao/zcf/
+ls -la ~/.tkp/
 
 # 2. 詳細エラーを確認
-npx zcf --verbose
+npx tkp --verbose
 
 # 3. 設定を再初期化
-npx zcf init --config-action new
+npx tkp init --config-action new
 ```
 
 ### ツール切替が失敗する
@@ -311,17 +311,17 @@ npx zcf init --config-action new
 
 ```bash
 # 1. 設定ファイルを確認
-cat ~/.ufomiao/zcf/config.toml | grep codeToolType
+cat ~/.tkp/config.toml | grep codeToolType
 
 # 2. 手動で切替
-npx zcf init -T codex  # Codex に切替
-npx zcf init -T claude-code  # Claude Code に切替
+npx tkp init -T codex  # Codex に切替
+npx tkp init -T claude-code  # Claude Code に切替
 ```
 
 ## 関連リソース
 
-- [zcf init](init.md) - 完全初期化コマンドの詳細
-- [zcf update](update.md) - 更新コマンドの詳細
+- [tkp init](init.md) - 完全初期化コマンドの詳細
+- [tkp update](update.md) - 更新コマンドの詳細
 - [クイックスタート](../getting-started/installation.md) - インストールと使用ガイド
 
-> 💡 **ヒント**：メニューは ZCF の最も親しみやすい使用方法で、コマンドラインに慣れていないユーザーに特に適しています。初回使用時はメニューを通じて設定を完了し、慣れたら直接コマンドと組み合わせて使用して効率を向上させることをお勧めします。
+> 💡 **ヒント**：メニューは TKP の最も親しみやすい使用方法で、コマンドラインに慣れていないユーザーに特に適しています。初回使用時はメニューを通じて設定を完了し、慣れたら直接コマンドと組み合わせて使用して効率を向上させることをお勧めします。

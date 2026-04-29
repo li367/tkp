@@ -11,11 +11,11 @@ import {
   getAiOutputLanguageLabel,
   isCodeToolType,
   LANG_LABELS,
-  LEGACY_ZCF_CONFIG_FILES,
+  LEGACY_TKP_CONFIG_FILES,
   SETTINGS_FILE,
   SUPPORTED_LANGS,
-  ZCF_CONFIG_DIR,
-  ZCF_CONFIG_FILE,
+  TKP_CONFIG_DIR,
+  TKP_CONFIG_FILE,
 } from '../../../src/constants'
 
 // Mock i18n module
@@ -57,16 +57,16 @@ describe('constants', () => {
       expect(ClAUDE_CONFIG_FILE).toBe(join(homedir(), '.claude.json'))
     })
 
-    it('should define correct ZCF config directory path', () => {
-      expect(ZCF_CONFIG_DIR).toBe(join(homedir(), '.ufomiao', 'zcf'))
+    it('should define correct TKP config directory path', () => {
+      expect(TKP_CONFIG_DIR).toBe(join(homedir(), '.tkp'))
     })
 
-    it('should define correct ZCF config file path', () => {
-      expect(ZCF_CONFIG_FILE).toBe(join(ZCF_CONFIG_DIR, 'config.toml'))
+    it('should define correct TKP config file path', () => {
+      expect(TKP_CONFIG_FILE).toBe(join(TKP_CONFIG_DIR, 'config.toml'))
     })
 
-    it('should define legacy ZCF config file paths', () => {
-      expect(LEGACY_ZCF_CONFIG_FILES).toEqual([
+    it('should define legacy TKP config file paths', () => {
+      expect(LEGACY_TKP_CONFIG_FILES).toEqual([
         join(CLAUDE_DIR, '.zcf-config.json'),
         join(homedir(), '.zcf.json'),
       ])

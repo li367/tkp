@@ -177,7 +177,7 @@ describe('cCR config', () => {
         expect.objectContaining({
           env: {
             ANTHROPIC_BASE_URL: 'http://127.0.0.1:3456',
-            ANTHROPIC_API_KEY: 'sk-zcf-x-ccr',
+            ANTHROPIC_API_KEY: 'sk-tkp-x-ccr',
           },
         }),
       )
@@ -291,7 +291,7 @@ describe('cCR config', () => {
         LOG: true,
         HOST: '127.0.0.1',
         PORT: 3456,
-        APIKEY: 'sk-zcf-x-ccr',
+        APIKEY: 'sk-tkp-x-ccr',
         Providers: [
           expect.objectContaining({
             name: 'Provider1',

@@ -7,9 +7,9 @@ import { ensureI18nInitialized, i18n } from '../i18n'
 import { resolveCodeType } from '../utils/code-type-resolver'
 import { handleExitPromptError, handleGeneralError } from '../utils/error-handler'
 import { addNumbersToChoices } from '../utils/prompt-helpers'
+import { readTkpConfig } from '../utils/tkp-config'
 import { promptBoolean } from '../utils/toggle-prompt'
 import { ZcfUninstaller } from '../utils/uninstaller'
-import { readZcfConfig } from '../utils/zcf-config'
 
 export interface UninstallOptions {
   lang?: SupportedLang
@@ -19,7 +19,7 @@ export interface UninstallOptions {
 }
 
 /**
- * Main uninstall command - Remove ZCF configurations and tools
+ * Main uninstall command - Remove TKP configurations and tools
  * Supports both interactive and non-interactive modes
  */
 export async function uninstall(options: UninstallOptions = {}): Promise<void> {
@@ -37,7 +37,7 @@ export async function uninstall(options: UninstallOptions = {}): Promise<void> {
         const errorMessage = error instanceof Error ? error.message : String(error)
         console.error(ansis.red(`${i18n.t('errors:generalError')} ${errorMessage}`))
         // Fallback to config
-        const config = readZcfConfig()
+        const config = readTkpConfig()
         codeType = config?.codeToolType && isCodeToolType(config.codeToolType)
           ? config.codeToolType
           : DEFAULT_CODE_TOOL_TYPE
@@ -45,7 +45,7 @@ export async function uninstall(options: UninstallOptions = {}): Promise<void> {
     }
     else {
       // Read from config
-      const config = readZcfConfig()
+      const config = readTkpConfig()
       codeType = config?.codeToolType && isCodeToolType(config.codeToolType)
         ? config.codeToolType
         : DEFAULT_CODE_TOOL_TYPE
@@ -185,7 +185,7 @@ async function showCustomUninstallMenu(uninstaller: ZcfUninstaller): Promise<voi
       },
       {
         name: i18n.t('uninstall:zcfConfig'),
-        value: 'zcf-config' as const,
+        value: 'tkp-config' as const,
       },
     ],
     validate: (answers: readonly unknown[]) => {

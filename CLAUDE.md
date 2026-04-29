@@ -38,21 +38,21 @@
 - 将模板整合到 common 目录以提高代码复用
 - 统一 output-styles、git workflows 和 sixStep workflows 到 `templates/common/`
 - 移除重复的 Codex 模板（现与 Claude Code 共享）
-- 统一 sixStep 计划目录为 `.zcf`
+- 统一 sixStep 计划目录为 `.tkp`
 
 ## Project Overview
 
-ZCF (Zero-Config Code Flow) v3.6.5 is a CLI tool that automatically configures Claude Code and Codex environments. Built with TypeScript and distributed as an npm package, it provides one-click setup for Claude Code and Codex including configuration files, API settings, MCP services, and AI workflows. The current version v3.6.4 features advanced i18next internationalization, enhanced engineering templates (BMAD V6, Leibus engineer, rem-engineer), intelligent IDE detection, comprehensive multi-platform support including Termux compatibility, sophisticated uninstallation capabilities with advanced conflict resolution, and an expanded API provider preset system (302.AI, GLM, MiniMax, Kimi, PackyCode, AICodeMirror, Crazyrouter, Bailian Coding, Z.ai, MiMo). The project integrates dual code tool support, enabling both Claude Code and Codex environment configuration, with a consolidated template architecture for shared resources.
+TKP CLI v3.6.5 is a CLI tool that automatically configures Claude Code and Codex environments. Built with TypeScript and distributed as an npm package, it provides one-click setup for Claude Code and Codex including configuration files, API settings, MCP services, and AI workflows. The current version v3.6.4 features advanced i18next internationalization, enhanced engineering templates (BMAD V6, Leibus engineer, rem-engineer), intelligent IDE detection, comprehensive multi-platform support including Termux compatibility, sophisticated uninstallation capabilities with advanced conflict resolution, and an expanded API provider preset system (302.AI, GLM, MiniMax, Kimi, PackyCode, AICodeMirror, Crazyrouter, Bailian Coding, Z.ai, MiMo). The project integrates dual code tool support, enabling both Claude Code and Codex environment configuration, with a consolidated template architecture for shared resources.
 
 ## Architecture Overview
 
-ZCF follows a modular CLI architecture with strict TypeScript typing, comprehensive i18next-based internationalization, and cross-platform support. The project is built using modern tooling including unbuild, Vitest, ESM-only configuration, and @antfu/eslint-config for code quality. The architecture emphasizes robust error handling, user-friendly interfaces, and extensive testing coverage with advanced tool integration including CCR proxy, Cometix status line, CCusage analytics, and BMAD multi-agent workflows. Version 3.5.x+ introduces consolidated template architecture with shared resources in `templates/common/` for output styles, git workflows, and sixStep workflows, enabling code reuse between Claude Code and Codex. Version 3.6.x adds new output styles (Leibus engineer, rem-engineer), expanded API provider presets (AICodeMirror, Crazyrouter), and BMAD V6 multi-agent upgrades.
+TKP follows a modular CLI architecture with strict TypeScript typing, comprehensive i18next-based internationalization, and cross-platform support. The project is built using modern tooling including unbuild, Vitest, ESM-only configuration, and @antfu/eslint-config for code quality. The architecture emphasizes robust error handling, user-friendly interfaces, and extensive testing coverage with advanced tool integration including CCR proxy, Cometix status line, CCusage analytics, and BMAD multi-agent workflows. Version 3.5.x+ introduces consolidated template architecture with shared resources in `templates/common/` for output styles, git workflows, and sixStep workflows, enabling code reuse between Claude Code and Codex. Version 3.6.x adds new output styles (Leibus engineer, rem-engineer), expanded API provider presets (AICodeMirror, Crazyrouter), and BMAD V6 multi-agent upgrades.
 
 ### Module Structure Diagram
 
 ```mermaid
 graph TD
-    A["ZCF Root (v3.6.5)"] --> B["src/commands"];
+    A["TKP Root (v3.6.5)"] --> B["src/commands"];
     A --> C["src/utils"];
     A --> D["src/i18n"];
     A --> E["src/types"];
@@ -68,7 +68,7 @@ graph TD
     B --> B4["ccr.ts - Router management"];
     B --> B5["ccu.ts - Usage analysis"];
     B --> B6["check-updates.ts - Tool updates"];
-    B --> B7["uninstall.ts - ZCF uninstallation"];
+    B --> B7["uninstall.ts - TKP uninstallation"];
     B --> B8["config-switch.ts - Config switching"];
 
     C --> C1["config.ts - Configuration management"];
@@ -84,7 +84,7 @@ graph TD
     C --> C11["claude-code-config-manager.ts"];
     C --> C12["claude-code-incremental-manager.ts"];
     C --> C13["features.ts"];
-    C --> C14["zcf-config.ts"];
+    C --> C14["tkp-config.ts"];
 
     D --> D1["locales/zh-CN/ - Chinese translations"];
     D --> D2["locales/en/ - English translations"];
@@ -127,7 +127,7 @@ graph TD
 | Module | Path | Description | Entry Points | Test Coverage |
 |------------------------|--------------|---------------------------------------|-------------------------------------------------------|-------------------------------|
 | **Commands** | `src/commands/` | CLI command implementations with advanced interactive and non-interactive modes, comprehensive uninstallation, config switching, and dual code tool support | init.ts, menu.ts, update.ts, ccr.ts, ccu.ts, check-updates.ts, uninstall.ts, config-switch.ts | High - comprehensive test suites |
-| **Utilities** | `src/utils/` | Core functionality with enhanced configuration management, platform support, Codex integration, advanced uninstallation, TOML editing | config.ts, installer.ts, platform.ts, workflow-installer.ts, ccr/, cometix/, code-tools/, uninstaller.ts, trash.ts, claude-code-config-manager.ts, claude-code-incremental-manager.ts, features.ts, zcf-config.ts | High - extensive unit tests |
+| **Utilities** | `src/utils/` | Core functionality with enhanced configuration management, platform support, Codex integration, advanced uninstallation, TOML editing | config.ts, installer.ts, platform.ts, workflow-installer.ts, ccr/, cometix/, code-tools/, uninstaller.ts, trash.ts, claude-code-config-manager.ts, claude-code-incremental-manager.ts, features.ts, tkp-config.ts | High - extensive unit tests |
 | **CCR Integration** | `src/utils/ccr/` | Claude Code Router proxy management and configuration | presets.ts, commands.ts, installer.ts, config.ts | High - comprehensive CCR tests |
 | **Cometix Tools** | `src/utils/cometix/` | Status line tools and configuration management | errors.ts, common.ts, types.ts, commands.ts, installer.ts, menu.ts | High - extensive Cometix tests |
 | **Code Tools** | `src/utils/code-tools/` | Codex integration and dual code tool support | codex-config-detector.ts, codex-provider-manager.ts, codex-uninstaller.ts, codex-platform.ts, codex-config-switch.ts, codex-configure.ts, codex.ts | High - comprehensive Codex tests |
@@ -141,7 +141,7 @@ graph TD
 
 ## Output Styles
 
-ZCF v3.6.x supports 8 output styles:
+TKP v3.6.x supports 8 output styles:
 1. **engineer-professional** - Professional engineering style (default)
 2. **laowang-engineer** - Laowang engineer with practical approach
 3. **nekomata-engineer** - Nekomata cat-girl engineer personality
@@ -154,7 +154,7 @@ ZCF v3.6.x supports 8 output styles:
 
 ## API Provider Presets
 
-ZCF v3.6.x supports 12 API provider presets:
+TKP v3.6.x supports 12 API provider presets:
 1. **302.AI** - 302.AI API Service (Claude Code + Codex)
 2. **PackyCode** - PackyCode API Service (Claude Code + Codex)
 3. **AICodeMirror** - AICodeMirror Global Line (Claude Code + Codex, v3.6.1+)
@@ -170,35 +170,35 @@ ZCF v3.6.x supports 12 API provider presets:
 
 ## CLI Usage
 
-ZCF provides both direct commands and an interactive menu system with advanced internationalization and comprehensive uninstallation:
+TKP provides both direct commands and an interactive menu system with advanced internationalization and comprehensive uninstallation:
 
 ```bash
 # Interactive menu (recommended)
-npx zcf                    # Opens main menu with all options
+npx tkp                    # Opens main menu with all options
 
 # Direct commands
-npx zcf i                  # Full initialization
-npx zcf u                  # Update workflows only
-npx zcf ccr [--lang <en|zh-CN>]  # Claude Code Router management
-npx zcf ccu [args...]      # Run ccusage with arguments
-npx zcf check-updates [--lang <en|zh-CN>] [--code-type <claude-code|codex>]  # Check tool updates
-npx zcf config-switch [target] [--code-type <claude-code|codex>]  # Switch configurations
-npx zcf uninstall [--mode <complete|custom|interactive>] [--items <items>] [--lang <en|zh-CN>]  # ZCF uninstallation
+npx tkp i                  # Full initialization
+npx tkp u                  # Update workflows only
+npx tkp ccr [--lang <en|zh-CN>]  # Claude Code Router management
+npx tkp ccu [args...]      # Run ccusage with arguments
+npx tkp check-updates [--lang <en|zh-CN>] [--code-type <claude-code|codex>]  # Check tool updates
+npx tkp config-switch [target] [--code-type <claude-code|codex>]  # Switch configurations
+npx tkp uninstall [--mode <complete|custom|interactive>] [--items <items>] [--lang <en|zh-CN>]  # TKP uninstallation
 
 # Config switch examples
-npx zcf config-switch --list                    # List available configurations
-npx zcf config-switch provider1 --code-type codex  # Switch Codex provider
-npx zcf config-switch config1 --code-type claude-code  # Switch Claude Code config
+npx tkp config-switch --list                    # List available configurations
+npx tkp config-switch provider1 --code-type codex  # Switch Codex provider
+npx tkp config-switch config1 --code-type claude-code  # Switch Claude Code config
 
 # Non-interactive (CI/CD) examples
-npx zcf i -s -p 302ai -k "sk-xxx"              # Full init with provider preset
-npx zcf i -s --all-lang zh-CN --api-type api_key --api-key "key"
-npx zcf i -s --api-type ccr_proxy
+npx tkp i -s -p 302ai -k "sk-xxx"              # Full init with provider preset
+npx tkp i -s --all-lang zh-CN --api-type api_key --api-key "key"
+npx tkp i -s --api-type ccr_proxy
 
 # Uninstall examples
-npx zcf uninstall                                    # Interactive uninstall menu
-npx zcf uninstall --mode complete                    # Complete uninstallation
-npx zcf uninstall --mode custom --items ccr,backups # Custom uninstallation
+npx tkp uninstall                                    # Interactive uninstall menu
+npx tkp uninstall --mode complete                    # Complete uninstallation
+npx tkp uninstall --mode custom --items ccr,backups # Custom uninstallation
 ```
 
 ## Running and Development
@@ -361,7 +361,7 @@ templates/
 8. **Consolidated Template System**: Shared templates architecture with `templates/common/` containing output-styles, git workflows, and sixStep workflows for code reuse (v3.5.0+)
 9. **Advanced i18next Integration**: Sophisticated internationalization with 17 namespace-based translation management and dynamic language switching
 10. **Comprehensive Tool Integration**: Advanced CCR, Cometix, CCusage, and BMAD multi-agent integration with version management and configuration validation
-11. **Sophisticated Uninstaller**: Advanced ZCF uninstaller with selective removal, conflict resolution, and cross-platform trash integration
+11. **Sophisticated Uninstaller**: Advanced TKP uninstaller with selective removal, conflict resolution, and cross-platform trash integration
 12. **Precise TOML Configuration**: @rainbowatcher/toml-edit-js for targeted TOML field updates without corrupting MCP configurations (v3.5.1+)
 
 ### Testing Philosophy
@@ -389,7 +389,7 @@ pnpm release
 
 ## Sponsors
 
-Key sponsors supporting ZCF development:
+Key sponsors supporting TKP development:
 - **GLM** (Z.ai) - AI model sponsorship
 - **302.AI** - Enterprise AI resource hub
 - **PackyCode** - API relay service provider

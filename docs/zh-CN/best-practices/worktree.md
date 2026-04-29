@@ -4,7 +4,7 @@ title: Worktree 并行开发
 
 # Worktree 并行开发
 
-Git Worktree 是 Git 的一个强大功能，允许您在同一仓库中创建多个工作区（副本），每个工作区可以切换不同的分支，互不干扰，共享同一套 Git 历史。ZCF 提供的 `/git-worktree` 智能指令让 Worktree 管理变得简单直观。
+Git Worktree 是 Git 的一个强大功能，允许您在同一仓库中创建多个工作区（副本），每个工作区可以切换不同的分支，互不干扰，共享同一套 Git 历史。TKP 提供的 `/git-worktree` 智能指令让 Worktree 管理变得简单直观。
 
 ## 什么是 Worktree
 
@@ -26,7 +26,7 @@ Worktree 可以很方便地创建一个项目的工作区（副本），并且�
 
 ## 基本命令
 
-ZCF 的 `/git-worktree` 指令提供了完整的 Worktree 管理功能：
+TKP 的 `/git-worktree` 指令提供了完整的 Worktree 管理功能：
 
 ### 创建 Worktree
 
@@ -86,7 +86,7 @@ ZCF 的 `/git-worktree` 指令提供了完整的 Worktree 管理功能：
 
 ### 自然语言执行
 
-ZCF 的 `/git-worktree` 指令支持自然语言，不需要记住命令细节：
+TKP 的 `/git-worktree` 指令支持自然语言，不需要记住命令细节：
 
 ✅ **推荐使用自然语言**：
 ```
@@ -97,19 +97,19 @@ ZCF 的 `/git-worktree` 指令支持自然语言，不需要记住命令细节�
 
 ❌ **不需要这样**：
 ```bash
-git worktree add ../.zcf/project-name/feat/test -b feat/test
+git worktree add ../.tkp/project-name/feat/test -b feat/test
 ```
 
 ### 工作区位置
 
-ZCF 的 Worktree 默认创建在项目平级的 `../.zcf/项目名/` 目录下，避免混乱：
+TKP 的 Worktree 默认创建在项目平级的 `../.tkp/项目名/` 目录下，避免混乱：
 
 ```
 项目目录/
 ├── src/
 └── ...
 
-.zcf/
+.tkp/
 └── 项目名/
     ├── feat/add-i18n/
     ├── bugfix/login-error/
@@ -121,7 +121,7 @@ ZCF 的 Worktree 默认创建在项目平级的 `../.zcf/项目名/` 目录下�
 - 统一的命名规范，易于管理
 - 支持 IDE 自动打开
 
-## 与 ZCF 工作流配合
+## 与 TKP 工作流配合
 
 ### 多线并行 + SL 回档大法
 
@@ -142,9 +142,9 @@ ZCF 的 Worktree 默认创建在项目平级的 `../.zcf/项目名/` 目录下�
    ```
 
 2. 在每个 Worktree 中运行工作流
-   - 在 solution1 中：`/zcf:workflow 开发xxx功能`
-   - 在 solution2 中：`/zcf:workflow 开发xxx功能，要求高性能`
-   - 在 solution3 中：`/zcf:workflow 开发xxx功能，要求简洁代码`
+   - 在 solution1 中：`/tkp:workflow 开发xxx功能`
+   - 在 solution2 中：`/tkp:workflow 开发xxx功能，要求高性能`
+   - 在 solution3 中：`/tkp:workflow 开发xxx功能，要求简洁代码`
 
 3. 比较结果，选择最优方案
 
@@ -167,10 +167,10 @@ ZCF 的 Worktree 默认创建在项目平级的 `../.zcf/项目名/` 目录下�
 /git-worktree add solution1-v2 -o
 
 # 在新工作区中，引用工作区2的经验
-/zcf:workflow 开发xxx功能，参考solution2的实现，但要避免xxx问题
+/tkp:workflow 开发xxx功能，参考solution2的实现，但要避免xxx问题
 ```
 
-### 与 ZCF 工作流搭配
+### 与 TKP 工作流搭配
 
 在每个 Worktree 中独立运行工作流：
 
@@ -180,13 +180,13 @@ ZCF 的 Worktree 默认创建在项目平级的 `../.zcf/项目名/` 目录下�
 
 ```text
 # Worktree 1：基础实现
-/zcf:workflow 实现用户登录功能
+/tkp:workflow 实现用户登录功能
 
 # Worktree 2：优化实现
-/zcf:workflow 实现用户登录功能，使用JWT，支持刷新token
+/tkp:workflow 实现用户登录功能，使用JWT，支持刷新token
 
 # Worktree 3：测试实现
-/zcf:workflow 实现用户登录功能，重点考虑安全性
+/tkp:workflow 实现用户登录功能，重点考虑安全性
 ```
 
 ## 最佳实践
@@ -227,11 +227,11 @@ ZCF 的 Worktree 默认创建在项目平级的 `../.zcf/项目名/` 目录下�
 
 ```bash
 # 主分支使用 GLM 提供商配置
-npx zcf config-switch glm-provider
+npx tkp config-switch glm-provider
 
 # Worktree 中使用 302.AI 提供商配置
-cd ../.zcf/project-name/feat/test
-npx zcf config-switch 302ai-provider
+cd ../.tkp/project-name/feat/test
+npx tkp config-switch 302ai-provider
 ```
 
 ### 5. 项目进度文档
@@ -240,7 +240,7 @@ npx zcf config-switch 302ai-provider
 
 ```text
 # 在新 Worktree 中继续任务
-/zcf:workflow 继续开发xxx功能，参考之前的进度文档：progress.md
+/tkp:workflow 继续开发xxx功能，参考之前的进度文档：progress.md
 ```
 
 ## 工作流建议
@@ -254,7 +254,7 @@ npx zcf config-switch 302ai-provider
 
 2. **运行工作流**
    ```text
-   /zcf:workflow 开发xxx功能
+   /tkp:workflow 开发xxx功能
    ```
 
 3. **测试和优化**
@@ -264,7 +264,7 @@ npx zcf config-switch 302ai-provider
 4. **合并代码**
    ```bash
    # 在 Worktree 中提交
-   cd ../.zcf/project-name/feat/feature-name
+   cd ../.tkp/project-name/feat/feature-name
    git add .
    git commit -m "feat: add feature"
 
@@ -307,5 +307,5 @@ npx zcf config-switch 302ai-provider
 ## 相关文档
 
 - [Git 智能命令](../workflows/git-commands.md) - 其他 Git 操作命令
-- [ZCF 六阶段工作流](../workflows/zcf-workflow.md) - 配合工作流使用
+- [TKP 六阶段工作流](../workflows/tkp-workflow.md) - 配合工作流使用
 - [配置切换](../cli/config-switch.md) - 在不同 Worktree 中使用不同配置

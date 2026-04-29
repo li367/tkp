@@ -154,10 +154,10 @@ vi.mock('../../../../src/utils/prompt-helpers', () => ({
   addNumbersToChoices: vi.fn(choices => choices),
 }))
 
-// Mock zcf-config
-vi.mock('../../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(() => ({ preferredLang: 'en', codeToolType: 'codex' })),
-  updateZcfConfig: vi.fn(),
+// Mock tkp-config
+vi.mock('../../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(() => ({ preferredLang: 'en', codeToolType: 'codex' })),
+  updateTkpConfig: vi.fn(),
   readDefaultTomlConfig: vi.fn(() => ({
     version: '1.0.0',
     general: { preferredLang: 'en', currentTool: 'codex' },
@@ -207,9 +207,9 @@ describe('codex utilities - edge cases', () => {
     vi.spyOn(console, 'log').mockImplementation(() => {})
     vi.spyOn(console, 'error').mockImplementation(() => {})
 
-    // Reset zcf-config mock to default
-    const { readZcfConfig } = await import('../../../../src/utils/zcf-config')
-    vi.mocked(readZcfConfig).mockReturnValue({
+    // Reset tkp-config mock to default
+    const { readTkpConfig } = await import('../../../../src/utils/tkp-config')
+    vi.mocked(readTkpConfig).mockReturnValue({
       version: '1.0.0',
       preferredLang: 'en',
       codeToolType: 'codex',
@@ -361,9 +361,9 @@ describe('codex utilities - edge cases', () => {
       const { runCodexSystemPromptSelection } = await import('../../../../src/utils/code-tools/codex')
       const { exists } = await import('../../../../src/utils/fs-operations')
 
-      // Reset readZcfConfig for this test to avoid pollution from previous tests
-      const { readZcfConfig } = await import('../../../../src/utils/zcf-config')
-      vi.mocked(readZcfConfig).mockReturnValue({
+      // Reset readTkpConfig for this test to avoid pollution from previous tests
+      const { readTkpConfig } = await import('../../../../src/utils/tkp-config')
+      vi.mocked(readTkpConfig).mockReturnValue({
         version: '1.0.0',
         preferredLang: 'en',
         codeToolType: 'codex',

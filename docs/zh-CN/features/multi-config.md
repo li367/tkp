@@ -4,25 +4,25 @@ title: 多配置与备份
 
 # 多配置与备份
 
-ZCF 提供了完善的配置管理和备份机制，支持多套配置的切换、版本管理和安全回滚。无论是 Claude Code 还是 Codex，都可以轻松管理多个 API 配置、输出风格和系统设置。
+TKP 提供了完善的配置管理和备份机制，支持多套配置的切换、版本管理和安全回滚。无论是 Claude Code 还是 Codex，都可以轻松管理多个 API 配置、输出风格和系统设置。
 
 ## 多配置系统
 
 ### 配置层级
 
-ZCF 的配置系统分为以下几个层级：
+TKP 的配置系统分为以下几个层级：
 
-1. **全局配置**（`~/.ufomiao/zcf/config.toml`）- ZCF 本身的配置
+1. **全局配置**（`~/.tkp/config.toml`）- TKP 本身的配置
 2. **Claude Code 配置**（`~/.claude/settings.json`）- Claude Code 运行配置
 3. **Codex 配置**（`~/.codex/config.toml`）- Codex 运行配置
 4. **CCR 配置**（`~/.claude-code-router/config.json`）- Claude Code Router 代理配置
 
 ### 配置管理与切换
 
-ZCF 提供了强大的 CLI 工具来创建、管理和切换这些配置。
+TKP 提供了强大的 CLI 工具来创建、管理和切换这些配置。
 
-- **创建配置**：在初始化时可以通过 `zcf init` 命令配置多个 API 提供商。
-- **切换配置**：使用 `zcf config-switch` 命令在不同环境、项目或提供商之间快速切换。
+- **创建配置**：在初始化时可以通过 `tkp init` 命令配置多个 API 提供商。
+- **切换配置**：使用 `tkp config-switch` 命令在不同环境、项目或提供商之间快速切换。
 
 👉 **详细命令使用请参考：**
 - **[配置切换命令 (config-switch)](../cli/config-switch.md)**
@@ -30,7 +30,7 @@ ZCF 提供了强大的 CLI 工具来创建、管理和切换这些配置。
 
 ## 备份系统
 
-ZCF 在每次修改配置前都会自动创建备份，确保配置安全和可恢复性。
+TKP 在每次修改配置前都会自动创建备份，确保配置安全和可恢复性。
 
 ### 备份位置
 
@@ -45,14 +45,14 @@ ZCF 在每次修改配置前都会自动创建备份，确保配置安全和可�
 | **Codex Prompts** | `~/.codex/backup/` | `prompts.{timestamp}.tar.gz` |
 | **CCR** | `~/.claude-code-router/` | `config.json.{timestamp}.bak` |
 | **CCometixLine** | `~/.cometix/backup/` | `config.{timestamp}.bak` |
-| **ZCF 全局配置** | `~/.ufomiao/zcf/backup/` | `config.toml.{timestamp}.bak` |
+| **TKP 全局配置** | `~/.tkp/backup/` | `config.toml.{timestamp}.bak` |
 
 ### 自动备份触发时机
 
-ZCF 在以下操作时会自动创建备份：
+TKP 在以下操作时会自动创建备份：
 
 1. **初始化配置**：首次配置或重新初始化
-2. **更新配置**：通过 `zcf update` 更新工作流或模板
+2. **更新配置**：通过 `tkp update` 更新工作流或模板
 3. **切换配置**：使用 `config-switch` 切换配置
 4. **修改 API**：更新 API 密钥或提供商
 5. **安装工作流**：导入或更新工作流模板
@@ -67,7 +67,7 @@ ZCF 在以下操作时会自动创建备份：
 
 ## 增量管理
 
-当检测到已有配置时，ZCF 会提示选择管理策略：
+当检测到已有配置时，TKP 会提示选择管理策略：
 
 ### 策略选项
 

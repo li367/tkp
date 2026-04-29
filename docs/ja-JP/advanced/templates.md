@@ -4,11 +4,11 @@ title: テンプレートと出力スタイル
 
 # テンプレートと出力スタイル
 
-ZCFは、ワークフローテンプレート、出力スタイルテンプレート、システムプロンプトテンプレートを含む完全なテンプレートシステムを提供します。これらのテンプレートは複数の言語（中国語と英語）をサポートし、チーム固有のニーズに合わせてカスタマイズできます。
+TKPは、ワークフローテンプレート、出力スタイルテンプレート、システムプロンプトテンプレートを含む完全なテンプレートシステムを提供します。これらのテンプレートは複数の言語（中国語と英語）をサポートし、チーム固有のニーズに合わせてカスタマイズできます。
 
 ## テンプレートシステムの概要
 
-ZCFのテンプレートシステムは、以下のレベルに分かれています：
+TKPのテンプレートシステムは、以下のレベルに分かれています：
 
 1. **ワークフローテンプレート**: 構造化された開発ワークフロー
 2. **出力スタイルテンプレート**: AIアシスタントの個性と出力スタイル
@@ -88,16 +88,16 @@ templates/codex/
 
 ```bash
 # すべての出力スタイルをインストール
-npx zcf init -o all
+npx tkp init -o all
 
 # 特定のスタイルをインストール
-npx zcf init -o engineer-professional,nekomata-engineer
+npx tkp init -o engineer-professional,nekomata-engineer
 
 # デフォルト出力スタイルを設定
-npx zcf init -o all -d engineer-professional
+npx tkp init -o all -d engineer-professional
 
 # 出力スタイルのインストールをスキップ
-npx zcf init -o skip
+npx tkp init -o skip
 ```
 
 ### 出力スタイルの切り替え
@@ -193,22 +193,22 @@ git commit -m "Add custom output style"
 
 ```bash
 # すべてのワークフローをインストール
-npx zcf init -w all
+npx tkp init -w all
 
 # 特定のワークフローをインストール
-npx zcf init -w sixStepsWorkflow,gitWorkflow
+npx tkp init -w sixStepsWorkflow,gitWorkflow
 
 # ワークフローのインストールをスキップ
-npx zcf init -w skip
+npx tkp init -w skip
 ```
 
 ### カスタムワークフロー
 
 1. **リポジトリをフォークしてテンプレートを変更**:
 ```bash
-# 1. ZCFリポジトリをフォーク
-git clone https://github.com/your-org/zcf.git
-cd zcf
+# 1. TKPリポジトリをフォーク
+git clone https://github.com/your-org/tkp.git
+cd tkp
 
 # 2. テンプレートを変更
 vim templates/claude-code/zh-CN/workflow/custom/my-workflow.md
@@ -221,13 +221,13 @@ npm link
 2. **初期化時に使用**:
 ```bash
 # カスタムテンプレートディレクトリを使用して初期化
-npx zcf init -w custom
+npx tkp init -w custom
 ```
 
 3. **チームがカスタムテンプレートを公開**:
 ```bash
 # カスタムテンプレートを含むnpmパッケージを公開
-npm publish @your-org/zcf-templates
+npm publish @your-org/tkp-templates
 ```
 
 ## システムプロンプトテンプレート
@@ -271,17 +271,17 @@ npm publish @your-org/zcf-templates
 2. **過度なコンテキストを避ける**:
 - グローバル`CLAUDE.md`は必要な設定のみを保持
 - 複雑な標準は出力スタイルまたはプロジェクトメモリに入れる
-- `/zcf:init-project`を使用して階層構造を生成
+- `/tkp:init-project`を使用して階層構造を生成
 
 3. **定期的な更新**:
 ```bash
 # テンプレートとプロンプトを更新
-npx zcf update -g zh-CN
+npx tkp update -g zh-CN
 ```
 
 ## テンプレート言語サポート
 
-ZCFは2つの言語のテンプレートをサポートしています：
+TKPは2つの言語のテンプレートをサポートしています：
 
 ### 中国語テンプレート (`zh-CN`)
 
@@ -301,13 +301,13 @@ ZCFは2つの言語のテンプレートをサポートしています：
 
 ```bash
 # 中国語テンプレートを使用して初期化
-npx zcf init -c zh-CN
+npx tkp init -c zh-CN
 
 # 英語テンプレートを使用して初期化
-npx zcf init -c en
+npx tkp init -c en
 
 # 更新時に言語を切り替え
-npx zcf update -c en
+npx tkp update -c en
 ```
 
 ## テンプレート更新戦略
@@ -316,9 +316,9 @@ npx zcf update -c en
 
 | 方法 | コマンド | 説明 |
 |------|------|------|
-| **完全更新** | `npx zcf update` | すべてのテンプレートを更新 |
-| **ドキュメントのみ** | `npx zcf init --config-action docs-only` | プロンプトとドキュメントのみを更新 |
-| **マージ更新** | `npx zcf init --config-action merge` | 新しいテンプレートを既存の設定にマージ |
+| **完全更新** | `npx tkp update` | すべてのテンプレートを更新 |
+| **ドキュメントのみ** | `npx tkp init --config-action docs-only` | プロンプトとドキュメントのみを更新 |
+| **マージ更新** | `npx tkp init --config-action merge` | 新しいテンプレートを既存の設定にマージ |
 
 ### カスタムコンテンツの保持
 
@@ -352,8 +352,8 @@ diff -r ~/.claude/workflows/ ~/.claude/backup/latest/workflows/
 1. **チームテンプレートリポジトリを作成**:
 ```bash
 # テンプレートリポジトリを作成
-mkdir team-zcf-templates
-cd team-zcf-templates
+mkdir team-tkp-templates
+cd team-tkp-templates
 git init
 
 # テンプレートファイルを追加
@@ -384,7 +384,7 @@ cp -r team-* ~/.claude/workflows/
 
 ```bash
 # テンプレートを再インストール
-npx zcf init --config-action new
+npx tkp init --config-action new
 
 # テンプレートディレクトリを確認
 ls -la ~/.claude/workflows/
@@ -409,10 +409,10 @@ git checkout HEAD -- ~/.claude/workflows/custom/
 
 ```bash
 # 再初期化して言語を指定
-npx zcf init --config-action backup -c zh-CN
+npx tkp init --config-action backup -c zh-CN
 
 # またはテンプレート言語のみを更新
-npx zcf update -c zh-CN
+npx tkp update -c zh-CN
 ```
 
 ## 関連リソース

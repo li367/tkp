@@ -112,8 +112,8 @@ vi.mock('../../../../src/utils/platform', () => ({
   normalizeTomlPath: vi.fn((str: string) => str.replace(/\\+/g, '/').replace(/\/+/g, '/')), // Normalize Windows paths
 }))
 
-vi.mock('../../../../src/utils/zcf-config', () => ({
-  readZcfConfig: vi.fn(() => ({
+vi.mock('../../../../src/utils/tkp-config', () => ({
+  readTkpConfig: vi.fn(() => ({
     preferredLang: 'en',
     templateLang: 'en',
     aiOutputLang: 'en',
@@ -126,7 +126,7 @@ vi.mock('../../../../src/utils/zcf-config', () => ({
       aiOutputLang: 'en',
     },
   })),
-  updateZcfConfig: vi.fn(),
+  updateTkpConfig: vi.fn(),
   readDefaultTomlConfig: vi.fn(() => ({
     version: '1.0.0',
     lastUpdated: new Date().toISOString(),
@@ -146,7 +146,7 @@ vi.mock('../../../../src/utils/zcf-config', () => ({
     },
   })),
   updateTomlConfig: vi.fn(),
-  readZcfConfigAsync: vi.fn().mockResolvedValue({
+  readTkpConfigAsync: vi.fn().mockResolvedValue({
     preferredLang: 'en',
     templateLang: 'en',
     aiOutputLang: 'en',
@@ -181,7 +181,7 @@ describe('codex MCP Deduplication Logic', () => {
       // Initial config with existing MCP services including user custom services
 
       vi.mocked(readFile).mockReturnValue(`
-# --- model provider added by ZCF ---
+# --- model provider added by TKP ---
 model_provider = "openai"
 
 [model_providers.openai]
@@ -191,7 +191,7 @@ wire_api = "responses"
 temp_env_key = "OPENAI_API_KEY"
 requires_openai_auth = true
 
-# --- MCP servers added by ZCF ---
+# --- MCP servers added by TKP ---
 [mcp_servers.context7]
 command = "npx"
 args = ["-y", "context7"]
@@ -256,7 +256,7 @@ args = ["--config", "/path/to/config"]
     it('should preserve user custom services when no predefined services selected', async () => {
       // Initial config with existing MCP services including user custom services
       vi.mocked(readFile).mockReturnValue(`
-# --- model provider added by ZCF ---
+# --- model provider added by TKP ---
 model_provider = "openai"
 
 [model_providers.openai]
@@ -266,7 +266,7 @@ wire_api = "responses"
 temp_env_key = "OPENAI_API_KEY"
 requires_openai_auth = true
 
-# --- MCP servers added by ZCF ---
+# --- MCP servers added by TKP ---
 [mcp_servers.context7]
 command = "npx"
 args = ["-y", "context7"]
@@ -328,7 +328,7 @@ args = ["--config", "/path/to/config"]
 
       // Initial config with user custom service
       vi.mocked(readFile).mockReturnValue(`
-# --- model provider added by ZCF ---
+# --- model provider added by TKP ---
 model_provider = "openai"
 
 [model_providers.openai]
@@ -381,7 +381,7 @@ env = {CUSTOM_VAR = "value"}
     it('should handle service selection with mixed custom and predefined services', async () => {
       // Initial config with both custom and predefined services
       const initialConfig = `
-# --- model provider added by ZCF ---
+# --- model provider added by TKP ---
 model_provider = "openai"
 
 [model_providers.openai]

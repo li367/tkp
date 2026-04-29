@@ -182,10 +182,10 @@ export function deleteCodexProvider(providerId: string): void {
  * Only modifies: mcp_servers.{serviceId}
  * Does NOT touch: model_providers, top-level fields, other MCP services
  *
- * IMPORTANT: This preserves existing fields that ZCF doesn't manage (like 'url' for SSE services)
+ * IMPORTANT: This preserves existing fields that TKP doesn't manage (like 'url' for SSE services)
  *
  * @param serviceId - Service ID
- * @param service - Service configuration (only ZCF-managed fields)
+ * @param service - Service configuration (only TKP-managed fields)
  */
 export function upsertCodexMcpService(serviceId: string, service: CodexMcpService): void {
   if (!exists(CODEX_CONFIG_FILE)) {
@@ -272,7 +272,7 @@ export function batchUpdateCodexMcpServices(
       content = content.replace(/\n?\[mcp_servers\.[^\]]+\][\s\S]*?(?=\n\[|$)/g, '')
 
       // Also remove the MCP header comment if present
-      content = content.replace(/\n?#\s*---\s*MCP servers added by ZCF\s*---\s*/gi, '')
+      content = content.replace(/\n?#\s*---\s*MCP servers added by TKP\s*---\s*/gi, '')
 
       writeFile(CODEX_CONFIG_FILE, content)
     }

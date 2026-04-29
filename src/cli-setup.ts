@@ -12,7 +12,7 @@ import { uninstall } from './commands/uninstall'
 import { update } from './commands/update'
 import { changeLanguage, i18n, initI18n } from './i18n'
 import { selectScriptLanguage } from './utils/prompts'
-import { readZcfConfigAsync } from './utils/zcf-config'
+import { readTkpConfigAsync } from './utils/tkp-config'
 
 export interface CliOptions {
   lang?: 'zh-CN' | 'en'
@@ -51,7 +51,7 @@ async function resolveAndSwitchLanguage(
   options?: { lang?: string, allLang?: string },
   skipPrompt: boolean = false,
 ): Promise<SupportedLang> {
-  const zcfConfig = await readZcfConfigAsync()
+  const zcfConfig = await readTkpConfigAsync()
 
   // Determine target language with priority: allLang > lang > config > prompt
   const targetLang
@@ -107,27 +107,27 @@ export function customizeHelp(sections: any[]): any[] {
   // Add custom header
   sections.unshift({
     title: '',
-    body: ansis.cyan.bold(`ZCF - Zero-Config Code Flow v${version}`),
+    body: ansis.cyan.bold(`TKP CLI v${version}`),
   })
 
   // Add commands section with aliases
   sections.push({
     title: ansis.yellow(i18n.t('cli:help.commands')),
     body: [
-      `  ${ansis.cyan('zcf')}              ${i18n.t('cli:help.commandDescriptions.showInteractiveMenuDefault')}`,
-      `  ${ansis.cyan('zcf init')} | ${ansis.cyan(
+      `  ${ansis.cyan('tkp')}              ${i18n.t('cli:help.commandDescriptions.showInteractiveMenuDefault')}`,
+      `  ${ansis.cyan('tkp init')} | ${ansis.cyan(
         'i',
       )}     ${i18n.t('cli:help.commandDescriptions.initClaudeCodeConfig')}`,
-      `  ${ansis.cyan('zcf update')} | ${ansis.cyan('u')}   ${i18n.t('cli:help.commandDescriptions.updateWorkflowFiles')}`,
-      `  ${ansis.cyan('zcf ccr')}          ${i18n.t('cli:help.commandDescriptions.configureCcrProxy')}`,
-      `  ${ansis.cyan('zcf ccu')} [args]   ${i18n.t('cli:help.commandDescriptions.claudeCodeUsageAnalysis')}`,
-      `  ${ansis.cyan('zcf uninstall')}     ${i18n.t('cli:help.commandDescriptions.uninstallConfigurations')}`,
-      `  ${ansis.cyan('zcf check-updates')} ${i18n.t('cli:help.commandDescriptions.checkUpdateVersions')}`,
+      `  ${ansis.cyan('tkp update')} | ${ansis.cyan('u')}   ${i18n.t('cli:help.commandDescriptions.updateWorkflowFiles')}`,
+      `  ${ansis.cyan('tkp ccr')}          ${i18n.t('cli:help.commandDescriptions.configureCcrProxy')}`,
+      `  ${ansis.cyan('tkp ccu')} [args]   ${i18n.t('cli:help.commandDescriptions.claudeCodeUsageAnalysis')}`,
+      `  ${ansis.cyan('tkp uninstall')}     ${i18n.t('cli:help.commandDescriptions.uninstallConfigurations')}`,
+      `  ${ansis.cyan('tkp check-updates')} ${i18n.t('cli:help.commandDescriptions.checkUpdateVersions')}`,
       '',
       ansis.gray(`  ${i18n.t('cli:help.shortcuts')}`),
-      `  ${ansis.cyan('zcf i')}            ${i18n.t('cli:help.shortcutDescriptions.quickInit')}`,
-      `  ${ansis.cyan('zcf u')}            ${i18n.t('cli:help.shortcutDescriptions.quickUpdate')}`,
-      `  ${ansis.cyan('zcf check')}        ${i18n.t('cli:help.shortcutDescriptions.quickCheckUpdates')}`,
+      `  ${ansis.cyan('tkp i')}            ${i18n.t('cli:help.shortcutDescriptions.quickInit')}`,
+      `  ${ansis.cyan('tkp u')}            ${i18n.t('cli:help.shortcutDescriptions.quickUpdate')}`,
+      `  ${ansis.cyan('tkp check')}        ${i18n.t('cli:help.shortcutDescriptions.quickCheckUpdates')}`,
     ].join('\n'),
   })
 
@@ -167,41 +167,41 @@ export function customizeHelp(sections: any[]): any[] {
     title: ansis.yellow(i18n.t('cli:help.examples')),
     body: [
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.showInteractiveMenu')}`),
-      `  ${ansis.cyan('npx zcf')}`,
+      `  ${ansis.cyan('npx tkp')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.runFullInitialization')}`),
-      `  ${ansis.cyan('npx zcf init')}`,
-      `  ${ansis.cyan('npx zcf i')}`,
+      `  ${ansis.cyan('npx tkp init')}`,
+      `  ${ansis.cyan('npx tkp i')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.updateWorkflowFilesOnly')}`),
-      `  ${ansis.cyan('npx zcf u')}`,
+      `  ${ansis.cyan('npx tkp u')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.configureClaudeCodeRouter')}`),
-      `  ${ansis.cyan('npx zcf ccr')}`,
+      `  ${ansis.cyan('npx tkp ccr')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.runClaudeCodeUsageAnalysis')}`),
-      `  ${ansis.cyan('npx zcf ccu')}               ${ansis.gray(`# ${i18n.t('cli:help.defaults.dailyUsage')}`)}`,
-      `  ${ansis.cyan('npx zcf ccu monthly --json')}`,
+      `  ${ansis.cyan('npx tkp ccu')}               ${ansis.gray(`# ${i18n.t('cli:help.defaults.dailyUsage')}`)}`,
+      `  ${ansis.cyan('npx tkp ccu monthly --json')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.uninstallConfigurations')}`),
-      `  ${ansis.cyan('npx zcf uninstall')}         ${ansis.gray(`# ${i18n.t('cli:help.defaults.interactiveUninstall')}`)}`,
+      `  ${ansis.cyan('npx tkp uninstall')}         ${ansis.gray(`# ${i18n.t('cli:help.defaults.interactiveUninstall')}`)}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.checkAndUpdateTools')}`),
-      `  ${ansis.cyan('npx zcf check-updates')}     ${ansis.gray(`# ${i18n.t('cli:help.defaults.updateTools')}`)}`,
-      `  ${ansis.cyan('npx zcf check')}`,
+      `  ${ansis.cyan('npx tkp check-updates')}     ${ansis.gray(`# ${i18n.t('cli:help.defaults.updateTools')}`)}`,
+      `  ${ansis.cyan('npx tkp check')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.checkClaudeCode')}`),
-      `  ${ansis.cyan('npx zcf check --code-type claude-code')}`,
-      `  ${ansis.cyan('npx zcf check -T cc')}`,
+      `  ${ansis.cyan('npx tkp check --code-type claude-code')}`,
+      `  ${ansis.cyan('npx tkp check -T cc')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.checkCodex')}`),
-      `  ${ansis.cyan('npx zcf check --code-type codex')}`,
-      `  ${ansis.cyan('npx zcf check -T cx')}`,
+      `  ${ansis.cyan('npx tkp check --code-type codex')}`,
+      `  ${ansis.cyan('npx tkp check -T cx')}`,
       '',
       ansis.gray(`  # ${i18n.t('cli:help.exampleDescriptions.nonInteractiveModeCicd')}`),
-      `  ${ansis.cyan('npx zcf i --skip-prompt --api-type api_key --api-key "sk-ant-..."')}`,
-      `  ${ansis.cyan('npx zcf i --skip-prompt --all-lang zh-CN --api-type api_key --api-key "key"')}`,
-      `  ${ansis.cyan('npx zcf i --skip-prompt --api-type ccr_proxy')}`,
+      `  ${ansis.cyan('npx tkp i --skip-prompt --api-type api_key --api-key "sk-ant-..."')}`,
+      `  ${ansis.cyan('npx tkp i --skip-prompt --all-lang zh-CN --api-type api_key --api-key "key"')}`,
+      `  ${ansis.cyan('npx tkp i --skip-prompt --api-type ccr_proxy')}`,
       '',
     ].join('\n'),
   })
@@ -213,7 +213,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   // Use async initialization to ensure help text displays correctly
   try {
     // Try to get language from existing config for help system
-    const zcfConfig = await readZcfConfigAsync()
+    const zcfConfig = await readTkpConfigAsync()
     const defaultLang = zcfConfig?.preferredLang || 'en'
 
     // Initialize i18n for help system using imported function
@@ -225,7 +225,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   // Default command - show menu
   cli
     .command('', 'Show interactive menu (default)')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .option('--config-lang, -c <lang>', 'Configuration language (zh-CN, en)')
     .option('--force, -f', 'Force overwrite existing configuration')
@@ -238,7 +238,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   cli
     .command('init', 'Initialize Claude Code configuration')
     .alias('i')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--config-lang, -c <lang>', 'Configuration language (zh-CN, en)')
     .option('--ai-output-lang, -a <lang>', 'AI output language')
     .option('--force, -f', 'Force overwrite existing configuration')
@@ -269,7 +269,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   cli
     .command('update', 'Update Claude Code prompts only')
     .alias('u')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .option('--config-lang, -c <lang>', 'Configuration language (zh-CN, en)')
     .action(await withLanguageResolution(async (options) => {
@@ -279,7 +279,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   // CCR command - Configure Claude Code Router
   cli
     .command('ccr', 'Configure Claude Code Router for model proxy')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .action(await withLanguageResolution(async () => {
       await ccr()
@@ -288,7 +288,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   // CCU command - Claude Code usage analysis
   cli
     .command('ccu [...args]', 'Run Claude Code usage analysis tool')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .allowUnknownOptions()
     .action(await withLanguageResolution(async (args) => {
@@ -300,7 +300,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
     .command('config-switch [target]', 'Switch Codex provider or Claude Code configuration, or list available configurations')
     .alias('cs')
     .option('--code-type, -T <type>', 'Code tool type (claude-code, codex, cc, cx)')
-    .option('--lang <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .option('--list, -l', 'List available configurations')
     .action(await withLanguageResolution(async (target, options) => {
@@ -311,10 +311,10 @@ export async function setupCommands(cli: CAC): Promise<void> {
       })
     }))
 
-  // Uninstall command - Remove ZCF configurations and tools
+  // Uninstall command - Remove TKP configurations and tools
   cli
-    .command('uninstall', 'Remove ZCF configurations and tools')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .command('uninstall', 'Remove TKP configurations and tools')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .option('--code-type, -T <codeType>', 'Select code tool type (claude-code, codex, cc, cx)')
     .option('--mode, -m <mode>', 'Uninstall mode (complete/custom/interactive), default: interactive')
@@ -327,7 +327,7 @@ export async function setupCommands(cli: CAC): Promise<void> {
   cli
     .command('check-updates', 'Check and update Claude Code and CCR to latest versions')
     .alias('check')
-    .option('--lang, -l <lang>', 'ZCF display language (zh-CN, en)')
+    .option('--lang, -l <lang>', 'TKP display language (zh-CN, en)')
     .option('--all-lang, -g <lang>', 'Set all language parameters to this value')
     .option('--code-type, -T <codeType>', 'Select code tool type (claude-code, codex, cc, cx)')
     .option('--skip-prompt, -s', 'Skip all interactive prompts (non-interactive mode)')

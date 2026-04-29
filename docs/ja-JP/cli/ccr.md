@@ -4,22 +4,22 @@ title: CCR プロキシ管理
 
 # CCR プロキシ管理
 
-`zcf ccr` は Claude Code Router（CCR）の完全な管理メニューを提供し、インストール、設定、サービス制御、Web UI アクセスなどの機能を含みます。
+`tkp ccr` は Claude Code Router（CCR）の完全な管理メニューを提供し、インストール、設定、サービス制御、Web UI アクセスなどの機能を含みます。
 
 ## コマンド形式
 
 ```bash
 # CCR 管理メニューを開く
-npx zcf ccr
+npx tkp ccr
 
 # またはメインメニューからアクセス
-npx zcf
+npx tkp
 # 次に R. CCR 管理 を選択
 ```
 
 ## メニューオプション
 
-`zcf ccr` を実行すると、以下のメニューが表示されます：
+`tkp ccr` を実行すると、以下のメニューが表示されます：
 
 ```
 ═══════════════════════════════════════════════════
@@ -59,7 +59,7 @@ npx zcf
 
 **例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 1 を選択
 # プロンプトに従って設定を完了
 ```
@@ -82,12 +82,12 @@ npx zcf ccr
 - 設定ファイル `~/.claude-code-router/config.json` が存在する必要がある
 
 **API キー**：
-- UI 起動時に CCR API キーが表示される（デフォルト：`sk-zcf-x-ccr`）
+- UI 起動時に CCR API キーが表示される（デフォルト：`sk-tkp-x-ccr`）
 - このキーを使用して Web UI にログイン
 
 **例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 2 を選択
 # サービス起動後、http://localhost:3456/ui にアクセス
 ```
@@ -109,7 +109,7 @@ npx zcf ccr
 
 **例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 3 を選択
 ```
 
@@ -124,7 +124,7 @@ npx zcf ccr
 
 **例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 4 を選択
 ```
 
@@ -138,7 +138,7 @@ npx zcf ccr
 
 **例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 5 を選択
 ```
 
@@ -153,7 +153,7 @@ npx zcf ccr
 
 **例**：
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 6 を選択
 ```
 
@@ -168,7 +168,7 @@ CCR は Web UI または設定ファイルを通じて柔軟なルーティン�
   "LOG": true,
   "HOST": "127.0.0.1",
   "PORT": 3456,
-  "APIKEY": "sk-zcf-x-ccr",
+  "APIKEY": "sk-tkp-x-ccr",
   "API_TIMEOUT_MS": "600000",
   "PROXY_URL": "",
   "Providers": [
@@ -236,7 +236,7 @@ CCR は Web UI または設定ファイルを通じて柔軟なルーティン�
 | `LOG` | boolean | ログを有効にするか | `true` |
 | `HOST` | string | サービスリッスンアドレス | `127.0.0.1` |
 | `PORT` | number | サービスポート | `3456` |
-| `APIKEY` | string | CCR API キー | `sk-zcf-x-ccr` |
+| `APIKEY` | string | CCR API キー | `sk-tkp-x-ccr` |
 | `API_TIMEOUT_MS` | string | API タイムアウト（ミリ秒） | `600000` |
 | `PROXY_URL` | string | プロキシ URL（オプション） | `""` |
 
@@ -267,10 +267,10 @@ CCR は Web UI または設定ファイルを通じて柔軟なルーティン�
 
 ## プロバイダープリセット
 
-ZCF は複数の CCR プロバイダープリセットをサポートし、設定プロセスを簡素化します：
+TKP は複数の CCR プロバイダープリセットをサポートし、設定プロセスを簡素化します：
 
 ```bash
-npx zcf ccr
+npx tkp ccr
 # 1. CCR を初期化 を選択
 # プロバイダープリセットを選択
 ```
@@ -292,7 +292,7 @@ A: まずオプション 1（CCR を初期化）を実行して設定を完了�
 A: 
 1. UI が起動されていることを確認（オプション 2）
 2. ポート 3456 が使用されていないか確認
-3. API キー `sk-zcf-x-ccr` でログイン（または設定の `APIKEY` を確認）
+3. API キー `sk-tkp-x-ccr` でログイン（または設定の `APIKEY` を確認）
 
 ### Q: ルーティングルールを変更するには？
 
