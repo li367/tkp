@@ -18,6 +18,10 @@
   "services.spec-workflow.name": "Spec 工作流",
   "services.serena.name": "Serena 助手",
   "services.serena.description": "提供类似 IDE 的语义代码检索与编辑，支持符号级实体提取与关系结构利用；与现有编码代理配合可显著提升标记效率",
+  "services.playwright-skill.name": "Playwright 浏览器自动化",
+  "services.playwright-skill.description": "通用浏览器自动化技能，自动检测开发服务器、编写干净的测试脚本并处理各种浏览器自动化任务",
+  "services.claude-mem.name": "Claude-Mem 记忆系统",
+  "services.claude-mem.description": "持久化记忆压缩系统；跨会话保存 Claude Code 上下文，自动生成摘要并提供搜索能力",
   "apiKeyApprovalFailed": "API密钥批准状态管理失败",
   "apiKeyPrompt": "请输入 API Key",
   "primaryApiKeySetFailed": "设置 primaryApiKey 失败"

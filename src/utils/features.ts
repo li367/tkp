@@ -31,6 +31,7 @@ import { configureOutputStyle } from './output-style'
 import { isWindows } from './platform'
 import { addNumbersToChoices } from './prompt-helpers'
 import { importRecommendedEnv, importRecommendedPermissions, openSettingsJson } from './simple-config'
+import { installClaudeMem, installPlaywrightSkill, isPlaywrightSkillInstalled } from './skill-installer'
 import { promptBoolean } from './toggle-prompt'
 import { formatApiKeyDisplay, validateApiKey } from './validator'
 import { readZcfConfig, updateZcfConfig } from './zcf-config'
@@ -295,6 +296,24 @@ export async function configureMcpFeature(): Promise<void> {
         else {
           continue
         }
+      }
+
+      // Special handling: playwright-skill is not an MCP server, install as skill
+      if (service.id === 'playwright-skill') {
+        const alreadyInstalled = isPlaywrightSkillInstalled()
+        if (alreadyInstalled) {
+          console.log(ansis.green(`✔ ${i18n.t('tools:playwrightSkillInstalled') || 'Playwright browser automation skill already installed'}`))
+        }
+        else {
+          await installPlaywrightSkill()
+        }
+        continue
+      }
+
+      // Special handling: claude-mem has its own installer, ensure prerequisites first
+      if (service.id === 'claude-mem') {
+        await installClaudeMem()
+        continue
       }
 
       newServers[service.id] = config

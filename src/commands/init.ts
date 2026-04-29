@@ -46,6 +46,7 @@ import { configureOutputStyle } from '../utils/output-style'
 import { isTermux, isWindows } from '../utils/platform'
 import { addNumbersToChoices } from '../utils/prompt-helpers'
 import { resolveAiOutputLanguage } from '../utils/prompts'
+import { installClaudeMem, installPlaywrightSkill, isPlaywrightSkillInstalled } from '../utils/skill-installer'
 import { promptBoolean } from '../utils/toggle-prompt'
 import { formatApiKeyDisplay } from '../utils/validator'
 import { checkClaudeCodeVersionAndPrompt } from '../utils/version-checker'
@@ -941,6 +942,24 @@ export async function init(options: InitOptions = {}): Promise<void> {
 
                 config = buildMcpServerConfig(service.config, response.apiKey, service.apiKeyPlaceholder, service.apiKeyEnvVar)
               }
+            }
+
+            // Special handling: playwright-skill is not an MCP server, install as skill
+            if (service.id === 'playwright-skill') {
+              const alreadyInstalled = isPlaywrightSkillInstalled()
+              if (alreadyInstalled) {
+                console.log(ansis.green(`✔ ${i18n.t('tools:playwrightSkillInstalled') || 'Playwright browser automation skill already installed'}`))
+              }
+              else {
+                await installPlaywrightSkill()
+              }
+              continue
+            }
+
+            // Special handling: claude-mem has its own installer, ensure prerequisites first
+            if (service.id === 'claude-mem') {
+              await installClaudeMem()
+              continue
             }
 
             newServers[service.id] = config

@@ -30,7 +30,7 @@ Configuration definition module providing centralized workflow configurations, M
 
 - **Main Entry Points**:
   - `workflows.ts` - Workflow configuration definitions (5 categories: common, plan, sixStep, bmad, git)
-  - `mcp-services.ts` - MCP server configurations (7 services)
+  - `mcp-services.ts` - MCP server configurations (8 services)
   - `api-providers.ts` - API provider preset definitions (12 providers)
 
 ## External Interfaces
@@ -77,7 +77,7 @@ export function getProviderPreset(providerId: string): ApiProviderPreset | undef
 | xiaomi-mimo | MiMo | claude-code |
 | xiaomi-mimo-tp | MiMo Token Plan | claude-code |
 
-## MCP Services (7 services)
+## MCP Services (8 services)
 
 | Service ID | Requires API Key | Technology |
 |-----------|-----------------|------------|
@@ -88,6 +88,7 @@ export function getProviderPreset(providerId: string): ApiProviderPreset | undef
 | Playwright | No | npx @playwright/mcp |
 | exa | Yes (EXA_API_KEY) | npx exa-mcp-server |
 | serena | No | uvx serena |
+| playwright-skill | No | node run.js |
 
 ## Workflow Categories (5 categories)
 

@@ -78,6 +78,26 @@ export const MCP_SERVICE_CONFIGS: McpServiceConfig[] = [
     },
   },
   {
+    id: 'playwright-skill',
+    requiresApiKey: false,
+    config: {
+      type: 'stdio',
+      command: 'node',
+      args: [],
+      env: {},
+    },
+  },
+  {
+    id: 'claude-mem',
+    requiresApiKey: false,
+    config: {
+      type: 'stdio',
+      command: 'npx',
+      args: [],
+      env: {},
+    },
+  },
+  {
     id: 'serena',
     requiresApiKey: false,
     config: {
@@ -132,6 +152,16 @@ export async function getMcpServices(): Promise<McpService[]> {
       id: 'serena',
       name: i18n.t('mcp:services.serena.name'),
       description: i18n.t('mcp:services.serena.description'),
+    },
+    {
+      id: 'playwright-skill',
+      name: i18n.t('mcp:services.playwright-skill.name'),
+      description: i18n.t('mcp:services.playwright-skill.description'),
+    },
+    {
+      id: 'claude-mem',
+      name: i18n.t('mcp:services.claude-mem.name'),
+      description: i18n.t('mcp:services.claude-mem.description'),
     },
   ]
 

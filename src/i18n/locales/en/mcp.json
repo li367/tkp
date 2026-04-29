@@ -18,6 +18,10 @@
   "services.spec-workflow.name": "Spec Workflow",
   "services.serena.name": "Serena Assistant",
   "services.serena.description": "Semantic code retrieval and editing akin to an IDE; extracts symbol-level entities and leverages relations to greatly improve token efficiency with coding agents",
+  "services.playwright-skill.name": "Playwright Browser Automation",
+  "services.playwright-skill.description": "General-purpose browser automation with Playwright; auto-detects dev servers, writes clean test scripts, and handles any browser automation task",
+  "services.claude-mem.name": "Claude-Mem Memory System",
+  "services.claude-mem.description": "Persistent memory compression system; preserves context across Claude Code sessions with automatic summarization and search",
   "apiKeyApprovalFailed": "Failed to manage API key approval status",
   "apiKeyPrompt": "Enter API Key",
   "primaryApiKeySetFailed": "Failed to set primaryApiKey"
