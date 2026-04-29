@@ -1,17 +1,21 @@
 {
-  "scanTimestamp": "2025-10-01T17:41:31.000Z",
+  "scanTimestamp": "2026-04-29T01:00:42.000Z",
   "projectName": "ZCF (Zero-Config Code Flow)",
-  "version": "3.1.0",
+  "version": "3.6.4",
   "language": "typescript",
-  "totalFiles": 500,
-  "scannedFiles": 425,
-  "coveragePercentage": 85,
-  "truncated": false,
+  "packageManager": "pnpm@10.17.1",
+  "buildSystem": "unbuild",
+  "testFramework": "vitest",
+  "totalFilesEstimate": 550,
+  "scannedFiles": 15,
+  "coveragePercentage": 3,
+  "truncated": true,
+  "truncatedReason": "No Bash/Glob tools available; only Read/Write tools accessible. Full file tree scan could not be performed. Key source files, configuration files, CHANGELOG, and all CLAUDE.md files were read and updated.",
   "modules": [
     {
       "name": "commands",
       "path": "src/commands/",
-      "description": "CLI命令实现，包含高级交互和非交互模式以及全面卸载功能",
+      "description": "CLI命令实现，包含8个命令（init, menu, update, ccr, ccu, check-updates, uninstall, config-switch），支持交互/非交互模式、双代码工具、多提供商预设",
       "entryPoints": [
         "init.ts",
         "menu.ts",
@@ -19,57 +23,73 @@
         "ccr.ts",
         "ccu.ts",
         "check-updates.ts",
-        "uninstall.ts"
+        "uninstall.ts",
+        "config-switch.ts"
       ],
       "testCoverage": "high",
       "interfaces": [
         "InitOptions",
         "UpdateOptions",
         "CcrOptions",
-        "UninstallOptions"
+        "UninstallOptions",
+        "ConfigSwitchOptions",
+        "CheckUpdatesOptions"
       ],
       "keyFeatures": [
-        "完整初始化流程",
+        "完整初始化流程（含skip-prompt非交互模式）",
         "交互式菜单系统",
         "CCR代理管理",
         "CCusage分析集成",
-        "高级卸载功能",
-        "双代码工具支持(Claude Code + Codex)"
-      ]
+        "高级卸载功能（complete/custom/interactive）",
+        "双代码工具支持（Claude Code + Codex）",
+        "四模型API配置架构",
+        "10个API提供商预设支持",
+        "输出风格选择（含跳过选项 v3.6.2+）"
+      ],
+      "claudeMdStatus": "updated",
+      "gaps": []
     },
     {
       "name": "utils",
       "path": "src/utils/",
-      "description": "具有增强配置管理、平台支持和高级卸载功能的核心功能",
+      "description": "核心工具函数，包含配置管理、平台支持、Codex集成、TOML编辑（@rainbowatcher/toml-edit-js）、工作流安装、高级卸载功能",
       "entryPoints": [
         "config.ts",
         "installer.ts",
         "mcp.ts",
         "platform.ts",
         "workflow-installer.ts",
+        "claude-code-config-manager.ts",
+        "claude-code-incremental-manager.ts",
+        "features.ts",
         "uninstaller.ts",
-        "trash.ts"
+        "trash.ts",
+        "zcf-config.ts"
       ],
       "testCoverage": "high",
       "subModules": [
         "ccr/",
         "cometix/",
-        "tools/"
+        "code-tools/"
       ],
       "keyFeatures": [
         "配置文件管理",
-        "Claude Code安装",
-        "MCP服务配置",
-        "跨平台支持",
-        "工作流安装",
+        "Claude Code安装与更新",
+        "MCP服务配置（7个服务）",
+        "跨平台支持（Windows/macOS/Linux/Termux）",
+        "工作流安装（consolidated模板 v3.5.0+）",
         "高级卸载器",
-        "跨平台垃圾箱集成"
-      ]
+        "跨平台垃圾箱集成",
+        "TOML精确编辑（v3.5.1+）",
+        "BMAD V6多智能体支持（v3.6.3+）"
+      ],
+      "claudeMdStatus": "updated",
+      "gaps": []
     },
     {
       "name": "i18n",
       "path": "src/i18n/",
-      "description": "具有命名空间组织和完整卸载翻译的高级i18next多语言支持",
+      "description": "i18next多语言支持，17个命名空间，支持zh-CN和en两种语言，使用JSON格式翻译文件",
       "entryPoints": [
         "index.ts",
         "locales/zh-CN/",
@@ -79,27 +99,31 @@
       "namespaces": [
         "common",
         "api",
-        "cli",
-        "menu",
-        "installation",
-        "configuration",
-        "mcp",
         "ccr",
+        "cli",
         "cometix",
-        "workflow",
+        "configuration",
         "errors",
+        "installation",
+        "language",
+        "mcp",
+        "menu",
+        "multi-config",
         "tools",
         "uninstall",
         "updater",
-        "language",
+        "workflow",
         "codex"
       ],
-      "supportedLanguages": ["zh-CN", "en"]
+      "supportedLanguages": ["zh-CN", "en"],
+      "translationFiles": 34,
+      "claudeMdStatus": "updated",
+      "gaps": []
     },
     {
       "name": "types",
       "path": "src/types/",
-      "description": "全面TypeScript类型定义",
+      "description": "TypeScript类型定义，包括工作流类型、配置类型、CCR类型",
       "entryPoints": [
         "workflow.ts",
         "config.ts",
@@ -110,130 +134,229 @@
         "工作流类型",
         "配置类型",
         "CCR类型",
-        "MCP服务类型"
-      ]
+        "API提供商类型"
+      ],
+      "claudeMdStatus": "updated",
+      "gaps": []
     },
     {
       "name": "config",
       "path": "src/config/",
-      "description": "集中式工作流和系统配置",
+      "description": "集中式配置定义：工作流定义（5类）、MCP服务配置（7个）、API提供商预设（10个）",
       "entryPoints": [
         "workflows.ts",
-        "mcp-services.ts"
+        "mcp-services.ts",
+        "api-providers.ts"
       ],
       "testCoverage": "high",
       "configurations": [
-        "工作流定义",
-        "MCP服务配置"
-      ]
+        "工作流定义（common/sixStep/plan/git/bmad）",
+        "MCP服务配置（context7, open-websearch, spec-workflow, mcp-deepwiki, Playwright, exa, serena）",
+        "API提供商预设（302ai, packycode, aicodemirror, aicodemirror-cn, crazyrouter, glm-cn, z-ai, bailian-coding, minimax, kimi-coding）"
+      ],
+      "claudeMdStatus": "updated",
+      "gaps": []
     },
     {
       "name": "templates",
       "path": "templates/",
-      "description": "增强多语言配置模板和AI个性风格，新增Codex支持",
+      "description": "整合模板系统（v3.5.0+）：共享模板位于common/，支持9种输出风格、Git工作流、六步工作流、BMAD V6多智能体",
       "entryPoints": [
-        "common/",
-        "zh-CN/",
-        "en/",
-        "output-styles/",
-        "workflow/",
+        "common/output-styles/",
+        "common/workflow/git/",
+        "common/workflow/sixStep/",
+        "claude-code/",
         "codex/"
       ],
       "testCoverage": "medium",
       "templateCategories": [
-        "Claude Code模板",
-        "Codex模板",
-        "AI个性风格",
-        "工作流模板",
-        "多语言支持"
+        "AI个性风格（9种：engineer-professional, laowang, nekomata, ojousama, leibus v3.6.0+, rem v3.6.0+, default, explanatory, learning）",
+        "Git工作流（git-commit, git-worktree, git-cleanBranches, git-rollback）",
+        "六步工作流",
+        "BMAD V6工作流（含多智能体命令 v3.6.3+）",
+        "计划/设计工作流"
+      ],
+      "claudeMdStatus": "updated",
+      "gaps": [
+        {
+          "type": "testing",
+          "description": "新增输出风格（Leibus, rem）和BMAD多智能体模板的测试覆盖可进一步加强",
+          "priority": "medium"
+        }
       ]
     },
     {
       "name": "tests",
       "path": "tests/",
-      "description": "具有分层覆盖架构和高级卸载器测试的综合测试套件",
+      "description": "综合测试套件，分层覆盖架构：commands/, utils/, unit/, integration/, edge/, i18n/, templates/",
       "entryPoints": [
         "commands/",
         "utils/",
         "unit/",
         "integration/",
-        "edge/"
+        "edge/",
+        "i18n/",
+        "templates/"
       ],
       "testCoverage": "self-targeting",
       "testTypes": [
         "单元测试",
         "集成测试",
         "边界测试",
-        "卸载器测试"
+        "国际化测试",
+        "模板验证测试",
+        "提供商预设测试（v3.6.4新增MiniMax和Bailian Coding）"
       ],
-      "coverageTarget": 80
+      "coverageTarget": 80,
+      "claudeMdStatus": "updated",
+      "gaps": []
+    },
+    {
+      "name": "docs",
+      "path": "docs/",
+      "description": "VitePress文档站点，支持多语言（zh-CN, en, ja-JP）",
+      "entryPoints": [
+        ".vitepress/config/"
+      ],
+      "testCoverage": "not-applicable",
+      "claudeMdStatus": "not-created",
+      "gaps": [
+        {
+          "type": "documentation",
+          "description": "docs/ 目录尚未创建模块级 CLAUDE.md",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "name": "bmad-core",
+      "path": ".bmad-core/",
+      "description": "BMAD V6企业工作流核心模块（v3.6.2+），包含多智能体命令",
+      "entryPoints": [
+        "bmad-agent-_",
+        "bmad-bmm-_",
+        "bmad-editorial-_",
+        "bmad-review-_",
+        "bmad-help",
+        "bmad-party-mode"
+      ],
+      "testCoverage": "not-applicable",
+      "claudeMdStatus": "not-created",
+      "gaps": [
+        {
+          "type": "documentation",
+          "description": ".bmad-core/ 目录尚未创建模块级 CLAUDE.md",
+          "priority": "low"
+        }
+      ]
     }
   ],
   "architecture": {
-    "type": "modular-cli",
+    "type": "modular-cli-monorepo",
     "coreTechnology": [
       "TypeScript",
-      "ESM",
+      "ESM-only",
       "Vitest",
       "i18next",
       "unbuild",
-      "cac"
+      "cac",
+      "pnpm-workspace"
     ],
     "integrations": [
       "CCR (Claude Code Router)",
       "Cometix (Status Line)",
       "CCusage (Analytics)",
-      "MCP Services",
+      "MCP Services (7 services)",
       "Trash (Cross-platform)",
       "Claude Code",
-      "Codex"
+      "Codex",
+      "BMAD V6 Multi-Agent (v3.6.3+)"
     ],
-    "platforms": ["Windows", "macOS", "Linux", "Termux"]
+    "platforms": ["Windows", "macOS", "Linux", "Termux", "WSL"],
+    "templates": {
+      "architecture": "consolidated (v3.5.0+)",
+      "sharedDir": "templates/common/",
+      "outputStyles": 9,
+      "apiProviders": 10
+    }
   },
-  "keyFeatures": [
-    "高级i18next国际化",
-    "双代码工具架构(Claude Code + Codex)",
-    "智能配置合并",
-    "全面跨平台支持",
-    "高级卸载系统",
-    "CCR/Cometix/CCusage集成",
-    "MCP服务管理",
-    "AI个性风格",
-    "全面测试覆盖"
-  ],
+  "keyChangesSinceLastScan": {
+    "versionChange": "3.1.0 -> 3.6.4",
+    "majorFeatures": [
+      "模板整合到 common/ 目录（v3.5.0）",
+      "TOML编辑器替换为 @rainbowatcher/toml-edit-js（v3.5.1）",
+      "新增 Leibus engineer 和 rem-engineer 输出风格（v3.6.0）",
+      "新增 AICodeMirror 提供商预设（v3.6.1）",
+      "移除 Codex chat 格式支持（v3.6.1）",
+      "BMAD V6 模板升级（v3.6.2）",
+      "支持跳过输出风格选择（v3.6.2）",
+      "BMAD 多智能体命令（v3.6.3）",
+      "新增 Crazyrouter 提供商预设（v3.6.3）",
+      "更新 MiniMax 为 M2.7 模型（v3.6.4）",
+      "百炼 Coding 默认模型修复（v3.6.4）"
+    ]
+  },
   "gaps": [
     {
+      "module": "docs",
+      "type": "documentation",
+      "description": "docs/ 目录尚未创建模块级 CLAUDE.md",
+      "priority": "low"
+    },
+    {
+      "module": "bmad-core",
+      "type": "documentation",
+      "description": ".bmad-core/ 目录尚未创建模块级 CLAUDE.md",
+      "priority": "low"
+    },
+    {
       "module": "templates",
-      "type": "feature",
-      "description": "新增Codex模板系统需要更多测试覆盖",
+      "type": "testing",
+      "description": "新增输出风格和BMAD多智能体模板的测试覆盖可进一步加强",
       "priority": "medium"
     },
     {
-      "module": "utils",
-      "type": "documentation",
-      "description": "高级卸载器和垃圾箱集成功能需要更详细文档",
-      "priority": "low"
+      "module": "global",
+      "type": "scan",
+      "description": "因工具限制（无Bash/Glob），未执行完整文件树扫描；文件统计基于现有文档估算。建议在有完整工具访问权限时重新执行全仓扫描。",
+      "priority": "high"
     }
   ],
   "nextScanRecommendations": [
-    "重点关注新增Codex模板系统的完整性和测试",
-    "验证高级卸载功能在所有平台的兼容性",
-    "检查CCR/Cometix/CCusage集成的最新版本兼容性",
-    "完善双代码工具架构的文档和示例"
+    "在有Bash/Glob工具可用的环境中重新执行全仓文件扫描，获取精确的文件统计",
+    "为 docs/ 目录创建模块级 CLAUDE.md",
+    "为 .bmad-core/ 目录创建模块级 CLAUDE.md",
+    "验证新增 API 提供商（AICodeMirror, Crazyrouter）的测试覆盖完整性",
+    "检查 BMAD V6 多智能体命令模板的完整性",
+    "验证 v3.6.4 中 MiniMax M2.7 和 Bailian Coding 修改在所有相关文件中的一致性"
   ],
   "scanningStrategy": {
     "phases": [
-      "阶段A: 全仓清点（轻量）",
-      "阶段B: 模块优先扫描（中等）",
-      "阶段C: 深度补捞（按需）"
+      "阶段A: 全仓清点（轻量）-- 未执行（工具限制）",
+      "阶段B: 模块优先扫描（中等）-- 部分执行：通过Read工具读取关键源文件、CHANGELOG、现有CLAUDE.md",
+      "阶段C: 深度补捞（按需）-- 未执行（工具限制）"
     ],
     "ignoreRules": [
-      "node_modules/**",
-      ".git/**",
-      "dist/**",
-      "build/**",
+      "node_modules",
+      "dist",
+      ".DS_Store",
       "*.log",
-      "*.lock"
-    ]
+      "*.local",
+      ".env*",
+      "package-lock.json",
+      "yarn.lock",
+      "coverage",
+      ".nyc_output",
+      "*.lcov",
+      ".idea",
+      "test-results",
+      "junit.xml",
+      "tmp-npm-test/",
+      "docs/.vitepress/cache/",
+      "_bmad/",
+      "_bmad-output/"
+    ],
+    "effectiveScanLevel": "partial-read",
+    "limitationNote": "No Bash/Glob tools available. Scan performed via Read tool on known file paths only. Full directory listing not possible."
   }
 }

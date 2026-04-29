@@ -1,26 +1,66 @@
 # CLAUDE.md
 
-**Last Updated**: Thu Dec 25 01:53:27 CST 2025
+**Last Updated**: 2026-04-29
+
+## 变更记录 (Changelog)
+
+### v3.6.5 (2026-04)
+- 新增小米 MiMo 大模型 API 供应商预设（按量付费 + Token Plan）
+
+### v3.6.4 (2026-04)
+- 更新 MiniMax 提供商预设为 M2.7 系列模型，修正 API 端点（api.minimax.io）
+- 百炼 Coding 预设默认模型改为小写 `glm-5`
+
+### v3.6.3
+- 新增 BMAD 多智能体命令与工作流（bmad-agent-_、bmad-bmm-_、bmad-editorial-_ 等）
+- 新增 Crazyrouter 赞助商及 API 提供商预设
+
+### v3.6.2
+- 将 bmad-init 模板从 V4 升级至 V6
+- 支持在初始化时跳过输出风格选择
+- 更新 API 提供商预设并新增服务
+
+### v3.6.1
+- 添加 AICodeMirror API 提供商预设（含中国优化线路 AICodeMirror CN）
+- 移除 Codex chat 格式支持（已弃用功能）
+
+### v3.6.0
+- 新增 Leibus 工程师输出风格（专业技术指导）
+- 新增 rem-engineer 输出风格（动漫风格开发辅助）
+
+### v3.5.1
+- 实现精准 TOML 更新机制，防止 MCP 配置被破坏
+- 使用 @rainbowatcher/toml-edit-js 替换 smol-toml
+- 更新 Codex 模型选项和默认配置
+- 移除 writeCodexConfig 函数（代码清理）
+
+### v3.5.0
+- 将模板整合到 common 目录以提高代码复用
+- 统一 output-styles、git workflows 和 sixStep workflows 到 `templates/common/`
+- 移除重复的 Codex 模板（现与 Claude Code 共享）
+- 统一 sixStep 计划目录为 `.zcf`
 
 ## Project Overview
 
-ZCF (Zero-Config Code Flow) is a CLI tool that automatically configures Claude Code environments. Built with TypeScript and distributed as an npm package, it provides one-click setup for Claude Code including configuration files, API settings, MCP services, and AI workflows. The current version v3.4.3 features advanced i18next internationalization, enhanced engineering templates, intelligent IDE detection, comprehensive multi-platform support including Termux compatibility, sophisticated uninstallation capabilities with advanced conflict resolution, and API provider preset system for simplified configuration. The project also integrates dual code tool support, enabling both Claude Code and Codex environment configuration, with consolidated template architecture for shared resources.
+ZCF (Zero-Config Code Flow) v3.6.5 is a CLI tool that automatically configures Claude Code and Codex environments. Built with TypeScript and distributed as an npm package, it provides one-click setup for Claude Code and Codex including configuration files, API settings, MCP services, and AI workflows. The current version v3.6.4 features advanced i18next internationalization, enhanced engineering templates (BMAD V6, Leibus engineer, rem-engineer), intelligent IDE detection, comprehensive multi-platform support including Termux compatibility, sophisticated uninstallation capabilities with advanced conflict resolution, and an expanded API provider preset system (302.AI, GLM, MiniMax, Kimi, PackyCode, AICodeMirror, Crazyrouter, Bailian Coding, Z.ai, MiMo). The project integrates dual code tool support, enabling both Claude Code and Codex environment configuration, with a consolidated template architecture for shared resources.
 
 ## Architecture Overview
 
-ZCF follows a modular CLI architecture with strict TypeScript typing, comprehensive i18next-based internationalization, and cross-platform support. The project is built using modern tooling including unbuild, Vitest, ESM-only configuration, and @antfu/eslint-config for code quality. The architecture emphasizes robust error handling, user-friendly interfaces, and extensive testing coverage with advanced tool integration including CCR proxy, Cometix status line, and CCusage analytics. Version 3.4.x introduces consolidated template architecture with shared resources in `templates/common/` for output styles, git workflows, and sixStep workflows, enabling code reuse between Claude Code and Codex.
+ZCF follows a modular CLI architecture with strict TypeScript typing, comprehensive i18next-based internationalization, and cross-platform support. The project is built using modern tooling including unbuild, Vitest, ESM-only configuration, and @antfu/eslint-config for code quality. The architecture emphasizes robust error handling, user-friendly interfaces, and extensive testing coverage with advanced tool integration including CCR proxy, Cometix status line, CCusage analytics, and BMAD multi-agent workflows. Version 3.5.x+ introduces consolidated template architecture with shared resources in `templates/common/` for output styles, git workflows, and sixStep workflows, enabling code reuse between Claude Code and Codex. Version 3.6.x adds new output styles (Leibus engineer, rem-engineer), expanded API provider presets (AICodeMirror, Crazyrouter), and BMAD V6 multi-agent upgrades.
 
 ### Module Structure Diagram
 
 ```mermaid
 graph TD
-    A["🚀 ZCF Root (v3.4.3)"] --> B["src/commands"];
+    A["ZCF Root (v3.6.5)"] --> B["src/commands"];
     A --> C["src/utils"];
     A --> D["src/i18n"];
     A --> E["src/types"];
     A --> F["src/config"];
     A --> G["templates"];
     A --> H["tests"];
+    A --> I["docs"];
+    A --> J[".bmad-core"];
 
     B --> B1["init.ts - Full initialization"];
     B --> B2["menu.ts - Interactive UI"];
@@ -38,29 +78,29 @@ graph TD
     C --> C5["workflow-installer.ts - Workflow management"];
     C --> C6["ccr/ - CCR integration"];
     C --> C7["cometix/ - Status line tools"];
-    C --> C8["tools/ - Tool integration"];
+    C --> C8["code-tools/ - Codex integration"];
     C --> C9["uninstaller.ts - Advanced uninstaller"];
     C --> C10["trash.ts - Cross-platform trash"];
-    C --> C11["code-tools/ - Codex integration"];
+    C --> C11["claude-code-config-manager.ts"];
+    C --> C12["claude-code-incremental-manager.ts"];
+    C --> C13["features.ts"];
+    C --> C14["zcf-config.ts"];
 
     D --> D1["locales/zh-CN/ - Chinese translations"];
     D --> D2["locales/en/ - English translations"];
     D --> D3["index.ts - i18next system"];
-    D --> D4["Advanced namespace organization"];
-    D --> D5["uninstall.json - Uninstall translations"];
 
     E --> E1["workflow.ts - Workflow types"];
     E --> E2["config.ts - Configuration types"];
     E --> E3["ccr.ts - CCR types"];
-    E --> E4["claude-code-config.ts - Claude Code types"];
-    E --> E5["toml-config.ts - TOML types"];
 
     F --> F1["workflows.ts - Workflow definitions"];
     F --> F2["mcp-services.ts - MCP configurations"];
+    F --> F3["api-providers.ts - API provider presets"];
 
-    G --> G1["claude-code/ - Claude Code templates"];
-    G --> G2["codex/ - Codex templates"];
-    G --> G3["common/ - Shared templates (output-styles, git, sixStep)"];
+    G --> G1["common/ - Shared templates (output-styles, git, sixStep)"];
+    G --> G2["claude-code/ - Claude Code templates"];
+    G --> G3["codex/ - Codex templates"];
 
     H --> H1["commands/ - Command tests"];
     H --> H2["utils/ - Utility tests"];
@@ -70,12 +110,15 @@ graph TD
     H --> H6["i18n/ - I18n tests"];
     H --> H7["templates/ - Template tests"];
 
+    I --> I1["VitePress multilingual docs (zh-CN, en, ja-JP)"];
+    J --> J1["BMAD V6 core modules"];
+
     click B "./src/commands/CLAUDE.md" "View commands module"
     click C "./src/utils/CLAUDE.md" "View utils module"
     click D "./src/i18n/CLAUDE.md" "View i18n module"
     click E "./src/types/CLAUDE.md" "View types module"
     click F "./src/config/CLAUDE.md" "View config module"
-    click G "./templates/claude-code/CLAUDE.md" "View templates module"
+    click G "./templates/CLAUDE.md" "View templates module"
     click H "./tests/CLAUDE.md" "View tests module"
 ```
 
@@ -83,25 +126,47 @@ graph TD
 
 | Module | Path | Description | Entry Points | Test Coverage |
 |------------------------|--------------|---------------------------------------|-------------------------------------------------------|-------------------------------|
-| **Commands** | `src/commands/` | CLI command implementations with advanced interactive and non-interactive modes including comprehensive uninstallation and config switching | init.ts, menu.ts, update.ts, ccr.ts, ccu.ts, check-updates.ts, uninstall.ts, config-switch.ts | High - comprehensive test suites |
-| **Utilities** | `src/utils/` | Core functionality with enhanced configuration management, platform support, Codex integration, and advanced uninstallation capabilities | config.ts, installer.ts, platform.ts, workflow-installer.ts, ccr/, cometix/, code-tools/, uninstaller.ts, trash.ts | High - extensive unit tests |
+| **Commands** | `src/commands/` | CLI command implementations with advanced interactive and non-interactive modes, comprehensive uninstallation, config switching, and dual code tool support | init.ts, menu.ts, update.ts, ccr.ts, ccu.ts, check-updates.ts, uninstall.ts, config-switch.ts | High - comprehensive test suites |
+| **Utilities** | `src/utils/` | Core functionality with enhanced configuration management, platform support, Codex integration, advanced uninstallation, TOML editing | config.ts, installer.ts, platform.ts, workflow-installer.ts, ccr/, cometix/, code-tools/, uninstaller.ts, trash.ts, claude-code-config-manager.ts, claude-code-incremental-manager.ts, features.ts, zcf-config.ts | High - extensive unit tests |
 | **CCR Integration** | `src/utils/ccr/` | Claude Code Router proxy management and configuration | presets.ts, commands.ts, installer.ts, config.ts | High - comprehensive CCR tests |
 | **Cometix Tools** | `src/utils/cometix/` | Status line tools and configuration management | errors.ts, common.ts, types.ts, commands.ts, installer.ts, menu.ts | High - extensive Cometix tests |
 | **Code Tools** | `src/utils/code-tools/` | Codex integration and dual code tool support | codex-config-detector.ts, codex-provider-manager.ts, codex-uninstaller.ts, codex-platform.ts, codex-config-switch.ts, codex-configure.ts, codex.ts | High - comprehensive Codex tests |
-| **Internationalization** | `src/i18n/` | Advanced i18next multilingual support with namespace organization and complete uninstall translations | index.ts, locales/zh-CN/, locales/en/ | High - translation validation |
-| **Types** | `src/types/` | Comprehensive TypeScript type definitions including Claude Code and TOML config types | workflow.ts, config.ts, ccr.ts, claude-code-config.ts, toml-config.ts | Implicit through usage |
-| **Configuration** | `src/config/` | Centralized workflow and system configurations including API provider presets | workflows.ts, mcp-services.ts, api-providers.ts | High - config validation tests |
-| **Templates** | `templates/` | Consolidated multilingual templates with shared resources in common/ for output-styles, git workflows, and sixStep workflows | claude-code/, codex/, common/ (output-styles, workflow/git, workflow/sixStep) | Medium - template validation tests |
-| **Testing** | `tests/` | Comprehensive test suites with layered coverage architecture and advanced uninstaller testing | commands/, utils/, unit/, integration/, edge/, i18n/, templates/ | Self-testing with 80% target |
+| **Internationalization** | `src/i18n/` | Advanced i18next multilingual support with 17 namespaces and complete translations | index.ts, locales/zh-CN/, locales/en/ | High - translation validation |
+| **Types** | `src/types/` | Comprehensive TypeScript type definitions | workflow.ts, config.ts, ccr.ts | Implicit through usage |
+| **Configuration** | `src/config/` | Centralized workflow, MCP service, and API provider configurations (12 providers) | workflows.ts, mcp-services.ts, api-providers.ts | High - config validation tests |
+| **Templates** | `templates/` | Consolidated multilingual templates with shared resources in common/ for output-styles (8 styles), git workflows, sixStep workflows, BMAD V6, and BMAD multi-agent | common/, claude-code/, codex/ | Medium - template validation tests |
+| **Testing** | `tests/` | Comprehensive test suites with layered coverage architecture | commands/, utils/, unit/, integration/, edge/, i18n/, templates/ | Self-testing with 80% target |
+| **Documentation** | `docs/` | VitePress documentation site with multilingual support (zh-CN, en, ja-JP) | .vitepress/config/ | Documentation site |
+| **BMAD Core** | `.bmad-core/` | BMAD V6 enterprise workflow core modules (multi-agent commands) | bmad-agent-_, bmad-bmm-_, bmad-editorial-_, etc. | Via BMAD system |
 
-## Project Statistics
+## Output Styles
 
-- **Total Files**: ~517 files (TypeScript, JSON, Markdown)
-- **Source Files**: 74 TypeScript files in `src/`
-- **Test Files**: 122 test files with comprehensive coverage
-- **Translation Files**: 34 JSON files (17 per locale: zh-CN, en)
-- **Template Files**: 54 template files for workflows and output styles
-- **Module Count**: 10 major modules with clear separation of concerns
+ZCF v3.6.x supports 8 output styles:
+1. **engineer-professional** - Professional engineering style (default)
+2. **laowang-engineer** - Laowang engineer with practical approach
+3. **nekomata-engineer** - Nekomata cat-girl engineer personality
+4. **ojousama-engineer** - Ojou-sama aristocrat engineer
+5. **leibus-engineer** - Leibus professional technical guidance (v3.6.0+)
+6. **rem-engineer** - Rem anime-inspired development assistant (v3.6.0+)
+7. **default** - Default output style
+8. **explanatory** - Explanatory style
+9. **learning** - Learning-focused style
+
+## API Provider Presets
+
+ZCF v3.6.x supports 12 API provider presets:
+1. **302.AI** - 302.AI API Service (Claude Code + Codex)
+2. **PackyCode** - PackyCode API Service (Claude Code + Codex)
+3. **AICodeMirror** - AICodeMirror Global Line (Claude Code + Codex, v3.6.1+)
+4. **AICodeMirror CN** - AICodeMirror China Optimized Line (Claude Code + Codex, v3.6.1+)
+5. **Crazyrouter** - Crazyrouter AI API aggregation gateway (Claude Code + Codex, v3.6.3+)
+6. **GLM CN** - GLM (Zhipu AI) (Claude Code only)
+7. **Z.ai** - Z.ai API Service (Claude Code only)
+8. **Bailian Coding** - Bailian Coding API Service (Claude Code only, default: glm-5)
+9. **MiniMax** - MiniMax API Service (Claude Code only, default: MiniMax-M2.7)
+10. **Kimi Coding** - Kimi (Moonshot AI) (Claude Code only)
+11. **MiMo** - Xiaomi MiMo (Pay-as-you-go) (Claude Code only, default: mimo-v2.5-pro, v3.6.5+)
+12. **MiMo Token Plan** - Xiaomi MiMo Token Plan (Claude Code only, default: mimo-v2.5-pro, v3.6.5+)
 
 ## CLI Usage
 
@@ -124,6 +189,11 @@ npx zcf uninstall [--mode <complete|custom|interactive>] [--items <items>] [--la
 npx zcf config-switch --list                    # List available configurations
 npx zcf config-switch provider1 --code-type codex  # Switch Codex provider
 npx zcf config-switch config1 --code-type claude-code  # Switch Claude Code config
+
+# Non-interactive (CI/CD) examples
+npx zcf i -s -p 302ai -k "sk-xxx"              # Full init with provider preset
+npx zcf i -s --all-lang zh-CN --api-type api_key --api-key "key"
+npx zcf i -s --api-type ccr_proxy
 
 # Uninstall examples
 npx zcf uninstall                                    # Interactive uninstall menu
@@ -217,7 +287,7 @@ The project uses Vitest with a comprehensive layered testing approach:
 
 - **Test-Driven Development (TDD)**: All development must follow TDD methodology
   - Write tests BEFORE implementing functionality
-  - Follow Red-Green-Refactor cycle: write failing test → implement minimal code → refactor
+  - Follow Red-Green-Refactor cycle: write failing test -> implement minimal code -> refactor
   - Ensure each function/feature has corresponding test coverage before implementation
   - When writing tests, first verify if relevant test files already exist to avoid unnecessary duplication
   - Minimum 80% coverage required across lines, functions, branches, and statements
@@ -228,7 +298,7 @@ The project uses Vitest with a comprehensive layered testing approach:
   - Implement translations consistently across the entire project using namespace-based organization
   - Support both zh-CN and en locales with complete feature parity
   - Use `i18n.t()` function for all translatable strings with proper namespace prefixes
-  - Organize translations in logical namespaces (common, cli, menu, errors, api, tools, uninstall, etc.)
+  - Organize translations in logical namespaces (17 namespaces: common, api, ccr, cli, cometix, configuration, errors, installation, language, mcp, menu, multi-config, tools, uninstall, updater, workflow, codex)
 
 ## Coding Standards
 
@@ -241,70 +311,26 @@ The project uses Vitest with a comprehensive layered testing approach:
 - **Code Formatting**: Uses @antfu/eslint-config for consistent code style with strict rules
 - **Testing Organization**: Tests organized with comprehensive unit/integration/edge structure and 80% coverage requirement
 - **Trash/Recycle Bin Integration**: Uses `trash` package for safe cross-platform file deletion
+- **TOML Configuration**: Uses @rainbowatcher/toml-edit-js (v3.5.1+) for precise TOML editing without corrupting MCP configurations
 
-## 🤖 ZCF AI Team Configuration
+## Template Architecture (v3.5.0+)
 
-The ZCF project employs a specialized AI agent team optimized for CLI development, i18n systems, and tool integration. Each agent is designed with specific domain expertise and strict boundaries to ensure efficient collaboration.
+Templates are now consolidated under `templates/common/` for maximum code reuse:
 
-### Project-Specific AI Agents
-
-| Agent | Model | Domain | Primary Responsibilities |
-|-------|-------|--------|-------------------------|
-| **typescript-cli-architect** | sonnet | CLI Architecture | TypeScript CLI design, CAC integration, ESM modules, developer experience |
-| **zcf-i18n-specialist** | opus | Internationalization | i18next configuration, translation management, namespace organization |
-| **zcf-tools-integration-specialist** | sonnet | Tool Integration | CCR/Cometix/CCusage integration, version management, cross-platform compatibility |
-| **zcf-template-engine** | haiku | Template System | Template design, workflow configurations, output styles, multilingual templates |
-| **zcf-config-architect** | opus | Configuration Management | Config merging, MCP services, TOML/JSON validation, backup systems |
-| **zcf-testing-specialist** | sonnet | Testing Infrastructure | Vitest configuration, test coverage, mock systems, quality assurance |
-| **zcf-devops-engineer** | inherit | DevOps & Deployment | Build optimization, release management, CI/CD, cross-platform deployment |
-
-### Agent Collaboration Matrix
-
-```mermaid
-graph TD
-    A[typescript-cli-architect] --> B[zcf-i18n-specialist]
-    A --> C[zcf-tools-integration-specialist]
-    A --> D[zcf-template-engine]
-
-    E[zcf-config-architect] --> A
-    E --> C
-    E --> D
-
-    F[zcf-testing-specialist] --> A
-    F --> B
-    F --> C
-    F --> D
-    F --> E
-
-    G[zcf-devops-engineer] --> A
-    G --> F
-    G --> E
-
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
-    style E fill:#fce4ec
-    style F fill:#f1f8e9
-    style G fill:#e0f2f1
 ```
-
-### Agent Boundaries & Delegation Rules
-
-- **CLI Architecture**: typescript-cli-architect handles all CLI structure, command parsing, and TypeScript configuration
-- **Internationalization**: zcf-i18n-specialist manages all i18next systems, translations, and language detection
-- **Tool Integration**: zcf-tools-integration-specialist handles CCR, Cometix, CCusage integration and version management
-- **Templates**: zcf-template-engine manages all template systems, workflow configurations, and output styles
-- **Configuration**: zcf-config-architect handles complex config merging, MCP services, and backup systems
-- **Testing**: zcf-testing-specialist maintains Vitest infrastructure, coverage, and quality assurance
-- **DevOps**: zcf-devops-engineer manages builds, releases, and deployment processes
-
-### Model Selection Rationale
-
-- **Opus**: Complex reasoning for i18n logic and configuration architecture
-- **Sonnet**: Balanced performance for CLI architecture, tool integration, and testing
-- **Haiku**: Fast response for template processing and simple operations
-- **Inherit**: Cost-effective for DevOps tasks that don't require specialized models
+templates/
+  common/
+    output-styles/     # 9 output styles (en + zh-CN)
+      en/              # engineer-professional, laowang, nekomata, ojousama, leibus, rem
+      zh-CN/           # Same set in Chinese
+    workflow/
+      git/             # Git commands (en + zh-CN)
+      sixStep/         # Six-step workflow (en + zh-CN)
+  claude-code/         # Claude Code specific templates
+    en/, zh-CN/        # workflow agent templates
+  codex/               # Codex specific templates (minimal, shared with Claude Code)
+    en/, zh-CN/
+```
 
 ## AI Usage Guidelines
 
@@ -314,27 +340,29 @@ graph TD
 2. **Advanced i18next I18N Support**: All user-facing strings support zh-CN and en localization with namespace-based organization and dynamic language switching
 3. **Smart Configuration Merging**: Intelligent config merging with comprehensive backup system to preserve user customizations
 4. **Comprehensive Cross-Platform Support**: Windows/macOS/Linux/Termux compatibility with platform-specific adaptations and path handling
-5. **Consolidated Template System**: Shared templates in `templates/common/` for output-styles, git workflows, and sixStep workflows, reducing duplication between Claude Code and Codex
+5. **Consolidated Template System**: Shared templates in `templates/common/` for output-styles, git workflows, and sixStep workflows, reducing duplication between Claude Code and Codex (v3.5.0+)
 6. **Intelligent IDE Integration**: Advanced IDE detection and auto-open functionality for git-worktree environments
-7. **Professional AI Personality System**: Multiple output styles including engineer-professional, laowang-engineer, nekomata-engineer, ojousama-engineer, and rem-engineer
-8. **Advanced Tool Integration**: Comprehensive integration with CCR proxy, CCusage analytics, and Cometix status line tools
+7. **Professional AI Personality System**: 9 output styles -- engineer-professional, laowang-engineer, nekomata-engineer, ojousama-engineer, leibus-engineer (v3.6.0+), rem-engineer (v3.6.0+), default, explanatory, learning
+8. **Advanced Tool Integration**: Comprehensive integration with CCR proxy, CCusage analytics, Cometix status line tools, and BMAD V6 multi-agent workflows (v3.6.3+)
 9. **Sophisticated Uninstallation System**: Advanced uninstaller with conflict resolution, selective removal, and cross-platform trash integration
 10. **Dual Code Tool Architecture**: Simultaneous support for Claude Code and Codex environment configuration with shared template resources
+11. **API Provider Preset System**: 12 pre-configured providers (v3.6.1+: AICodeMirror added, v3.6.3+: Crazyrouter added, v3.6.5+: MiMo added)
+12. **Precise TOML Editing**: @rainbowatcher/toml-edit-js for safe configuration updates without corruption (v3.5.1+)
 
 ### Important Implementation Details
 
 1. **Advanced Windows Compatibility**: MCP configurations require sophisticated Windows path handling with proper escaping and validation
 2. **Comprehensive Configuration Backup**: All modifications create timestamped backups in `~/.claude/backup/` with full recovery capabilities
-3. **Enhanced API Configuration**: Supports Auth Token (OAuth), API Key, and CCR Proxy authentication with comprehensive validation and API provider preset system (v3.3.3+)
-4. **API Provider Preset System**: Pre-configured settings for popular providers (302.AI, GLM, MiniMax, Kimi) simplifying configuration from 5+ prompts to just 2 (provider + API key)
+3. **Enhanced API Configuration**: Supports Auth Token (OAuth), API Key, and CCR Proxy authentication with comprehensive validation and 10 API provider presets
+4. **API Provider Preset System**: Pre-configured settings for 302.AI, PackyCode, AICodeMirror, AICodeMirror CN, Crazyrouter, GLM CN, Z.ai, Bailian Coding, MiniMax, Kimi Coding, MiMo, MiMo Token Plan
 5. **Advanced Workflow System**: Modular workflow installation with sophisticated dependency resolution and conflict management
-6. **Advanced CCR Integration**: Claude Code Router proxy management with configuration validation and preset management
+6. **BMAD V6 Workflow**: Upgraded BMAD core with multi-agent commands (bmad-agent-_, bmad-bmm-_, bmad-editorial-_, bmad-review-_, bmad-help, bmad-party-mode) (v3.6.3+)
 7. **Intelligent Auto-Update System**: Automated tool updating for Claude Code, CCR, and CCometixLine with comprehensive version checking
-8. **Advanced Common Tools Workflow**: Enhanced workflow category with init-project command and comprehensive agent ecosystem
-9. **Consolidated Template System**: Shared templates architecture with `templates/common/` containing output-styles, git workflows, and sixStep workflows for code reuse
-10. **Advanced i18next Integration**: Sophisticated internationalization with namespace-based translation management and dynamic language switching
-11. **Comprehensive Tool Integration**: Advanced CCR, Cometix, and CCusage integration with version management and configuration validation
-12. **Sophisticated Uninstaller**: Advanced ZCF uninstaller with selective removal, conflict resolution, and cross-platform trash integration
+8. **Consolidated Template System**: Shared templates architecture with `templates/common/` containing output-styles, git workflows, and sixStep workflows for code reuse (v3.5.0+)
+9. **Advanced i18next Integration**: Sophisticated internationalization with 17 namespace-based translation management and dynamic language switching
+10. **Comprehensive Tool Integration**: Advanced CCR, Cometix, CCusage, and BMAD multi-agent integration with version management and configuration validation
+11. **Sophisticated Uninstaller**: Advanced ZCF uninstaller with selective removal, conflict resolution, and cross-platform trash integration
+12. **Precise TOML Configuration**: @rainbowatcher/toml-edit-js for targeted TOML field updates without corrupting MCP configurations (v3.5.1+)
 
 ### Testing Philosophy
 
@@ -344,7 +372,7 @@ graph TD
 - **Quality-Focused Coverage**: 80% minimum coverage across all metrics with emphasis on quality over quantity
 - **Advanced Test Organization**: Tests organized in dedicated structure with clear categorization, helper functions, and test fixtures
 - **Advanced Integration Testing**: Complete workflow scenarios and comprehensive external tool interaction testing
-- **Uninstaller Edge Case Testing**: Comprehensive uninstallation scenarios testing including failure recovery and conflict resolution
+- **API Provider Testing**: Unit test coverage for provider configurations (MiniMax, Bailian Coding presets v3.6.4)
 
 ## Release & Publishing
 
@@ -358,6 +386,15 @@ pnpm version
 # Build and publish to npm
 pnpm release
 ```
+
+## Sponsors
+
+Key sponsors supporting ZCF development:
+- **GLM** (Z.ai) - AI model sponsorship
+- **302.AI** - Enterprise AI resource hub
+- **PackyCode** - API relay service provider
+- **AICodeMirror** - Official high-stability relay service (v3.6.1+)
+- **Crazyrouter** - AI API aggregation gateway (v3.6.3+)
 
 ---
 

@@ -1,221 +1,100 @@
 # Templates Module
 
-**Last Updated**: Sun Dec 15 09:15:34 CST 2025
-[Root](../CLAUDE.md) > **templates**
+**Last Updated**: 2026-04-29
+
+[根目录](../CLAUDE.md) > **templates**
+
+## 变更记录 (Changelog)
+
+### v3.6.0+
+- 新增 Leibus engineer 输出风格（专业 Leibus 技术指导，v3.6.0）
+- 新增 rem-engineer 输出风格（动漫风格开发辅助，v3.6.0）
+- 模板系统现支持 9 种输出风格
+- BMAD V6 模板升级（v3.6.2）
+- BMAD 多智能体命令模板（v3.6.3）
+- 更新 MiniMax 模板文档以匹配 M2.7 模型（v3.6.4）
+
+### v3.5.0+ (Major Consolidation)
+- 模板整合到 `templates/common/` 目录以最大化代码复用
+- 统一 output-styles 到 `templates/common/output-styles/`
+- 统一 git workflows 到 `templates/common/workflow/git/`
+- 统一 sixStep workflows 到 `templates/common/workflow/sixStep/`
+- 移除重复的 Codex 模板（现与 Claude Code 共享）
+- 统一 sixStep 计划目录为 `.zcf`
 
 ## Module Responsibilities
 
 Template system module providing multilingual configuration templates, AI personality styles, and workflow definitions for both Claude Code and Codex environments. Supports Chinese (zh-CN) and English (en) locales with comprehensive workflow coverage.
 
-## Entry Points and Startup
-
-- **Main Template Directories**:
-  - `claude-code/` - Claude Code specific templates
-  - `codex/` - Codex specific templates
-  - `common/` - Shared configuration templates
-
-## External Interfaces
-
-### Template Structure
+## Template Structure (v3.5.0+ Consolidated)
 
 ```
 templates/
-├── common/                   # Shared templates (cross code-tool)
-│   ├── output-styles/       # AI personality styles
-│   │   ├── en/              # English output styles
-│   │   │   ├── engineer-professional.md
-│   │   │   ├── laowang-engineer.md
-│   │   │   ├── nekomata-engineer.md
-│   │   │   └── ojousama-engineer.md
-│   │   └── zh-CN/           # Chinese output styles
-│   │       ├── engineer-professional.md
-│   │       ├── laowang-engineer.md
-│   │       ├── nekomata-engineer.md
-│   │       └── ojousama-engineer.md
-│   └── workflow/
-│       ├── git/             # Git workflow
-│       │   ├── en/          # English git commands
-│       │   │   ├── git-commit.md
-│       │   │   ├── git-worktree.md
-│       │   │   ├── git-cleanBranches.md
-│       │   │   └── git-rollback.md
-│       │   └── zh-CN/       # Chinese git commands
-│       │       ├── git-commit.md
-│       │       ├── git-worktree.md
-│       │       ├── git-cleanBranches.md
-│       │       └── git-rollback.md
-│       └── sixStep/         # Six-step workflow
-│           ├── en/          # English workflow
-│           │   └── workflow.md
-│           └── zh-CN/       # Chinese workflow
-│               └── workflow.md
-├── claude-code/              # Claude Code templates
-│   ├── common/              # Common configurations
-│   ├── zh-CN/               # Chinese templates
-│   │   └── workflow/        # Workflow templates
-│   │       ├── common/      # Common tools workflow
-│   │       ├── plan/        # Planning workflow
-│   │       └── bmad/        # BMAD workflow
-│   └── en/                  # English templates
-│       └── workflow/        # Workflow templates
-└── codex/                   # Codex templates
-    ├── common/              # Common configurations
-    ├── zh-CN/               # Chinese templates
-    │   └── workflow/        # Workflow templates
-    └── en/                  # English templates
-        └── workflow/        # Workflow templates
+  common/                    # Shared templates (cross code-tool)
+    output-styles/           # 9 AI personality styles
+      en/                    # English output styles
+        engineer-professional.md
+        laowang-engineer.md
+        nekomata-engineer.md
+        ojousama-engineer.md
+        leibus-engineer.md        (v3.6.0+)
+        rem-engineer.md           (v3.6.0+)
+      zh-CN/                 # Chinese output styles
+        (same set as en/)
+    workflow/
+      git/                   # Git workflow commands (en + zh-CN)
+        git-commit.md
+        git-worktree.md
+        git-cleanBranches.md
+        git-rollback.md
+      sixStep/               # Six-step workflow (en + zh-CN)
+        workflow.md
+  claude-code/               # Claude Code specific templates
+    en/  zh-CN/              # Workflow agent templates
+      workflow/
+        common/  plan/  bmad/
+  codex/                     # Codex specific templates (minimal)
+    en/  zh-CN/              # Shared with Claude Code via common/
 ```
 
-### Template Categories
+## Output Styles (9 styles)
 
-#### 1. Output Styles (AI Personalities)
+1. **engineer-professional** - Professional engineering style (default)
+2. **laowang-engineer** - Laowang engineer
+3. **nekomata-engineer** - Nekomata cat-girl engineer
+4. **ojousama-engineer** - Ojou-sama aristocrat engineer
+5. **leibus-engineer** - Leibus professional technical guidance (v3.6.0+)
+6. **rem-engineer** - Rem anime-inspired assistant (v3.6.0+)
+7. **default** - Default output style
+8. **explanatory** - Explanatory style
+9. **learning** - Learning-focused style
 
-- **engineer-professional** - Professional engineering style
-- **nekomata-engineer** - Nekomata engineer personality
-- **laowang-engineer** - Laowang engineer personality
-- **ojousama-engineer** - Ojou-sama engineer personality
-- **rem-engineer** - Rem maid engineer personality
-- **default** - Default output style
-- **explanatory** - Explanatory style
-- **learning** - Learning-focused style
+## Workflow Templates
 
-#### 2. Workflow Templates
-
-##### Common Tools Workflow
+### Common Tools Workflow
 - **Commands**: `init-project`
 - **Agents**: `init-architect`, `get-current-datetime`
-- **Purpose**: Essential development tools and project initialization
 
-##### Planning Workflow (Plan)
-- **Commands**: `feat`, `workflow`
+### Six-Step Workflow
+- **Commands**: `workflow`
+- **Plan Directory**: `.zcf` (unified in v3.5.0)
+
+### Planning Workflow (Plan)
+- **Commands**: `feat`
 - **Agents**: `planner`, `ui-ux-designer`
-- **Purpose**: Feature planning and UX design
 
-##### Six-Step Workflow
-- **Commands**: `zcf-update-docs`, `zcf-pr`, `zcf-release`
-- **Purpose**: Structured development process
+### BMAD Workflow (V6)
+- **Commands**: `bmad-init` + multi-agent commands (v3.6.3+):
+  `bmad-agent-_`, `bmad-bmm-_`, `bmad-editorial-_`, `bmad-review-_`, `bmad-help`, `bmad-party-mode`
+- **Core**: `.bmad-core/` directory with BMAD V6 modules
 
-##### BMAD Workflow
-- **Commands**: Enterprise-level workflow commands
-- **Purpose**: Business model and architecture design
-
-##### Git Workflow
+### Git Workflow
 - **Commands**: `git-commit`, `git-worktree`, `git-cleanBranches`, `git-rollback`
-- **Purpose**: Version control management with conventional commits, worktree management, branch cleanup, and rollback operations
-
-## Key Dependencies and Configuration
-
-### Template Processing
-
-- **Language Support**: zh-CN and en locales
-- **Code Tool Support**: Claude Code and Codex
-- **Template Format**: Markdown-based configuration files
-- **Variable Substitution**: Dynamic content replacement
-
-### Configuration Integration
-
-- **Workflow Installer**: Integration with `src/utils/workflow-installer.ts`
-- **Language Detection**: Integration with `src/i18n/` system
-- **Platform Support**: Cross-platform path handling
-
-## Data Models
-
-### Template Organization
-
-```typescript
-interface TemplateStructure {
-  codeTool: 'claude-code' | 'codex'
-  locale: 'zh-CN' | 'en'
-  category: 'common' | 'output-styles' | 'workflow'
-  workflow?: {
-    type: 'common' | 'plan' | 'sixStep' | 'bmad' | 'git'
-    commands: string[]
-    agents: string[]
-  }
-}
-```
-
-### Output Style Configuration
-
-```typescript
-interface OutputStyle {
-  id: string
-  name: { 'zh-CN': string, 'en': string }
-  description: { 'zh-CN': string, 'en': string }
-  template: string
-  personality: string
-}
-```
-
-## Testing and Quality
-
-### Template Validation
-
-- **File**: `tests/templates/chinese-templates.test.ts`
-- **Coverage**: Template completeness and format validation
-- **Validation**: Markdown syntax and variable substitution
-
-### Quality Metrics
-
-- **Template Coverage**: 100% for both locales
-- **Code Tool Support**: Claude Code and Codex fully supported
-- **Workflow Coverage**: 5 major workflow categories
-- **Output Styles**: 7 AI personality styles
-
-## Common Issues
-
-- **Path Handling**: Cross-platform path compatibility
-- **Encoding**: UTF-8 encoding for multilingual content
-- **Template Variables**: Proper variable substitution
-- **File Permissions**: Executable permissions for command files
 
 ## Related Files
 
 - `src/utils/workflow-installer.ts` - Template installation logic
 - `src/config/workflows.ts` - Workflow configuration definitions
+- `src/config/api-providers.ts` - API provider configurations
 - `src/i18n/` - Internationalization support
 - `tests/templates/` - Template validation tests
-
-## Change Log (Module-Specific)
-
-### Recent Updates
-
-- Consolidated sixStep workflow templates to `templates/common/workflow/sixStep/` with unified `.zcf` plan directory for both Claude Code and Codex
-- Consolidated output-styles/system-prompt templates to `templates/common/output-styles/`
-- Consolidated git workflow templates to `templates/common/workflow/git/`
-- Added Codex template support for dual code tool architecture
-- Enhanced workflow templates with comprehensive command coverage
-- Improved AI personality styles with professional variations
-- Added cross-platform template compatibility
-- Enhanced template validation and testing coverage
-
-## FAQ
-
-### Q: How to add a new workflow template?
-
-1. Create workflow directory under `templates/{code-tool}/{locale}/workflow/`
-2. Add command files in `commands/` subdirectory
-3. Add agent files in `agents/` subdirectory (if needed)
-4. Update `src/config/workflows.ts` with new workflow definition
-5. Add translations in `src/i18n/locales/{locale}/workflow.ts`
-
-### Q: How to add a new output style?
-
-1. Create style file in `templates/common/output-styles/{locale}/`
-2. Define style configuration with name and description
-3. Add style to available options in configuration
-4. Test style rendering with sample content
-
-### Q: How to support a new language?
-
-1. Create new locale directory under `templates/{code-tool}/{new-locale}/`
-2. Copy existing templates and translate content
-3. Update i18n system to support new locale
-4. Add locale to supported languages list
-
-### Q: How to maintain template consistency?
-
-- Use template validation tests
-- Follow naming conventions
-- Maintain parallel structure across locales
-- Document template variables and usage
